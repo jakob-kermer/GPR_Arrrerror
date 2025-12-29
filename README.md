@@ -1,9 +1,9 @@
 # To-Do
 ## Code
 ### basics
-- Basic Player Prefab
+- Basic Player Prefab *(Jakob)*
   - stats
-- Basic Enemy Prefab
+- Basic Enemy Prefab *(Jakob)*
   - stats
 - Turns in battle
 
