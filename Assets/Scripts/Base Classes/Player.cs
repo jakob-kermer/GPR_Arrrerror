@@ -35,6 +35,13 @@ public class Player : Entity
     }
 
     // Methods
+    public override void SelectMove()
+    {
+        Debug.Log($"{this.Name} selects an action");
+        
+        // show action menu
+    }
+
     private void GainExperience(int XP)
     {
         // increase the XP of the player by the amount of XP gained
@@ -64,7 +71,7 @@ public class Player : Entity
             float CritChance_Increase = 0.01f + UnityEngine.Random.Range(-0.005f, 0.001f);      // Crit Chance increase = 1% - ~0.25% (0.5% min, 1% max, 0.75% on average)
             this.CritChance += CritChance_Increase;
 
-            Debug.Log($"{this.EntityName}'s leveled up to level {this.Level}, new stats: MaxHP {this.MaxHP}, Attack {this.Attack}, Defense {this.Defense}, Crit Chance {this.CritChance * 100}%");        // ...write level-up message on the console...
+            Debug.Log($"{this.Name}'s leveled up to level {this.Level}, new stats: MaxHP {this.MaxHP}, Attack {this.Attack}, Defense {this.Defense}, Crit Chance {this.CritChance * 100}%");        // ...write level-up message on the console...
 
             ExperiencePoints -= XP_Threshold;       // ...subtract the XP needed for the level-up from the current XP of the player...
 

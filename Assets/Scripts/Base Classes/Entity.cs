@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     // Fields
     [SerializeField] private string entityName;
@@ -13,9 +13,10 @@ public class Entity : MonoBehaviour
     // [SerializeField] private int magicAttack;
     // [SerializeField] private int magicDefense;
     [SerializeField] private float critChance;
+    [SerializeField] private int speed;
 
     // Properties
-    public string EntityName
+    public string Name
     {
         get { return entityName; }
         set { this.entityName = value; }
@@ -55,6 +56,11 @@ public class Entity : MonoBehaviour
         get { return critChance; }
         set { this.critChance = value; }
     }
+    public int Speed
+    {
+        get { return speed; }
+        set { this.speed = value; }
+    }
 
     // Methods
     public virtual void TakeDamage(Entity attacker, Entity target, float damageMultiplier)
@@ -79,7 +85,7 @@ public class Entity : MonoBehaviour
         target.CurrentHP -= damage;
 
         // write attack message on the console
-        Debug.Log($"{attacker.EntityName} deals {damage} damage to {target.EntityName}");
+        Debug.Log($"{attacker.Name} deals {damage} damage to {target.Name}");
     }
 
     public int CalculateDamage(int atk, int def, float damageMultiplier)
@@ -89,4 +95,6 @@ public class Entity : MonoBehaviour
 
         return damage;
     }
+
+    public abstract void SelectMove();
 }
