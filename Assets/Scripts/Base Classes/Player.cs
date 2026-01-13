@@ -8,7 +8,6 @@ public class Player : Entity
     // Fields
     // [SerializeField] private float sanity;
     [SerializeField] private int experiencePoints;
-    [SerializeField] private int level;
     private int XP_Threshold = 200;
     [SerializeField] List<string> inventory = new List<string>();
 
@@ -22,11 +21,6 @@ public class Player : Entity
     {
         get { return experiencePoints; }
         protected set { this.experiencePoints = value; }
-    }
-    public int Level
-    {
-        get { return level; }
-        protected set { this.level = value; }
     }
     public List<string> Inventory
     {
