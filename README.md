@@ -8,8 +8,8 @@
 - Turns in battle
 
 ### advanced
-- Turn-order calculation
-- Level-up mechanic
+- Turn-order calculation (Gabriel)
+- Level-up mechanic (Gabriel)
   - stat increase
   - new abilities
 - Abilities & Skills
