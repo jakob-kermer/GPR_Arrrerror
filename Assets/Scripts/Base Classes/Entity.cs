@@ -8,6 +8,8 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private string entityName;
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
+    [SerializeField] private int maxAP;
+    [SerializeField] private int currentAP;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
     // [SerializeField] private int magicAttack;
@@ -31,6 +33,16 @@ public abstract class Entity : MonoBehaviour
     {
         get { return currentHP; }
         set { this.currentHP = value; }
+    }
+    public int MaxAP
+    {
+        get { return maxAP; }
+        set { this.maxAP = value; }
+    }
+    public int CurrentAP
+    {
+        get { return currentAP; }
+        set { this.currentAP = value; }
     }
     public int Attack
     {
@@ -105,11 +117,9 @@ public abstract class Entity : MonoBehaviour
 
     public int CalculateDamage(int atk, int def, float damageMultiplier)
     {
-        // damage = (Attack - Defense) * given multiplier +/- up to 2% of Attack
-        int damage = Convert.ToInt32(((atk /* - def */) * damageMultiplier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f)));
+        // damage = (Attack - Defense) * given multiplier +/- up to 2% of Attack; at least 1
+        int damage = Math.Max(1, Convert.ToInt32(((atk - def * 0.5f) * damageMultiplier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
 
         return damage;
     }
-
-    public abstract void SelectMove();
 }

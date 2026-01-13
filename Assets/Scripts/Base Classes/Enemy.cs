@@ -18,21 +18,4 @@ public class Enemy : Entity
         get { return dropRate; }
         set { this.dropRate = value; }
     }
-
-    // Methods
-    public override void SelectMove()
-    {
-        Debug.Log($"{this.Name} executes an action");
-
-        // implement Enemy AI (select actions at random)
-        switch (UnityEngine.Random.Range(0, 1))
-        {
-            case 0:
-                // attack
-                break;
-            case 1:
-                // defend
-                break;
-        }
-    }
 }

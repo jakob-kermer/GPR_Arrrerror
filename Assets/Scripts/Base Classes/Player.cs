@@ -29,12 +29,12 @@ public class Player : Entity
     }
 
     // Methods
-    public override void SelectMove()
+    public bool Action_Attack(Entity target)
     {
-        Debug.Log($"{this.Name} selects an action");
-        
-        // show action menu
+        return target.TakeDamage(this, target, 1f);
     }
+
+
 
     private void GainExperience(int XP)
     {
