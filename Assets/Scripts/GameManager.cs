@@ -34,19 +34,15 @@ public class GameManager : MonoBehaviour
     public Transform enemySpawn_3;
     public Transform enemySpawn_4;
 
-    private Player player1;
-    private Player player2;
-    private Player player3;
-    private Player player4;
+    private Player damager;
+    private Player defender;
+    private Player healer;
+    private Player supporter;
     private Enemy enemy1;
     private Enemy enemy2;
     private Enemy enemy3;
     private Enemy enemy4;
-
-    public BattleUI playerUI_1;
-    public BattleUI playerUI_2;
-    public BattleUI playerUI_3;
-    public BattleUI playerUI_4;
+    private List<Entity> participants;
 
     public GameObject ActionMenu;
 
@@ -56,62 +52,83 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         state = GameState.Start;
+        Battle();
+    }
 
-        StartCoroutine(StartBattle());
+    public void Battle()
+    {
+        StartBattle();
 
-        // implement turn order determination here
+        DetermineTurnOrder();
 
-        state = GameState.PlayerTurn;
-
-        if (state == GameState.PlayerTurn)
+        while (state != GameState.Victory && state != GameState.Defeat)
         {
-            PlayerTurn(player1);
-        }
-        if (state == GameState.EnemyTurn)
-        {
-            StartCoroutine(EnemyTurn());
+            for (int i = 0; i < participants.Count; i++)
+            {
+                if (state == GameState.Victory || state == GameState.Defeat)
+                {
+                    break;
+                }
+                else if (participants[i] is Player)
+                {
+                    state = GameState.PlayerTurn;
+                    PlayerTurn((Player)participants[i]);
+                }
+                else if (participants[i] is Enemy)
+                {
+                    state = GameState.EnemyTurn;
+                    EnemyTurn((Enemy)participants[i]);
+                }
+            }
         }
     }
 
-    private IEnumerator StartBattle()
+    private void StartBattle()
     {
         Debug.Log("Battle started");
 
-        GameObject player1_go = Instantiate(playerPrefab_1, playerSpawn_1);
-        player1 = player1_go.GetComponent<Player>();
+        List<Entity> participants = new List<Entity>();
 
-        GameObject player2_go = Instantiate(playerPrefab_2, playerSpawn_2);
-        player2 = player2_go.GetComponent<Player>();
+        GameObject damager_go = Instantiate(playerPrefab_1, playerSpawn_1);
+        damager = damager_go.GetComponent<Damager_Script>();
+        participants.Add(damager);
 
-        GameObject player3_go = Instantiate(playerPrefab_3, playerSpawn_3);
-        player3 = player3_go.GetComponent<Player>();
+        GameObject defender_go = Instantiate(playerPrefab_2, playerSpawn_2);
+        defender = defender_go.GetComponent<Defender_Script>();
+        participants.Add(defender);
 
-        GameObject player4_go = Instantiate(playerPrefab_4, playerSpawn_4);
-        player4 = player4_go.GetComponent<Player>();
+        GameObject healer_go = Instantiate(playerPrefab_3, playerSpawn_3);
+        healer = healer_go.GetComponent<Healer_Script>();
+        participants.Add(healer);
+
+        GameObject supporter_go = Instantiate(playerPrefab_4, playerSpawn_4);
+        supporter = supporter_go.GetComponent<Supporter_Script>();
+        participants.Add(supporter);
+
+        // implement random enemy selection here
 
         GameObject enemy1_go = Instantiate(EnemyPrefab_1, enemySpawn_1);
-        enemy1 = enemy1_go.GetComponent<Enemy>();
+        enemy1 = enemy1_go.GetComponent<Goblin_Script>();
+        participants.Add(enemy1);
 
-        GameObject enemy2_go = Instantiate(EnemyPrefab_2, enemySpawn_2);
-        enemy2 = enemy2_go.GetComponent<Enemy>();
+        /* GameObject enemy2_go = Instantiate(EnemyPrefab_2, enemySpawn_2);
+        enemy2 = enemy2_go.GetComponent<WonkyKnight_Script>();
 
         GameObject enemy3_go = Instantiate(EnemyPrefab_3, enemySpawn_3);
-        enemy3 = enemy3_go.GetComponent<Enemy>();
+        enemy3 = enemy3_go.GetComponent<Slime_Script>();
 
         GameObject enemy4_go = Instantiate(EnemyPrefab_4, enemySpawn_4);
-        enemy4 = enemy4_go.GetComponent<Enemy>();
-
-        playerUI_1.SetUI(player1);
-        playerUI_2.SetUI(player2);
-        playerUI_3.SetUI(player3);
-        playerUI_4.SetUI(player4);
-
-        yield return new WaitForSeconds(2f);
+        enemy4 = enemy4_go.GetComponent<Skeleton_Script>(); */
     }
 
-    private void PlayerTurn(Player player)
+    public void DetermineTurnOrder()
     {
-        ActionMenu.gameObject.SetActive(true);
+        participants.Sort((x, y) => y.Speed.CompareTo(x.Speed));
+    }
+
+    public void PlayerTurn(Player player)
+    {
+        ActionMenu.SetActive(true);
 
         Debug.Log($"{player.Name} makes their turn");
     }
@@ -119,18 +136,31 @@ public class GameManager : MonoBehaviour
     public void OnAttackButton()
     {
         ActionMenu.gameObject.SetActive(false);
-        StartCoroutine(PlayerAttack());
+        // StartCoroutine(PlayerAttack());
+    }
+
+    public void EnemyTurn(Enemy enemy)
+    {
+        Debug.Log($"{enemy.Name} makes their turn");
+    }
+
+    /* private void PlayerTurn(Player player)
+    {
+        ActionMenu.gameObject.SetActive(true);
+
+        Debug.Log($"{player.Name} makes their turn");
     }
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = player1.Action_Attack(enemy1);
+        bool isDead = defender.Action_Attack(enemy1);
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
             state = GameState.Victory;
+            enemy1.gameObject.SetActive(false);
             EndBattle();
         }
         else
@@ -151,9 +181,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = player1.TakeDamage(enemy1, player1, 1f);
-
-        playerUI_1.SetHP(player1.CurrentHP);
+        bool isDead = defender.TakeDamage(enemy1, defender, 1f);
 
         yield return new WaitForSeconds(1f);
 
@@ -165,7 +193,7 @@ public class GameManager : MonoBehaviour
         else
         {
             state = GameState.PlayerTurn;
-            PlayerTurn(player1);
+            PlayerTurn(defender);
         }
     }
 
@@ -179,5 +207,5 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("The battle is lost");
         }
-    }
+    } */
 }
