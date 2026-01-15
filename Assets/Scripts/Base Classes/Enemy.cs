@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Enemy : Entity
+public abstract class Enemy : Entity
 {
     // Fields
     [SerializeField] private int experienceValue;

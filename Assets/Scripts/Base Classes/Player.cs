@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class Player : Entity
+public abstract class Player : Entity
 {
     // Fields
     // [SerializeField] private float sanity;
@@ -34,7 +34,15 @@ public class Player : Entity
         return target.TakeDamage(this, target, 1f);
     }
 
+    public void Action_Defend()
+    {
+        // defend
+    }
 
+    public void Action_UseItem(Item item)
+    {
+        // use item
+    }
 
     private void GainExperience(int XP)
     {
