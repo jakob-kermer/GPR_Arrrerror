@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7025468899619010933}
-  - component: {fileID: 6733486699000083092}
+  - component: {fileID: 1882105762170773910}
   m_Layer: 0
-  m_Name: Player3_Prefab
+  m_Name: Healer_Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 7098932043579606210}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6733486699000083092
+--- !u!114 &1882105762170773910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,20 +42,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 468555958474399342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cb826e8f496b24e858a1c9000a4f62, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f14c7a728bf6324ab33fb5fd98687be, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  entityName: Player 3
-  maxHP: 1000
-  currentHP: 1000
-  maxAP: 100
-  currentAP: 100
-  attack: 100
-  defense: 100
+  m_EditorClassIdentifier: Assembly-CSharp::Healer_Script
+  entityName: Healer
+  maxHP: 120
+  currentHP: 120
+  maxAP: 60
+  currentAP: 60
+  attack: 6
+  defense: 16
   critChance: 0.05
-  speed: 11
+  speed: 10
   level: 1
   experiencePoints: 0
+  xpThreshold: 100
   inventory: []
 --- !u!1 &3713094256463305561
 GameObject:

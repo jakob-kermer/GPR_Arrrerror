@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7025468899619010933}
-  - component: {fileID: 6733486699000083092}
+  - component: {fileID: 7263088213967989777}
   m_Layer: 0
-  m_Name: Player1_Prefab
+  m_Name: Damager_Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 7098932043579606210}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6733486699000083092
+--- !u!114 &7263088213967989777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,20 +42,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 468555958474399342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5cb826e8f496b24e858a1c9000a4f62, type: 3}
+  m_Script: {fileID: 11500000, guid: 29d177953fb020b47811c1bf59e1288c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  entityName: Player 1
-  maxHP: 1000
-  currentHP: 1000
-  maxAP: 100
-  currentAP: 100
-  attack: 100
-  defense: 100
+  m_EditorClassIdentifier: Assembly-CSharp::Damager_Script
+  entityName: Damager
+  maxHP: 100
+  currentHP: 100
+  maxAP: 50
+  currentAP: 50
+  attack: 20
+  defense: 8
   critChance: 0.05
-  speed: 11
+  speed: 12
   level: 1
   experiencePoints: 0
+  xpThreshold: 100
   inventory: []
 --- !u!1 &3713094256463305561
 GameObject:

@@ -8,7 +8,7 @@ public abstract class Player : Entity
     // Fields
     // [SerializeField] private float sanity;
     [SerializeField] private int experiencePoints;
-    private int XP_Threshold = 200;
+    [SerializeField] private int xpThreshold;
     [SerializeField] List<string> inventory = new List<string>();
 
     // Properties
@@ -21,6 +21,11 @@ public abstract class Player : Entity
     {
         get { return experiencePoints; }
         protected set { this.experiencePoints = value; }
+    }
+    public int XP_Threshold
+    {
+        get { return xpThreshold; }
+        protected set { this.xpThreshold = value; }
     }
     public List<string> Inventory
     {
@@ -36,20 +41,22 @@ public abstract class Player : Entity
 
     public void Action_Defend()
     {
+        Debug.Log($"{this.Name} is defending");
         // defend
     }
 
     public void Action_UseItem(Item item)
     {
+        Debug.Log($"{this.Name} uses {item.ItemName}");
         // use item
     }
 
-    private void GainExperience(int XP)
+    private void GainExperience(int xp)
     {
         // increase the XP of the player by the amount of XP gained
-        this.ExperiencePoints += XP;
-        Debug.Log($"They gained {XP} Experience Points.\n");
-
+        this.ExperiencePoints += xp;
+        Debug.Log($"They gained {xp} Experience Points.\n");
+        
         // level-up logic
         while (ExperiencePoints >= XP_Threshold)     // as long as the current XP of the player are above a certain threshold...
         {
