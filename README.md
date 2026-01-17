@@ -2,18 +2,21 @@
 - *(assigned to NAME)*
 - ~~done~~
 
+
 # Logic
-## ~~Player *(Jakob)*~~
+## ~~Players *(Jakob)*~~
   - ~~Damager~~
   - ~~Defender~~
   - ~~Healer~~
   - ~~Supporter~~
-## ~~Enemy *(Jakob)*~~
+
+## ~~Enemies *(Jakob)*~~
   - ~~Goblin~~
   - ~~Skeleton~~
   - ~~Slime~~
   - ~~Wonky Knight~~
   - ~~Cat~~
+
 ## battle *(Jakob)*
 - ~~Turn-order determination~~
   - ~~All participants in battle are put into a turn-order according to their speed stat + a random number~~
@@ -21,17 +24,26 @@
   - **All Players can choose an Action from the Action Menu** (currently only Attack is functional)
   - **Target Selection (for Players)**
   - **Enemies randomly choose an action and a target**
+- Actions
+  - ~~Attack~~
+  - Defend
+  - Abilities
+    - Damager Abilites
+    - Defender Abilities
+    - Healer Abilities
+    - Supporter Abilities
+  - Items
 - Battle end
   - party earns exp
   - item drops
   - next stage
   - spawn new monsters
-## level-up *(Jakob)*
+
+## level-up
 - Level-up mechanic
   - stat increase
   - new abilities
-- Abilities & Skills
-- Inventory & Items
+
 ## UI (functional) *(Dominik)*
 - show:
   - ~~name~~
@@ -42,6 +54,7 @@
   - **ability selection window**
   - **item selection window**
   - **target selection**
+
 ## balancing
 - turn-order determination (speed + random factor)
 - stats
@@ -49,25 +62,31 @@
   - ability stats
   - stat increase at level-up
 
+
 # Visuals
 ## UI
   - party's HP/AP
   - action menu
   - target selection
   - **main menu *(Gabriel)***
+
 ## Sprites *(Gabriel)*
   - **players**
   - **enemies**
+
 ## Environment
   - **background** *(Gabriel)*
   - lighting
+
 ## (simple) Animation
   - attacks
   - stage transition
 
-# Sound
+
+# (Sound)
 - Sound effects
-- (Music)
+- Music
+
 
 # Optional
 - Stats
