@@ -15,9 +15,9 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private int defense;
     // [SerializeField] private int magicAttack;
     // [SerializeField] private int magicDefense;
-    [SerializeField] private float critChance;
+    [SerializeField] private float critChance = 0.05f; // default crit chance is 5%
     [SerializeField] private int speed;
-    [SerializeField] private int level;
+    [SerializeField] private int level = 1;
 
     // Properties
     public string Name

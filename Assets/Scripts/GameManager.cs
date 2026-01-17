@@ -110,29 +110,31 @@ public class GameManager : MonoBehaviour
         this.players.Add(supporter);
         this.participants.Add(supporter);
 
-        // implement random enemy selection here
+        // spawn random number of enemies (between 1 & 4)
+        int randomEnemyAmount = UnityEngine.Random.Range(1, 5);
 
-        GameObject enemy1_go = Instantiate(enemyPrefabs[0], enemySpawns[0]);
-        this.enemies.Add(enemy1_go.GetComponent<Goblin_Script>());
-        this.participants.Add(this.enemies[0]);
+        for (int i = 0; i < randomEnemyAmount; i++)
+        {
+            // pick random enemy from enemyPrefabs list
+            int randomEnemyIndex = UnityEngine.Random.Range(0, enemyPrefabs.Count);
 
-        /* GameObject enemy2_go = Instantiate(EnemyPrefab_2, enemySpawn_2);
-        enemy2 = enemy2_go.GetComponent<WonkyKnight_Script>();
+            // instantiate this random enemy at enemy spawn point
+            GameObject enemy_go = Instantiate(enemyPrefabs[randomEnemyIndex], enemySpawns[i]);
 
-        GameObject enemy3_go = Instantiate(EnemyPrefab_3, enemySpawn_3);
-        enemy3 = enemy3_go.GetComponent<Slime_Script>();
-
-        GameObject enemy4_go = Instantiate(EnemyPrefab_4, enemySpawn_4);
-        enemy4 = enemy4_go.GetComponent<Skeleton_Script>(); */
+            // add enemy to enemies list and participants list
+            this.enemies.Add(enemy_go.GetComponent<Enemy>());
+            this.participants.Add(this.enemies[i]);
+        }
     }
 
     public void DetermineTurnOrder()
     {
-        // sort participants by speed + a random factor
-        // this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed));
-        this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed + UnityEngine.Random.Range(-5, 5)));
+        // sort participants by speed + a random factor (between -5 & 5)
+        this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed + UnityEngine.Random.Range(-5, 6)));
         // this.participants.Sort((x, y) => (y.Speed + UnityEngine.Random.Range(-5, 5)).CompareTo(x.Speed + UnityEngine.Random.Range(-5, 5)));
+
         Debug.Log("Turn order determined:");
+
         foreach (Entity entity in this.participants)
         {
             Debug.Log($"{entity.Name} (Speed: {entity.Speed})");
@@ -177,7 +179,16 @@ public class GameManager : MonoBehaviour
         ActionMenu.gameObject.SetActive(false);
 
         // implement target selection here
-        Entity selectedTarget = enemies[0]; // placeholder for selected target
+        Entity selectedTarget = enemies[0];
+        // select first alive enemy as target
+        foreach (Entity enemy in enemies)
+        {
+            if (enemy.CurrentHP > 0)
+            {
+                selectedTarget = enemy;
+                break;
+            }
+        }
 
         ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
         DeathCheck(selectedTarget);
