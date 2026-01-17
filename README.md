@@ -1,51 +1,78 @@
-# To-Do
-## Code
-### basics
-- Basic Player Prefab *(Jakob)*
-  - stats
-- Basic Enemy Prefab *(Jakob)*
-  - stats
-- Turns in battle
+- **in progress**
+- *(assigned to NAME)*
+- ~~done~~
 
-### advanced
-- Turn-order calculation (Gabriel)
-- Level-up mechanic (Gabriel)
-  - stat increase
-  - new abilities
-- Abilities & Skills
-- Inventory & Items
+# Logic
+## ~~Player *(Jakob)*~~
+  - ~~Damager~~
+  - ~~Defender~~
+  - ~~Healer~~
+  - ~~Supporter~~
+## ~~Enemy *(Jakob)*~~
+  - ~~Goblin~~
+  - ~~Skeleton~~
+  - ~~Slime~~
+  - ~~Wonky Knight~~
+  - ~~Cat~~
+## battle *(Jakob)*
+- ~~Turn-order determination~~
+  - ~~All participants in battle are put into a turn-order according to their speed stat + a random number~~
+- ~~Turns in battle~~
+  - **All Players can choose an Action from the Action Menu** (currently only Attack is functional)
+  - **Target Selection (for Players)**
+  - **Enemies randomly choose an action and a target**
 - Battle end
   - party earns exp
   - item drops
   - next stage
   - spawn new monsters
+## level-up *(Jakob)*
+- Level-up mechanic
+  - stat increase
+  - new abilities
+- Abilities & Skills
+- Inventory & Items
+## UI (functional) *(Dominik)*
+- show:
+  - ~~name~~
+  - ~~Level~~
+  - ~~HP (current/max and bar)~~
+  - ~~AP (current/max and bar)~~
+- ~~action menu~~
+  - **ability selection window**
+  - **item selection window**
+  - **target selection**
+## balancing
+- turn-order determination (speed + random factor)
+- stats
+  - entity stats
+  - ability stats
+  - stat increase at level-up
 
-## Graphics
-- UI
+# Visuals
+## UI
   - party's HP/AP
   - action menu
   - target selection
-  - main menu
-- Sprites
-  - players
-  - enemies
-- Environment
-  - background
+  - **main menu *(Gabriel)***
+## Sprites *(Gabriel)*
+  - **players**
+  - **enemies**
+## Environment
+  - **background** *(Gabriel)*
   - lighting
-- (simple) Animation
+## (simple) Animation
   - attacks
   - stage transition
 
-## Sound
+# Sound
 - Sound effects
 - (Music)
 
-## Optional
+# Optional
 - Stats
   - MAG-ATK, MAG-DEF, Sanity
   - sanity regeneration
   - magic weakness/resistance
 - Story
   - text/cutscene after starting the game from main menu
-
-# Done
