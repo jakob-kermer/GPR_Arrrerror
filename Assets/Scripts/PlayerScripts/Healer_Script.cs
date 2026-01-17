@@ -3,6 +3,15 @@ using UnityEngine;
 public class Healer_Script : Player
 {
     // Methods
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        this.CurrentHP = MaxHP;
+        this.CurrentAP = MaxAP;
+        this.playerUI = GameObject.Find("Healer UI").GetComponent<BattleUI>();
+        this.playerUI.SetUI(this);
+    }
+
     // Healer-specific abilities
     public void Ability_Heal(Entity target)
     {

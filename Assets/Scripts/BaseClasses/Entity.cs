@@ -5,11 +5,12 @@ using System;
 public abstract class Entity : MonoBehaviour
 {
     // Fields
+    [Header("Stats")]
     [SerializeField] private string entityName;
     [SerializeField] private int maxHP;
-    private int currentHP;
+    [SerializeField] private int currentHP;
     [SerializeField] private int maxAP;
-    private int currentAP;
+    [SerializeField] private int currentAP;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
     // [SerializeField] private int magicAttack;
@@ -88,7 +89,7 @@ public abstract class Entity : MonoBehaviour
         this.CurrentAP = MaxAP;
     }
 
-    public virtual bool TakeDamage(Entity attacker, Entity target, float damageMultiplier)
+    public virtual bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         // determine critical hit
         if (UnityEngine.Random.Range(0.0f, 1.0f) < attacker.CritChance)       // if the attacker lands a critical hit...
@@ -98,19 +99,19 @@ public abstract class Entity : MonoBehaviour
         }
 
         // this is where the damage is calculated
-        int damage = CalculateDamage(attacker.Attack, target.Defense, damageMultiplier);
+        int damage = CalculateDamage(attacker.Attack, this.Defense, damageMultiplier);
 
         // HP check
-        if (damage > target.CurrentHP)        // check if damage exceeds current HP
+        if (damage > this.CurrentHP)        // check if damage exceeds current HP
         {
-            damage = target.CurrentHP;        // if yes, set damage to actual damage dealt (--> current HP of the target BEFORE applying damage) to prevent negative HP
+            damage = this.CurrentHP;        // if yes, set damage to actual damage dealt (--> current HP of the target BEFORE applying damage) to prevent negative HP
         }
 
         // apply damage to current HP
-        target.CurrentHP -= damage;
+        this.CurrentHP -= damage;
 
         // write attack message on the console
-        Debug.Log($"{attacker.Name} deals {damage} damage to {target.Name}");
+        Debug.Log($"{attacker.Name} deals {damage} damage to {this.Name}");
 
         if (currentHP <= 0)
         {

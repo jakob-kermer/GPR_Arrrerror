@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,68 +18,69 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     // Fields
-    public GameObject playerPrefab_1;
-    public GameObject playerPrefab_2;
-    public GameObject playerPrefab_3;
-    public GameObject playerPrefab_4;
-    public GameObject EnemyPrefab_1;
-    public GameObject EnemyPrefab_2;
-    public GameObject EnemyPrefab_3;
-    public GameObject EnemyPrefab_4;
+    [Header("Prefabs and Spawn Points")]
+    public List<GameObject> playerPrefabs;
+    public List<GameObject> enemyPrefabs;
 
-    public Transform playerSpawn_1;
-    public Transform playerSpawn_2;
-    public Transform playerSpawn_3;
-    public Transform playerSpawn_4;
-    public Transform enemySpawn_1;
-    public Transform enemySpawn_2;
-    public Transform enemySpawn_3;
-    public Transform enemySpawn_4;
+    public List<Transform> playerSpawns;
+    public List<Transform> enemySpawns;
 
+    [Header("List of Participants in Battle")]
+    public List<Entity> participants;
+
+    [Header("UI Elements")]
+    public GameObject ActionMenu;
+
+    // player and enemy references
     private Player damager;
     private Player defender;
     private Player healer;
     private Player supporter;
-    private Enemy enemy1;
-    private Enemy enemy2;
-    private Enemy enemy3;
-    private Enemy enemy4;
-    private List<Entity> participants;
+    private List<Player> players = new List<Player>();
+    private List<Enemy> enemies = new List<Enemy>();
 
-    public GameObject ActionMenu;
+    // turn management
+    private int turnIndex = 0;
+    private bool turnMade = false;
 
-    public GameState state;
+    // game state
+    private GameState state;
 
+    // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        state = GameState.Start;
-        Battle();
+        this.state = GameState.Start;
+        StartCoroutine(Battle());
     }
 
-    public void Battle()
+    public IEnumerator Battle()
     {
         StartBattle();
 
-        DetermineTurnOrder();
-
-        while (state != GameState.Victory && state != GameState.Defeat)
+        while (this.state != GameState.Victory && this.state != GameState.Defeat)
         {
-            for (int i = 0; i < participants.Count; i++)
+            DetermineTurnOrder();
+
+            for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
-                if (state == GameState.Victory || state == GameState.Defeat)
+                if (this.state == GameState.Victory || this.state == GameState.Defeat)
                 {
                     break;
                 }
-                else if (participants[i] is Player)
+                else if (this.participants[turnIndex] is Player)
                 {
-                    state = GameState.PlayerTurn;
-                    PlayerTurn((Player)participants[i]);
+                    this.state = GameState.PlayerTurn;
+                    PlayerTurn();
+                    yield return new WaitUntil(() => this.turnMade);
+                    this.turnMade = false;
                 }
-                else if (participants[i] is Enemy)
+                else if (this.participants[turnIndex] is Enemy)
                 {
-                    state = GameState.EnemyTurn;
-                    EnemyTurn((Enemy)participants[i]);
+                    this.state = GameState.EnemyTurn;
+                    EnemyTurn();
+                    yield return new WaitUntil(() => this.turnMade);
+                    this.turnMade = false;
                 }
             }
         }
@@ -87,29 +90,31 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Battle started");
 
-        List<Entity> participants = new List<Entity>();
+        GameObject damager_go = Instantiate(playerPrefabs[0], playerSpawns[0]);
+        this.damager = damager_go.GetComponent<Damager_Script>();
+        this.players.Add(damager);
+        this.participants.Add(damager);
 
-        GameObject damager_go = Instantiate(playerPrefab_1, playerSpawn_1);
-        damager = damager_go.GetComponent<Damager_Script>();
-        participants.Add(damager);
+        GameObject defender_go = Instantiate(playerPrefabs[1], playerSpawns[1]);
+        this.defender = defender_go.GetComponent<Defender_Script>();
+        this.players.Add(defender);
+        this.participants.Add(defender);
 
-        GameObject defender_go = Instantiate(playerPrefab_2, playerSpawn_2);
-        defender = defender_go.GetComponent<Defender_Script>();
-        participants.Add(defender);
+        GameObject healer_go = Instantiate(playerPrefabs[2], playerSpawns[2]);
+        this.healer = healer_go.GetComponent<Healer_Script>();
+        this.players.Add(healer);
+        this.participants.Add(healer);
 
-        GameObject healer_go = Instantiate(playerPrefab_3, playerSpawn_3);
-        healer = healer_go.GetComponent<Healer_Script>();
-        participants.Add(healer);
-
-        GameObject supporter_go = Instantiate(playerPrefab_4, playerSpawn_4);
-        supporter = supporter_go.GetComponent<Supporter_Script>();
-        participants.Add(supporter);
+        GameObject supporter_go = Instantiate(playerPrefabs[3], playerSpawns[3]);
+        this.supporter = supporter_go.GetComponent<Supporter_Script>();
+        this.players.Add(supporter);
+        this.participants.Add(supporter);
 
         // implement random enemy selection here
 
-        GameObject enemy1_go = Instantiate(EnemyPrefab_1, enemySpawn_1);
-        enemy1 = enemy1_go.GetComponent<Goblin_Script>();
-        participants.Add(enemy1);
+        GameObject enemy1_go = Instantiate(enemyPrefabs[0], enemySpawns[0]);
+        this.enemies.Add(enemy1_go.GetComponent<Goblin_Script>());
+        this.participants.Add(this.enemies[0]);
 
         /* GameObject enemy2_go = Instantiate(EnemyPrefab_2, enemySpawn_2);
         enemy2 = enemy2_go.GetComponent<WonkyKnight_Script>();
@@ -123,25 +128,150 @@ public class GameManager : MonoBehaviour
 
     public void DetermineTurnOrder()
     {
-        participants.Sort((x, y) => y.Speed.CompareTo(x.Speed));
+        // sort participants by speed + a random factor
+        // this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed));
+        this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed + UnityEngine.Random.Range(-5, 5)));
+        // this.participants.Sort((x, y) => (y.Speed + UnityEngine.Random.Range(-5, 5)).CompareTo(x.Speed + UnityEngine.Random.Range(-5, 5)));
+        Debug.Log("Turn order determined:");
+        foreach (Entity entity in this.participants)
+        {
+            Debug.Log($"{entity.Name} (Speed: {entity.Speed})");
+        }
     }
 
-    public void PlayerTurn(Player player)
+    /* public void NextTurn()
     {
+        if (this.state == GameState.Victory || this.state == GameState.Defeat)
+        {
+            return;
+        }
+        else if (this.participants[turnIndex] is Player)
+        {
+            this.state = GameState.PlayerTurn;
+            PlayerTurn((Player)this.participants[turnIndex]);
+        }
+        else if (this.participants[turnIndex] is Enemy)
+        {
+            this.state = GameState.EnemyTurn;
+            EnemyTurn((Enemy)this.participants[turnIndex]);
+        }
+    } */
+
+    // Player's turn implementation
+    public void PlayerTurn()
+    {
+        // enables the action menu for the player to choose an action
         ActionMenu.SetActive(true);
 
-        Debug.Log($"{player.Name} makes their turn");
+        Debug.Log($"{participants[turnIndex].Name} makes their turn");
+    }
+
+    public void TargetSelection()
+    {
+        // implement target selection here
     }
 
     public void OnAttackButton()
     {
+        // disables the action menu after the player has chosen an action
         ActionMenu.gameObject.SetActive(false);
-        // StartCoroutine(PlayerAttack());
+
+        // implement target selection here
+        Entity selectedTarget = enemies[0]; // placeholder for selected target
+
+        ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
+        DeathCheck(selectedTarget);
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
     }
 
-    public void EnemyTurn(Enemy enemy)
+    public void OnDefendButton()
     {
-        Debug.Log($"{enemy.Name} makes their turn");
+        // disables the action menu after the player has chosen an action
+        ActionMenu.gameObject.SetActive(false);
+
+        ((Player)participants[turnIndex]).Action_Defend();
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    public void OnAbilityButton()
+    {
+        // disables the action menu after the player has chosen an action
+        ActionMenu.gameObject.SetActive(false);
+
+        // implement ability selection and target selection here
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    public void OnUseItemButton()
+    {
+        // disables the action menu after the player has chosen an action
+        ActionMenu.gameObject.SetActive(false);
+
+        // implement item selection here
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    // Enemy's turn implementation
+    public void EnemyTurn()
+    {
+        Debug.Log($"{participants[turnIndex].Name} makes their turn");
+
+        Entity selectedTarget = players[1]; // placeholder for selected target
+
+        selectedTarget.TakeDamage(participants[turnIndex], 1f);
+        DeathCheck(selectedTarget);
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    // death check and win conditions
+    public void DeathCheck(Entity entity)
+    {
+        if (entity.CurrentHP == 0)
+        {
+            Debug.Log($"{entity.Name} has been defeated");
+            participants.Remove(entity);
+            entity.gameObject.SetActive(false);
+            CheckWinConditions();
+        }
+    }
+
+    public void CheckWinConditions()
+    {
+        bool allEnemiesDefeated = true;
+        bool allPlayersDefeated = true;
+
+        foreach (Entity entity in participants)
+        {
+            if (entity is Enemy && entity.CurrentHP > 0)
+            {
+                allEnemiesDefeated = false;
+            }
+            else if (entity is Player && entity.CurrentHP > 0)
+            {
+                allPlayersDefeated = false;
+            }
+        }
+
+        if (allEnemiesDefeated)
+        {
+            this.state = GameState.Victory;
+            Debug.Log("The battle is won");
+        }
+        else if (allPlayersDefeated)
+        {
+            this.state = GameState.Defeat;
+            Debug.Log("The battle is lost");
+        }
     }
 
     /* private void PlayerTurn(Player player)

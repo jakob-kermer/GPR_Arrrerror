@@ -18,9 +18,9 @@ public class Defender_Script : Player
         Debug.Log($"{this.name} blocks the attack");
     }
 
-    public override bool TakeDamage(Entity attacker, Entity target, float damageMultiplier)
+    public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
-        bool isDead = base.TakeDamage(attacker, target, damageMultiplier);
+        bool isDead = base.TakeDamage(attacker, damageMultiplier);
         playerUI.SetHP(this.CurrentHP);
         return isDead;
     }

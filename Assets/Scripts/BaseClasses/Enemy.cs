@@ -4,6 +4,7 @@ using System;
 public abstract class Enemy : Entity
 {
     // Fields
+    [Header("Enemy specific Stats")]
     [SerializeField] private int experienceValue;
 
     // Properties

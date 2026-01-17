@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public abstract class Player : Entity
 {
     // Fields
+    [Header("Player specific Stats")]
     // [SerializeField] private float sanity;
     [SerializeField] private int experiencePoints;
     [SerializeField] private int xpThreshold;
@@ -36,10 +37,9 @@ public abstract class Player : Entity
     }
 
     // Methods
-
     public virtual bool Action_Attack(Entity target)
     {
-        return target.TakeDamage(this, target, 1f);
+        return target.TakeDamage(this, 1f);
     }
 
     public virtual void Action_Defend()
