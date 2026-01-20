@@ -339,7 +339,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 309323109280626016, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
-      value: Wonky Knight 4
+      value: Supporter
       objectReference: {fileID: 0}
     - target: {fileID: 642819925331676794, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_AnchorMax.x
@@ -467,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035871282713468535, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_Name
-      value: Player 4 UI
+      value: Supporter UI
       objectReference: {fileID: 0}
     - target: {fileID: 7359867288880036154, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
@@ -1116,7 +1116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589464531}
   m_Layer: 0
-  m_Name: Enemy Spawn 2
+  m_Name: Enemy Spawn 1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1142,17 +1142,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3751659549756982843, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
   m_PrefabInstance: {fileID: 227445883}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &595063616 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4223318130887349245, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
-  m_PrefabInstance: {fileID: 227445883}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933ab99c752738948bbd324ddcd69cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
 --- !u!1 &622712048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 702598695}
   m_Layer: 0
-  m_Name: Player Spawn 4
+  m_Name: Player Spawn 0
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1464,7 +1453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 767620332}
   m_Layer: 0
-  m_Name: Player Spawn 1
+  m_Name: Player Spawn 3
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1681,7 +1670,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 309323109280626016, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
-      value: Wonky Knight 2
+      value: Defender
       objectReference: {fileID: 0}
     - target: {fileID: 642819925331676794, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1809,7 +1798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035871282713468535, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_Name
-      value: Player 2 UI
+      value: Defender UI
       objectReference: {fileID: 0}
     - target: {fileID: 7359867288880036154, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
@@ -1830,7 +1819,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 309323109280626016, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
-      value: Wonky Knight 3
+      value: Healer
       objectReference: {fileID: 0}
     - target: {fileID: 642819925331676794, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1958,7 +1947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035871282713468535, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_Name
-      value: Player 3 UI
+      value: Healer UI
       objectReference: {fileID: 0}
     - target: {fileID: 7359867288880036154, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_text
@@ -1974,17 +1963,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3751659549756982843, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
   m_PrefabInstance: {fileID: 853657649}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &996884120 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4223318130887349245, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
-  m_PrefabInstance: {fileID: 853657649}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933ab99c752738948bbd324ddcd69cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
 --- !u!1 &1043979575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,7 +2133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1139162605}
   m_Layer: 0
-  m_Name: Enemy Spawn 3
+  m_Name: Enemy Spawn 2
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2205,28 +2183,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bdfb9aa092f0d4691e4499d5ba4a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerPrefab_1: {fileID: 468555958474399342, guid: 535708c14fbe9c449988f3cfcb078585, type: 3}
-  playerPrefab_2: {fileID: 468555958474399342, guid: 8b778069fe0e19644a86f0ae4f657d4d, type: 3}
-  playerPrefab_3: {fileID: 468555958474399342, guid: 974226c6a310ce64582aac69496cb521, type: 3}
-  playerPrefab_4: {fileID: 468555958474399342, guid: a13b7e1949e683f44b70f53e044dc4e2, type: 3}
-  EnemyPrefab_1: {fileID: 9013372532013454532, guid: ddb1df4666ebf5c42a00861aaa0097ac, type: 3}
-  EnemyPrefab_2: {fileID: 9013372532013454532, guid: ab6e2254857532947be89a3d025c68cc, type: 3}
-  EnemyPrefab_3: {fileID: 9013372532013454532, guid: d5ee78437a1911c418cfdb9ac52a5c1c, type: 3}
-  EnemyPrefab_4: {fileID: 9013372532013454532, guid: 89e1fdb6d2c1ff945aac1a2ebc4d15e2, type: 3}
-  playerSpawn_1: {fileID: 767620332}
-  playerSpawn_2: {fileID: 569791573}
-  playerSpawn_3: {fileID: 1401752213}
-  playerSpawn_4: {fileID: 702598695}
-  enemySpawn_1: {fileID: 1517795917}
-  enemySpawn_2: {fileID: 589464531}
-  enemySpawn_3: {fileID: 1139162605}
-  enemySpawn_4: {fileID: 1923155657}
-  playerUI_1: {fileID: 1693677324}
-  playerUI_2: {fileID: 996884120}
-  playerUI_3: {fileID: 1279872854}
-  playerUI_4: {fileID: 595063616}
+  playerPrefabs:
+  - {fileID: 468555958474399342, guid: 974226c6a310ce64582aac69496cb521, type: 3}
+  - {fileID: 468555958474399342, guid: 8b778069fe0e19644a86f0ae4f657d4d, type: 3}
+  - {fileID: 468555958474399342, guid: 535708c14fbe9c449988f3cfcb078585, type: 3}
+  - {fileID: 468555958474399342, guid: a13b7e1949e683f44b70f53e044dc4e2, type: 3}
+  enemyPrefabs:
+  - {fileID: 9013372532013454532, guid: a6a19f7b5ce6d3f419249bb809350d4f, type: 3}
+  - {fileID: 9013372532013454532, guid: 89e1fdb6d2c1ff945aac1a2ebc4d15e2, type: 3}
+  - {fileID: 9013372532013454532, guid: d5ee78437a1911c418cfdb9ac52a5c1c, type: 3}
+  - {fileID: 9013372532013454532, guid: ddb1df4666ebf5c42a00861aaa0097ac, type: 3}
+  playerSpawns:
+  - {fileID: 702598695}
+  - {fileID: 1401752213}
+  - {fileID: 569791573}
+  - {fileID: 767620332}
+  enemySpawns:
+  - {fileID: 1517795917}
+  - {fileID: 589464531}
+  - {fileID: 1139162605}
+  - {fileID: 1923155657}
+  participants: []
   ActionMenu: {fileID: 1043979575}
-  state: 0
 --- !u!4 &1253766973
 Transform:
   m_ObjectHideFlags: 0
@@ -2292,17 +2270,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3751659549756982843, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
   m_PrefabInstance: {fileID: 986110040}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1279872854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4223318130887349245, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
-  m_PrefabInstance: {fileID: 986110040}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933ab99c752738948bbd324ddcd69cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
 --- !u!1 &1401752212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,7 +2280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1401752213}
   m_Layer: 0
-  m_Name: Player Spawn 3
+  m_Name: Player Spawn 1
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2465,7 +2432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1517795917}
   m_Layer: 0
-  m_Name: Enemy Spawn 1
+  m_Name: Enemy Spawn 0
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2491,17 +2458,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3751659549756982843, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
   m_PrefabInstance: {fileID: 2101013546334362798}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1693677324 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4223318130887349245, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
-  m_PrefabInstance: {fileID: 2101013546334362798}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 933ab99c752738948bbd324ddcd69cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
 --- !u!1 &1902052021
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,7 +2570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923155657}
   m_Layer: 0
-  m_Name: Enemy Spawn 4
+  m_Name: Enemy Spawn 3
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2856,10 +2812,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 767620332}
-  - {fileID: 569791573}
-  - {fileID: 1401752213}
   - {fileID: 702598695}
+  - {fileID: 1401752213}
+  - {fileID: 569791573}
+  - {fileID: 767620332}
   - {fileID: 1517795917}
   - {fileID: 589464531}
   - {fileID: 1139162605}
@@ -2874,6 +2830,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 32053298}
     m_Modifications:
+    - target: {fileID: 309323109280626016, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
+      propertyPath: m_text
+      value: Damager
+      objectReference: {fileID: 0}
     - target: {fileID: 642819925331676794, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2996,7 +2956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035871282713468535, guid: 058f2034d77b64f4895a8fa292fb0071, type: 3}
       propertyPath: m_Name
-      value: Player 1 UI
+      value: Damager UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
