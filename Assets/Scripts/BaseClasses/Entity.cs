@@ -108,8 +108,7 @@ public abstract class Entity : MonoBehaviour
         int damage = CalculateDamage(attacker.Attack, this.Defense, damageMultiplier);
 
         popUpDamage.text = damage.ToString();
-        UnityEngine.Vector3 popUpDamagePosition = new UnityEngine.Vector3(transform.position.x, transform.position.y + 3f, transform.position.z - 0.2f);
-        Instantiate(popUpDamagePrefab, popUpDamagePosition, UnityEngine.Quaternion.identity);
+        Instantiate(popUpDamagePrefab, transform.position, UnityEngine.Quaternion.identity);
 
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
