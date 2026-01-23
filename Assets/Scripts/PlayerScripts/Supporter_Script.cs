@@ -13,9 +13,9 @@ public class Supporter_Script : Player
     }
 
     // Supporter-specific abilities
-    public void Ability_Buff(Entity target)
+    public void Ability_RandomCrit(Entity target)
     {
         Debug.Log($"{this.name} buffs {target.name}");
-        // buff target
+        // deal double damage to a random enemy
     }
 }
