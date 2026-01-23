@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
+using System.Numerics;
 
 public abstract class Entity : MonoBehaviour
 {
@@ -18,6 +20,10 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private float critChance = 0.05f; // default crit chance is 5%
     [SerializeField] private int speed;
     [SerializeField] private int level = 1;
+
+    // damage pop-up
+    public TMP_Text popUpDamage;
+    public GameObject popUpDamagePrefab;
 
     // Properties
     public string Name
@@ -100,6 +106,9 @@ public abstract class Entity : MonoBehaviour
 
         // this is where the damage is calculated
         int damage = CalculateDamage(attacker.Attack, this.Defense, damageMultiplier);
+
+        popUpDamage.text = damage.ToString();
+        Instantiate(popUpDamagePrefab, transform.position, UnityEngine.Quaternion.identity);
 
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
