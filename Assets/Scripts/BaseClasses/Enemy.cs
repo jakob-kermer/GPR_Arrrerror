@@ -7,6 +7,8 @@ public abstract class Enemy : Entity
     [Header("Enemy specific Stats")]
     [SerializeField] private int experienceValue;
 
+    public bool enableTargetSelection = false;
+
     // Properties
     public int ExperienceValue
     {
@@ -17,11 +19,19 @@ public abstract class Enemy : Entity
     // Methods
     public void OnMouseEnter()
     {
-        this.transform.GetChild(0).gameObject.SetActive(true);
+        if (enableTargetSelection)
+        {
+            this.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     public void OnMouseExit()
     {
         this.transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    public Enemy OnMouseDown()
+    {
+        return this;
     }
 }

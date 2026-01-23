@@ -49,12 +49,33 @@ public class GameManager : MonoBehaviour
     // game state
     private GameState state;
 
+    public Entity selectedTarget = null;
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         this.state = GameState.Start;
         StartCoroutine(Battle());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && this.state == GameState.PlayerTurn) // if the left mouse button is clicked and it's the player's turn
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Enemy clickedTarget = hit.transform.GetComponent<Enemy>();
+                if (clickedTarget != null)
+                {
+                    selectedTarget = clickedTarget;
+                }
+            }
+        }
     }
 
     public IEnumerator Battle()
@@ -163,34 +184,30 @@ public class GameManager : MonoBehaviour
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
     }
 
-    public void TargetSelection()
+    public void OnAttackButton()
     {
-        // implement target selection here
-        
+        StartCoroutine(AttackTargetSelection());
     }
 
-    public void OnAttackButton()
+    public IEnumerator AttackTargetSelection()
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.SetActive(false);            // deactivate action menu
-        
-        // implement target selection here
-        Entity selectedTarget = enemies[0];
-        // select first alive enemy as target
-        foreach (Entity enemy in enemies)
+
+        foreach (Enemy enemy in enemies)
         {
-            if (enemy.CurrentHP > 0)
-            {
-                selectedTarget = enemy;
-                break;
-            }
+            enemy.enableTargetSelection = true;
         }
+
+        yield return new WaitUntil(() => selectedTarget != null);
 
         ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
         DeathCheck(selectedTarget);
 
-        // mark turn as made at the end of the turn
+
+        // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
+        selectedTarget = null;
     }
 
     public void OnDefendButton()
@@ -231,7 +248,7 @@ public class GameManager : MonoBehaviour
     public void OnBackButton()                  //When pressing on Back...
     {
         // SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
-        ItemMenu.SetActive(false);    
+        ItemMenu.SetActive(false);
         AbilityMenu.SetActive(false);
         ActionMenu.SetActive(true);             //...activate the action menu.
     }
