@@ -192,7 +192,10 @@ MonoBehaviour:
   critChance: 100
   speed: 100
   level: 777
+  popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
+  popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   experienceValue: 7777
+  enableTargetSelection: 0
 --- !u!1001 &7024538930684601167
 PrefabInstance:
   m_ObjectHideFlags: 0
