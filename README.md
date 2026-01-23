@@ -22,7 +22,7 @@
   - ~~All participants in battle are put into a turn-order according to their speed stat + a random number~~
 - ~~Turns in battle~~
   - **All Players can choose an Action from the Action Menu** (currently only Attack is functional)
-  - **Target Selection (for Players)**
+  - ~~Target Selection (for Players)~~
   - **Enemies randomly choose an action and a target**
 - Actions
   - ~~Attack~~
@@ -36,8 +36,8 @@
 - Battle end
   - party earns exp
   - item drops
-  - next stage
-  - spawn new monsters
+  - **next stage**
+  - **spawn new monsters**
 
 ## level-up
 - Level-up mechanic
@@ -53,7 +53,7 @@
 - ~~action menu~~
   - **ability selection window**
   - **item selection window**
-  - **target selection**
+  - ~~target selection~~
 
 ## balancing
 - turn-order determination (speed + random factor)
