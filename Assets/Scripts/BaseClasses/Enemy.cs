@@ -13,4 +13,15 @@ public abstract class Enemy : Entity
         get { return experienceValue; }
         set { this.experienceValue = value; }
     }
+
+    // Methods
+    public void OnMouseEnter()
+    {
+        this.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void OnMouseExit()
+    {
+        this.transform.GetChild(0).gameObject.SetActive(false);
+    }
 }

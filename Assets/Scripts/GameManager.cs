@@ -30,21 +30,9 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject ActionMenu;
-    public GameObject SelectAttackMenu;
-    public GameObject SelectItemMenu;
-    public GameObject SelectAbilitesMenu;
+    public GameObject AbilityMenu;
+    public GameObject ItemMenu;
     public GameObject BackButton;
-    public GameObject Selector;
-    // public GameObject PlayerSelectSpawn;
-    // public GameObject EnemySelectSpawn;
-    public GameObject SelectorP1;
-    public GameObject SelectorP2;
-    public GameObject SelectorP3;
-    public GameObject SelectorP4;
-    public GameObject SelectorE1;
-    public GameObject SelectorE2;
-    public GameObject SelectorE3;
-    public GameObject SelectorE4;
 
     // player and enemy references
     private Player damager;
@@ -86,15 +74,21 @@ public class GameManager : MonoBehaviour
                 else if (this.participants[turnIndex] is Player)
                 {
                     this.state = GameState.PlayerTurn;
+                    participants[turnIndex].transform.GetChild(0).gameObject.SetActive(true);
                     PlayerTurn();
+
                     yield return new WaitUntil(() => this.turnMade);
+
+                    participants[turnIndex].transform.GetChild(0).gameObject.SetActive(false);
                     this.turnMade = false;
                 }
                 else if (this.participants[turnIndex] is Enemy)
                 {
                     this.state = GameState.EnemyTurn;
                     EnemyTurn();
+
                     yield return new WaitUntil(() => this.turnMade);
+
                     this.turnMade = false;
                 }
             }
@@ -156,66 +150,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /* public void NextTurn()
-    {
-        if (this.state == GameState.Victory || this.state == GameState.Defeat)
-        {
-            return;
-        }
-        else if (this.participants[turnIndex] is Player)
-        {
-            this.state = GameState.PlayerTurn;
-            PlayerTurn((Player)this.participants[turnIndex]);
-        }
-        else if (this.participants[turnIndex] is Enemy)
-        {
-            this.state = GameState.EnemyTurn;
-            EnemyTurn((Enemy)this.participants[turnIndex]);
-        }
-    } */
-
     // Player's turn implementation
     public void PlayerTurn()
     {
-        //Hide Ui menus
-        SelectAttackMenu.SetActive(false);
-        SelectItemMenu.SetActive(false);
-        SelectAbilitesMenu.SetActive(false);
-
-        //Hide Player selector (orbs above players)
-        // EnemySelectSpawn.SetActive(true);
-        SelectorE1.SetActive(false);
-        SelectorE2.SetActive(false);
-        SelectorE3.SetActive(false);
-        SelectorE4.SetActive(false);
-
-        //Hide Enemy selector (orbs above enemys)
-        // PlayerSelectSpawn.SetActive(true);
-        SelectorP1.SetActive(false);
-        SelectorP2.SetActive(false);
-        SelectorP3.SetActive(false);
-        SelectorP4.SetActive(false);
+        // hide menus
+        AbilityMenu.SetActive(false);
+        ItemMenu.SetActive(false);
 
         // show action menu
         ActionMenu.SetActive(true);
-
-        //Activates player selector depending on current player
-        if ((Player)participants[turnIndex] == damager)
-        {
-            SelectorP1.SetActive(true);
-        }
-        else if ((Player)participants[turnIndex] == defender)
-        {
-            SelectorP2.SetActive(true);
-        }
-        else if ((Player)participants[turnIndex] == healer)
-        {
-            SelectorP3.SetActive(true);
-        }
-        else
-        {
-            SelectorP4.SetActive(true);
-        }
 
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
     }
@@ -223,26 +166,14 @@ public class GameManager : MonoBehaviour
     public void TargetSelection()
     {
         // implement target selection here
+        
     }
 
-    public void OnEnemy()                       //When pressing on Enemy 1-4 it...
+    public void OnAttackButton()
     {
-        SelectAttackMenu.SetActive(false);      //...deactivates the attack menu and...
-
-        //Hide Player selector (orbs above players)
-        // EnemySelectSpawn.SetActive(true);
-        SelectorE1.SetActive(false);
-        SelectorE2.SetActive(false);
-        SelectorE3.SetActive(false);
-        SelectorE4.SetActive(false);
-
-        //Hide Enemy selector (orbs above enemys)
-        // PlayerSelectSpawn.SetActive(true);
-        SelectorP1.SetActive(false);
-        SelectorP2.SetActive(false);
-        SelectorP3.SetActive(false);
-        SelectorP4.SetActive(false);
-
+        // disables the action menu after the player has chosen an action
+        ActionMenu.SetActive(false);            // deactivate action menu
+        
         // implement target selection here
         Entity selectedTarget = enemies[0];
         // select first alive enemy as target
@@ -262,41 +193,6 @@ public class GameManager : MonoBehaviour
         this.turnMade = true;
     }
 
-    public void HoverEnemy1()                   //When hovering over Enemy 1-4...
-    {
-        SelectorE1.SetActive(true);             //...activates Selector of Enemy 1-4.
-    }
-
-    public void HoverEnemy2()
-    {
-        SelectorE2.SetActive(true);
-    }
-
-    public void HoverEnemy3()
-    {
-        SelectorE3.SetActive(true);
-    }
-
-    public void HoverEnemy4()
-    {
-        SelectorE4.SetActive(true);
-    }
-
-    public void ExitHoverEnemy()                //When no longer hovering over Enemy 1-4...
-    {
-        SelectorE1.SetActive(false);            //...deactvate Selector of Enemy 1-4.
-        SelectorE2.SetActive(false);
-        SelectorE3.SetActive(false);
-        SelectorE4.SetActive(false);
-    }
-
-    public void OnAttackButton()
-    {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.SetActive(false);            //...deactivates action menu and...
-        SelectAttackMenu.SetActive(true);       //...activates attack menu.
-    }
-
     public void OnDefendButton()
     {
         // disables the action menu after the player has chosen an action
@@ -312,31 +208,31 @@ public class GameManager : MonoBehaviour
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.gameObject.SetActive(false);
-        SelectAbilitesMenu.SetActive(true);     //...activate the Abilites menu.
+        AbilityMenu.SetActive(true);     //...activate the Abilites menu.
 
         // implement ability selection and target selection here
 
         // mark turn as made at the end of the turn
-        this.turnMade = true;
+        // this.turnMade = true;
     }
 
     public void OnItemButton()
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.gameObject.SetActive(false);
-        SelectItemMenu.SetActive(true);         //..activate the Item menu.
+        ItemMenu.SetActive(true);         //..activate the Item menu.
 
-        // implement item selection here
+        // implement item selection and target selection here
 
         // mark turn as made at the end of the turn
-        this.turnMade = true;
+        // this.turnMade = true;
     }
 
     public void OnBackButton()                  //When pressing on Back...
     {
-        SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
-        SelectItemMenu.SetActive(false);    
-        SelectAbilitesMenu.SetActive(false);
+        // SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
+        ItemMenu.SetActive(false);    
+        AbilityMenu.SetActive(false);
         ActionMenu.SetActive(true);             //...activate the action menu.
     }
 
@@ -394,69 +290,4 @@ public class GameManager : MonoBehaviour
             Debug.Log("The battle is lost");
         }
     }
-
-    /* private void PlayerTurn(Player player)
-    {
-        ActionMenu.gameObject.SetActive(true);
-
-        Debug.Log($"{player.Name} makes their turn");
-    }
-
-    IEnumerator PlayerAttack()
-    {
-        bool isDead = defender.Action_Attack(enemy1);
-
-        yield return new WaitForSeconds(2f);
-
-        if (isDead)
-        {
-            state = GameState.Victory;
-            enemy1.gameObject.SetActive(false);
-            EndBattle();
-        }
-        else
-        {
-            state = GameState.EnemyTurn;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    public void OnDefendButton()
-    {
-        ActionMenu.gameObject.SetActive(false);
-    }
-
-    IEnumerator EnemyTurn()
-    {
-        Debug.Log($"{enemy1.Name} attacks");
-
-        yield return new WaitForSeconds(1f);
-
-        bool isDead = defender.TakeDamage(enemy1, defender, 1f);
-
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
-        {
-            state = GameState.Defeat;
-            EndBattle();
-        }
-        else
-        {
-            state = GameState.PlayerTurn;
-            PlayerTurn(defender);
-        }
-    }
-
-    void EndBattle()
-    {
-        if (state == GameState.Victory)
-        {
-            Debug.Log("The battle is won");
-        }
-        else if (state == GameState.Defeat)
-        {
-            Debug.Log("The battle is lost");
-        }
-    } */
 }
