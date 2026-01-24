@@ -21,6 +21,6 @@ public class Healer_Script : Player
     public void Ability_Groupheal()
     {
         Debug.Log($"{this.name} heals the group");
-        // heals the group
+        // heal the group
     }
 }
