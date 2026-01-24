@@ -2391,7 +2391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4229393270204220594, guid: d111e14f9cf84b34d8463fecffdcf09d, type: 3}
       propertyPath: m_text
-      value: Firbeall
+      value: Fireball
       objectReference: {fileID: 0}
     - target: {fileID: 4229393270204220594, guid: d111e14f9cf84b34d8463fecffdcf09d, type: 3}
       propertyPath: m_fontSize
