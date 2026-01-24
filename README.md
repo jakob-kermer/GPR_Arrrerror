@@ -21,38 +21,37 @@
 - ~~Turn-order determination~~
   - ~~All participants in battle are put into a turn-order according to their speed stat + a random number~~
 - ~~Turns in battle~~
-  - **All Players can choose an Action from the Action Menu** (currently only Attack is functional)
+  - ~~All Players can choose an Action from the Action Menu~~
   - ~~Target Selection (for Players)~~
-  - **Enemies randomly choose an action and a target**
+  - Enemies randomly choose an action and a target (enemies can currently select dead players)
 - Actions
   - ~~Attack~~
-  - Defend
-  - Abilities
+  - Defend (not functional)
+  - Abilities (not functional)
     - Damager Abilites
+        - Fireball
+        - Shitstorm
     - Defender Abilities
+        - Block
+        - Taunt
     - Healer Abilities
+        - Heal
+        - Group Heal
     - Supporter Abilities
-  - Items
-- Battle end
-  - party earns exp
-  - item drops
-  - **next stage**
-  - **spawn new monsters**
+        - Throw Gato
+        - Throw Potion
+- ~~Battle end~~
+  - ~~next stage~~
+  - ~~spawn new monsters~~
 
-## level-up
-- Level-up mechanic
-  - stat increase
-  - new abilities
-
-## UI (functional) *(Dominik)*
-- show:
+## UI (functional)
+- ~~show:~~
   - ~~name~~
   - ~~Level~~
   - ~~HP (current/max and bar)~~
   - ~~AP (current/max and bar)~~
 - ~~action menu~~
-  - **ability selection window**
-  - **item selection window**
+  - ~~ability selection window~~
   - ~~target selection~~
 
 ## balancing
