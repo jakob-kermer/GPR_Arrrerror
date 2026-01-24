@@ -15,17 +15,16 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private int currentAP;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
-    // [SerializeField] private int magicAttack;
-    // [SerializeField] private int magicDefense;
     [SerializeField] private float critChance = 0.05f; // default crit chance is 5%
     [SerializeField] private int speed;
     [SerializeField] private int level = 1;
 
     // damage pop-up
-    public TMP_Text popUpDamage;
-    public GameObject popUpDamagePrefab;
+    [SerializeField] private TMP_Text popUpDamage;
+    [SerializeField] private GameObject popUpDamagePrefab;
 
     // Properties
+    // stats properties
     public string Name
     {
         get { return entityName; }
@@ -61,16 +60,6 @@ public abstract class Entity : MonoBehaviour
         get { return defense; }
         set { this.defense = value; }
     }
-    // public int MagicAttack
-    // {
-    //     get { return magicAttack; }
-    //     set { this.magicAttack = value; }
-    // }
-    // public int MagicDefense
-    // {
-    //     get { return magicDefense; }
-    //     set { this.magicDefense = value; }
-    // }
     public float CritChance
     {
         get { return critChance; }
@@ -85,6 +74,18 @@ public abstract class Entity : MonoBehaviour
     {
         get { return level; }
         protected set { this.level = value; }
+    }
+
+    // damage pop-up properties
+    public TMP_Text PopUpDamage
+    {
+        get { return popUpDamage; }
+        set { this.popUpDamage = value; }
+    }
+    public GameObject PopUpDamagePrefab
+    {
+        get { return popUpDamagePrefab; }
+        set { this.popUpDamagePrefab = value; }
     }
 
     // Methods

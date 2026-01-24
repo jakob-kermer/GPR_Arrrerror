@@ -5,21 +5,19 @@ public abstract class Enemy : Entity
 {
     // Fields
     [Header("Enemy specific Stats")]
-    [SerializeField] private int experienceValue;
-
-    public bool enableTargetSelection = false;
+    [SerializeField] private bool enableSelector = false;
 
     // Properties
-    public int ExperienceValue
+    public bool EnableSelector
     {
-        get { return experienceValue; }
-        set { this.experienceValue = value; }
+        get { return enableSelector; }
+        set { this.enableSelector = value; }
     }
 
     // Methods
     public void OnMouseEnter()
     {
-        if (enableTargetSelection)
+        if (EnableSelector)
         {
             this.transform.GetChild(0).gameObject.SetActive(true);
         }
@@ -28,10 +26,5 @@ public abstract class Enemy : Entity
     public void OnMouseExit()
     {
         this.transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    public Enemy OnMouseDown()
-    {
-        return this;
     }
 }

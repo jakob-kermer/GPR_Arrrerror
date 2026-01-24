@@ -26,6 +26,7 @@ public class Defender_Script : Player
         //forces enemy to attack defender next
     }
 
+    // TakeDamage override to update UI
     public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         bool isDead = base.TakeDamage(attacker, damageMultiplier);

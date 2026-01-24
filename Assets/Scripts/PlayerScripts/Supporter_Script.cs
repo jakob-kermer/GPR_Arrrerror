@@ -19,14 +19,17 @@ public class Supporter_Script : Player
         // deal double damage to a random enemy
     }
 
+    public void Ability_ThrowPotion(Entity target)
+    {
+        Debug.Log($"{this.name} heals {target.name}");
+        // heals a random hero
+    }
+
+    // TakeDamage override to update UI
     public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
         playerUI.SetHP(this.CurrentHP);
         return isDead;
-    public void Ability_ThrowPotion(Entity target)
-    {
-        Debug.Log($"{this.name} heals {target.name}");
-        // heals a random hero
     }
 }

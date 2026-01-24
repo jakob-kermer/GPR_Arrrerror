@@ -20,50 +20,62 @@ public class GameManager : MonoBehaviour
 {
     // Fields
     [Header("Prefabs and Spawn Points")]
-    public List<GameObject> playerPrefabs;
-    public List<GameObject> enemyPrefabs;
+    [SerializeField] private List<GameObject> playerPrefabs;
+    [SerializeField] private List<GameObject> enemyPrefabs;
 
-    public List<Transform> playerSpawns;
-    public List<Transform> enemySpawns;
+    [SerializeField] private List<Transform> playerSpawns;
+    [SerializeField] private List<Transform> enemySpawns;
 
     [Header("List of Participants in Battle")]
-    public List<Entity> participants;
+    [SerializeField] private List<Entity> participants;
 
     [Header("UI Elements")]
-    public GameObject ActionMenu;
-    public GameObject DefenderAbilityMenu;
-    public GameObject DamagerAbilityMenu;
-    public GameObject HealerAbilityMenu;
-    public GameObject SupporterAbilityMenu;
-    public GameObject ItemMenu;
-    public GameObject BackButton;
+    [SerializeField] private GameObject ActionMenu;
+    [SerializeField] private GameObject DefenderAbilityMenu;
+    [SerializeField] private GameObject DamagerAbilityMenu;
+    [SerializeField] private GameObject HealerAbilityMenu;
+    [SerializeField] private GameObject SupporterAbilityMenu;
+    [SerializeField] private GameObject BackButton;
 
     // player and enemy references
-    private Damager_Script damager;
-    private Defender_Script defender;
-    private Healer_Script healer;
-    private Supporter_Script supporter;
-    private List<Player> players = new List<Player>();
-    private List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] private Damager_Script damager;
+    [SerializeField] private Defender_Script defender;
+    [SerializeField] private Healer_Script healer;
+    [SerializeField] private Supporter_Script supporter;
+    [SerializeField] private List<Player> players = new List<Player>();
+    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
 
     // turn management
-    private int turnIndex = 0;
-    private bool turnMade = false;
+    [SerializeField] private int turnIndex = 0;
+    [SerializeField] private bool turnMade = false;
 
     // game state
-    private GameState state;
+    [SerializeField] private GameState state;
 
     // target selection
-    public Entity selectedTarget = null;
+    [SerializeField] private Entity selectedTarget = null;
+
+    //-------------------------------------------------------------------------------------------------------|
 
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // hide all menus
+        ActionMenu.SetActive(false);
+        DefenderAbilityMenu.SetActive(false);
+        DamagerAbilityMenu.SetActive(false);
+        HealerAbilityMenu.SetActive(false);
+        SupporterAbilityMenu.SetActive(false);
+
         this.state = GameState.Start;
         Debug.Log("Battle started");
+
+        // spawn players and enemies
         SpawnPlayers();
         SpawnEnemies();
+
+        // battle start
         StartCoroutine(Battle());
     }
 
@@ -82,12 +94,15 @@ public class GameManager : MonoBehaviour
 
                 if (clickedTarget != null) // if the object doesn't have an Enemy script, the following is skipped
                 {
-                    selectedTarget = clickedTarget; // the clicked enemy is the selected target
+                    this.selectedTarget = clickedTarget; // the clicked enemy is the selected target
                 }
             }
         }
     }
 
+    //-------------------------------------------------------------------------------------------------------|
+
+    // main battle loop
     public IEnumerator Battle()
     {
         // the battle continues as long as the players are not defeated
@@ -97,6 +112,8 @@ public class GameManager : MonoBehaviour
 
             for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
+                yield return new WaitForSeconds(1f);
+
                 if (this.state == GameState.Defeat) // if the players are defeated...
                 {
                     // game over screen
@@ -104,30 +121,41 @@ public class GameManager : MonoBehaviour
                 }
                 else if (this.state == GameState.Victory) // if the players won...
                 {
+                    yield return new WaitForSeconds(2f);
+
                     Debug.Log("New battle started");
                     this.state = GameState.Start;
-                    DeleteEnemies();
-                    // ...spawn new enemies
-                    SpawnEnemies();
+                    turnIndex = 0; // ...reset turn index...
+                    DeleteEnemies(); // ...delete old enemies...
+                    SpawnEnemies(); // ...and spawn new enemies
                 }
                 else if (this.participants[turnIndex] is Player)
                 {
                     this.state = GameState.PlayerTurn;
+
+                    // show selector above current player
                     participants[turnIndex].transform.GetChild(0).gameObject.SetActive(true);
+
                     PlayerTurn();
 
+                    // wait until the player has made their turn
                     yield return new WaitUntil(() => this.turnMade);
 
+                    // hide indicator above current player
                     participants[turnIndex].transform.GetChild(0).gameObject.SetActive(false);
+
+                    // reset turnMade for next turn
                     this.turnMade = false;
                 }
                 else if (this.participants[turnIndex] is Enemy)
                 {
                     this.state = GameState.EnemyTurn;
-                    EnemyTurn();
+                    EnemyTurn_Attack();
 
+                    // wait until the enemy has made their turn
                     yield return new WaitUntil(() => this.turnMade);
 
+                    // reset turnMade for next turn
                     this.turnMade = false;
                 }
             }
@@ -136,11 +164,15 @@ public class GameManager : MonoBehaviour
 
     private void SpawnPlayers()
     {
+        // instantiate player characters at their spawn points
         GameObject damager_go = Instantiate(playerPrefabs[0], playerSpawns[0]);
+        // get the player's script component of the instantiated player game object
         this.damager = damager_go.GetComponent<Damager_Script>();
+        // add the player to the players list and participants list
         this.players.Add(damager);
         this.participants.Add(damager);
 
+        // repeat for other player characters
         GameObject defender_go = Instantiate(playerPrefabs[1], playerSpawns[1]);
         this.defender = defender_go.GetComponent<Defender_Script>();
         this.players.Add(defender);
@@ -180,10 +212,12 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Count; i++)
         {
+            // destroy all enemy game objects
             Destroy(enemySpawns[i].transform.GetChild(0).gameObject);
             Debug.Log("enemy object destroyed");
         }
 
+        // clear enemies list
         enemies.Clear();
     }
 
@@ -191,7 +225,6 @@ public class GameManager : MonoBehaviour
     {
         // sort participants by speed + a random factor (between -5 & 5)
         this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed + UnityEngine.Random.Range(-5, 6)));
-        // this.participants.Sort((x, y) => (y.Speed + UnityEngine.Random.Range(-5, 5)).CompareTo(x.Speed + UnityEngine.Random.Range(-5, 5)));
 
         Debug.Log("Turn order determined:");
 
@@ -201,15 +234,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //-------------------------------------------------------------------------------------------------------|
+
     // Player's turn implementation
     public void PlayerTurn()
     {
         // hide menus
-        DefenderAbilityMenu.SetActive(false);
         DamagerAbilityMenu.SetActive(false);
+        DefenderAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
         SupporterAbilityMenu.SetActive(false);
-        ItemMenu.SetActive(false);
 
         // show action menu
         ActionMenu.SetActive(true);
@@ -217,6 +251,31 @@ public class GameManager : MonoBehaviour
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
     }
 
+    // enable target selection
+    public IEnumerator EnableTargetSelection()
+    {
+        foreach (Enemy enemy in enemies)
+        {
+            // enables the enemies selector to show up when hovering over them
+            enemy.EnableSelector = true;
+        }
+
+        // enable target selection in update method
+        this.state = GameState.PlayerTargetSelect;
+
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        foreach (Enemy enemy in enemies)
+        {
+            // disables the enemies selector again
+            enemy.EnableSelector = false;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------
+
+    // Action menu buttons
+    // Attack button
     public void OnAttackButton()
     {
         StartCoroutine(Attack());
@@ -224,170 +283,253 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.SetActive(false);            // deactivate action menu
+        ActionMenu.SetActive(false); // deactivate action menu
 
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.enableTargetSelection = true;
-        }
+        StartCoroutine(EnableTargetSelection());
 
-        this.state = GameState.PlayerTargetSelect;
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
 
-        yield return new WaitUntil(() => selectedTarget != null);
-
-        ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
-        DeathCheck(selectedTarget);
+        ((Player)participants[turnIndex]).Action_Attack(this.selectedTarget);
+        DeathCheck(this.selectedTarget);
 
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
-        selectedTarget = null;
+        this.selectedTarget = null;
     }
 
+    //--------------------------------------------------------------------------------------
+
+    // Defend button
     public void OnDefendButton()
     {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.gameObject.SetActive(false);
+        ActionMenu.SetActive(false); // deactivate action menu
 
         ((Player)participants[turnIndex]).Action_Defend();
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
-    }
-/* 
-    public IEnumerator Defend()
-    {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.SetActive(false);            // deactivate action menu
-
-        ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
-        DeathCheck(selectedTarget);
-
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
+        this.selectedTarget = null;
     }
- */
+
+    //--------------------------------------------------------------------------------------
+
+    // Ability buttons
     public void OnAbilityButton()
     {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.gameObject.SetActive(false);
+        ActionMenu.SetActive(false); // deactivate action menu
 
-        if((Player)participants[turnIndex] == defender)
+        // activate the current player's ability menu
+        if ((Player)participants[turnIndex] == damager)
         {
-            DefenderAbilityMenu.SetActive(true);  
+            DamagerAbilityMenu.SetActive(true);
         }
-        else if ((Player)participants[turnIndex] == damager)
+        else if ((Player)participants[turnIndex] == defender)
         {
-            DamagerAbilityMenu.SetActive(true);  
+            DefenderAbilityMenu.SetActive(true);
         }
-        else if((Player)participants[turnIndex] == healer)
+        else if ((Player)participants[turnIndex] == healer)
         {
-            HealerAbilityMenu.SetActive(true);  
+            HealerAbilityMenu.SetActive(true);
         }
         else
         {
-            SupporterAbilityMenu.SetActive(true);  
+            SupporterAbilityMenu.SetActive(true);
         }
-           //...activate the Abilites menu.
-
-        // implement ability selection and target selection here
-
-        // mark turn as made at the end of the turn
-        // this.turnMade = true;
-    }
-/* 
-    public IEnumerator AbilitySelect()
-    //Defender ability buttons
-    public void OnBlockAbility()
-    {
-        defender.Ability_Block(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
-    }
-    public void OnTauntAbility()
-    {
-        defender.Ability_Taunt(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
     }
 
-    //Damager ability buttons
+    //--------------------------------------------------------------------------------------
+
+    // Damager ability buttons
     public void OnFireballAbility()
     {
-        damager.Ability_Fireball(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
-    }
-    public void OnShitstormAbility()
-    {
-        damager.Ability_Shitstorm();
-        selectedTarget = null;
-        this.turnMade = true;
+        StartCoroutine(Damager_Fireball());
     }
 
-    //Healer ability buttons
-     public void OnHealAbility()
+    public IEnumerator Damager_Fireball()
     {
-        healer.Ability_Heal(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
-    }
-    public void OnGrouphealAbility()
-    {
-        healer.Ability_Groupheal();
-        selectedTarget = null;
-        this.turnMade = true;
-    }
+        DamagerAbilityMenu.SetActive(false); // deactivate action menu
 
-    //Supporter ability buttons
-     public void OnThrowGatoAbility()
-    {
-        supporter.Ability_ThrowGato(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
-    }
-    public void OnThrowPotionAbility()
-    {
-        supporter.Ability_ThrowPotion(selectedTarget);
-        selectedTarget = null;
-        this.turnMade = true;
-    }
-    public void OnItemButton()
-    {
-        // disables the action menu after the player has chosen an action
-        ActionMenu.SetActive(false);            // deactivate action menu
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        damager.Ability_Fireball(this.selectedTarget);
 
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
+        this.selectedTarget = null;
     }
- */
 
+    public void OnShitstormAbility()
+    {
+        DamagerAbilityMenu.SetActive(false); // deactivate action menu
+
+        damager.Ability_Shitstorm();
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    //--------------------------------------------------------------------------------------
+
+    // Defender ability buttons
+    public void OnBlockAbility()
+    {
+        StartCoroutine(Defender_Block());
+    }
+
+    public IEnumerator Defender_Block()
+    {
+        DefenderAbilityMenu.SetActive(false); // deactivate action menu
+
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        defender.Ability_Block(this.selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+        this.selectedTarget = null;
+    }
+
+    public void OnTauntAbility()
+    {
+        StartCoroutine(Defender_Taunt());
+    }
+
+    public IEnumerator Defender_Taunt()
+    {
+        DefenderAbilityMenu.SetActive(false); // deactivate action menu
+
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        defender.Ability_Taunt(this.selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+        this.selectedTarget = null;
+    }
+
+    //--------------------------------------------------------------------------------------
+
+    // Healer ability buttons
+    public void OnHealAbility()
+    {
+        StartCoroutine(Healer_Heal());
+    }
+
+    public IEnumerator Healer_Heal()
+    {
+        HealerAbilityMenu.SetActive(false); // deactivate action menu
+
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        healer.Ability_Heal(this.selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+        this.selectedTarget = null;
+    }
+
+    public void OnGrouphealAbility()
+    {
+        HealerAbilityMenu.SetActive(false); // deactivate action menu
+
+        healer.Ability_Groupheal();
+
+        // mark turn as made at the end of the turn
+        this.turnMade = true;
+    }
+
+    //--------------------------------------------------------------------------------------
+
+    // Supporter ability buttons
+    public void OnThrowGatoAbility()
+    {
+        StartCoroutine(Supporter_ThrowGato());
+    }
+
+    public IEnumerator Supporter_ThrowGato()
+    {
+        SupporterAbilityMenu.SetActive(false); // deactivate action menu
+
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        supporter.Ability_ThrowGato(this.selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+        this.selectedTarget = null;
+    }
+
+    public void OnThrowPotionAbility()
+    {
+        StartCoroutine(Supporter_ThrowPotion());
+    }
+
+    public IEnumerator Supporter_ThrowPotion()
+    {
+        SupporterAbilityMenu.SetActive(false); // deactivate action menu
+
+        StartCoroutine(EnableTargetSelection());
+
+        // wait until a target has been selected
+        yield return new WaitUntil(() => this.selectedTarget != null);
+
+        supporter.Ability_ThrowPotion(this.selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+        this.selectedTarget = null;
+    }
+
+    //--------------------------------------------------------------------------------------
+
+    // Back button
     public void OnBackButton()
     {
-        // SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
-        ItemMenu.SetActive(false);
-        DefenderAbilityMenu.SetActive(false);
+        // hide menus
         DamagerAbilityMenu.SetActive(false);
+        DefenderAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
         SupporterAbilityMenu.SetActive(false);
-        ActionMenu.SetActive(true);             //...activate the action menu.
+
+        // show action menu
+        ActionMenu.SetActive(true);
     }
 
+    //-------------------------------------------------------------------------------------------------------|
+
     // Enemy's turn implementation
-    public void EnemyTurn()
+    public void EnemyTurn_Attack()
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
         // select random player
         // !!! currently, this allows enemies to select players that are already dead
-        Player selectedTarget = players[UnityEngine.Random.Range(0, players.Count)];
+        Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
 
-        selectedTarget.TakeDamage(participants[turnIndex], 1f);
-        DeathCheck(selectedTarget);
+        selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+        DeathCheck(selectedPlayer);
 
         // mark turn as made at the end of the turn
         this.turnMade = true;
     }
+
+    //-------------------------------------------------------------------------------------------------------|
 
     // death check and win conditions
     public void DeathCheck(Entity entity)

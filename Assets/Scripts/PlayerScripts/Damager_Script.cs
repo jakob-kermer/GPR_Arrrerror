@@ -8,8 +8,8 @@ public class Damager_Script : Player
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.playerUI = GameObject.Find("Damager UI").GetComponent<BattleUI>();
-        this.playerUI.SetUI(this);
+        this.PlayerUI = GameObject.Find("Damager UI").GetComponent<BattleUI>();
+        this.PlayerUI.SetUI(this);
     }
 
     // Damager-specific abilities
@@ -19,14 +19,17 @@ public class Damager_Script : Player
         // cast fireball on target
     }
 
-    public override bool TakeDamage(Entity attacker, float damageMultiplier)
-    {
-        bool isDead = base.TakeDamage(attacker, damageMultiplier);
-        playerUI.SetHP(this.CurrentHP);
-        return isDead;
     public void Ability_Shitstorm()
     {
         Debug.Log($"{this.name} casts Shitstorm on enemy party");
         // cast shitstorm on enemy party
+    }
+
+    // TakeDamage override to update UI
+    public override bool TakeDamage(Entity attacker, float damageMultiplier)
+    {
+        bool isDead = base.TakeDamage(attacker, damageMultiplier);
+        PlayerUI.SetHP(this.CurrentHP);
+        return isDead;
     }
 }

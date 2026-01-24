@@ -19,14 +19,17 @@ public class Healer_Script : Player
         // heal target
     }
 
+    public void Ability_Groupheal()
+    {
+        Debug.Log($"{this.name} heals the group");
+        // heal the group
+    }
+
+    // TakeDamage override to update UI
     public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
         playerUI.SetHP(this.CurrentHP);
         return isDead;
-    public void Ability_Groupheal()
-    {
-        Debug.Log($"{this.name} heals the group");
-        // heal the group
     }
 }
