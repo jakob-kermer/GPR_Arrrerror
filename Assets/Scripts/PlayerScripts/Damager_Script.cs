@@ -18,4 +18,11 @@ public class Damager_Script : Player
         Debug.Log($"{this.name} casts Fireball on {target.name}");
         // cast fireball on target
     }
+
+    public override bool TakeDamage(Entity attacker, float damageMultiplier)
+    {
+        bool isDead = base.TakeDamage(attacker, damageMultiplier);
+        playerUI.SetHP(this.CurrentHP);
+        return isDead;
+    }
 }

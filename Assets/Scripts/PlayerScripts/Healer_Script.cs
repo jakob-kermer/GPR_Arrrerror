@@ -18,4 +18,11 @@ public class Healer_Script : Player
         Debug.Log($"{this.name} heals {target.name}");
         // heal target
     }
+
+    public override bool TakeDamage(Entity attacker, float damageMultiplier)
+    {
+        bool isDead = base.TakeDamage(attacker, damageMultiplier);
+        playerUI.SetHP(this.CurrentHP);
+        return isDead;
+    }
 }

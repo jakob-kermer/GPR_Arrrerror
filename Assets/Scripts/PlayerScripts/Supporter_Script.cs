@@ -18,4 +18,11 @@ public class Supporter_Script : Player
         Debug.Log($"{this.name} buffs {target.name}");
         // deal double damage to a random enemy
     }
+
+    public override bool TakeDamage(Entity attacker, float damageMultiplier)
+    {
+        bool isDead = base.TakeDamage(attacker, damageMultiplier);
+        playerUI.SetHP(this.CurrentHP);
+        return isDead;
+    }
 }

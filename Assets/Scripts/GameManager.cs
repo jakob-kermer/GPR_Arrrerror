@@ -177,7 +177,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+            Destroy(enemySpawns[i].transform.GetChild(0).gameObject);
+            Debug.Log("enemy object destroyed");
         }
 
         enemies.Clear();
