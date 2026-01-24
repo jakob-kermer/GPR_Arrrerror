@@ -31,17 +31,20 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject ActionMenu;
-    public GameObject AbilityMenu;
+    public GameObject DefenderAbilityMenu;
+    public GameObject DamagerAbilityMenu;
+    public GameObject HealerAbilityMenu;
+    public GameObject SupporterAbilityMenu;
     public GameObject ItemMenu;
     public GameObject BackButton;
 
     // player and enemy references
-    private Player damager;
-    private Player defender;
-    private Player healer;
-    private Player supporter;
-    public List<Player> players = new List<Player>();
-    public List<Enemy> enemies = new List<Enemy>();
+    private Damager_Script damager;
+    private Defender_Script defender;
+    private Healer_Script healer;
+    private Supporter_Script supporter;
+    private List<Player> players = new List<Player>();
+    private List<Enemy> enemies = new List<Enemy>();
 
     // turn management
     private int turnIndex = 0;
@@ -202,7 +205,10 @@ public class GameManager : MonoBehaviour
     public void PlayerTurn()
     {
         // hide menus
-        AbilityMenu.SetActive(false);
+        DefenderAbilityMenu.SetActive(false);
+        DamagerAbilityMenu.SetActive(false);
+        HealerAbilityMenu.SetActive(false);
+        SupporterAbilityMenu.SetActive(false);
         ItemMenu.SetActive(false);
 
         // show action menu
@@ -265,7 +271,24 @@ public class GameManager : MonoBehaviour
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.gameObject.SetActive(false);
-        AbilityMenu.SetActive(true);     //...activate the Abilites menu.
+
+        if((Player)participants[turnIndex] == defender)
+        {
+            DefenderAbilityMenu.SetActive(true);  
+        }
+        else if ((Player)participants[turnIndex] == damager)
+        {
+            DamagerAbilityMenu.SetActive(true);  
+        }
+        else if((Player)participants[turnIndex] == healer)
+        {
+            HealerAbilityMenu.SetActive(true);  
+        }
+        else
+        {
+            SupporterAbilityMenu.SetActive(true);  
+        }
+           //...activate the Abilites menu.
 
         // implement ability selection and target selection here
 
@@ -274,6 +297,62 @@ public class GameManager : MonoBehaviour
     }
 /* 
     public IEnumerator AbilitySelect()
+    //Defender ability buttons
+    public void OnBlockAbility()
+    {
+        defender.Ability_Block(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+    public void OnTauntAbility()
+    {
+        defender.Ability_Taunt(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+
+    //Damager ability buttons
+    public void OnFireballAbility()
+    {
+        damager.Ability_Fireball(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+    public void OnShitstormAbility()
+    {
+        damager.Ability_Shitstorm();
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+
+    //Healer ability buttons
+     public void OnHealAbility()
+    {
+        healer.Ability_Heal(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+    public void OnGrouphealAbility()
+    {
+        healer.Ability_Groupheal();
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+
+    //Supporter ability buttons
+     public void OnThrowGatoAbility()
+    {
+        supporter.Ability_ThrowGato(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+    public void OnThrowPotionAbility()
+    {
+        supporter.Ability_ThrowPotion(selectedTarget);
+        selectedTarget = null;
+        this.turnMade = true;
+    }
+    public void OnItemButton()
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.SetActive(false);            // deactivate action menu
@@ -285,9 +364,13 @@ public class GameManager : MonoBehaviour
 
     public void OnBackButton()
     {
-        ItemMenu.SetActive(false); // deactivate all sub menus
-        AbilityMenu.SetActive(false);
-        ActionMenu.SetActive(true); // activate action menu
+        // SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
+        ItemMenu.SetActive(false);
+        DefenderAbilityMenu.SetActive(false);
+        DamagerAbilityMenu.SetActive(false);
+        HealerAbilityMenu.SetActive(false);
+        SupporterAbilityMenu.SetActive(false);
+        ActionMenu.SetActive(true);             //...activate the action menu.
     }
 
     // Enemy's turn implementation

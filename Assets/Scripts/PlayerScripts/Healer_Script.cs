@@ -24,5 +24,9 @@ public class Healer_Script : Player
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
         playerUI.SetHP(this.CurrentHP);
         return isDead;
+    public void Ability_Groupheal()
+    {
+        Debug.Log($"{this.name} heals the group");
+        // heal the group
     }
 }

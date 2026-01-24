@@ -24,5 +24,9 @@ public class Damager_Script : Player
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
         playerUI.SetHP(this.CurrentHP);
         return isDead;
+    public void Ability_Shitstorm()
+    {
+        Debug.Log($"{this.name} casts Shitstorm on enemy party");
+        // cast shitstorm on enemy party
     }
 }
