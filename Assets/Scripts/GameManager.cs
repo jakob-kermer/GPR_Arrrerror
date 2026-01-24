@@ -10,6 +10,7 @@ public enum GameState
 {
     Start,
     PlayerTurn,
+    PlayerTargetSelect,
     EnemyTurn,
     Victory,
     Defeat
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     // game state
     private GameState state;
 
+    // target selection
     public Entity selectedTarget = null;
 
     // Methods
@@ -59,23 +61,28 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         this.state = GameState.Start;
+        Debug.Log("Battle started");
+        SpawnPlayers();
+        SpawnEnemies();
         StartCoroutine(Battle());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && this.state == GameState.PlayerTurn) // if the left mouse button is clicked and it's the player's turn
+        // target selection
+        if (Input.GetMouseButtonDown(0) && this.state == GameState.PlayerTargetSelect) // if the left mouse button is clicked and it's the player's turn
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // cast a ray from the camera to the cursor's position
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit)) // if the ray hits an object
             {
-                Enemy clickedTarget = hit.transform.GetComponent<Enemy>();
-                if (clickedTarget != null)
+                Enemy clickedTarget = hit.transform.GetComponent<Enemy>(); // get the Enemy script component
+
+                if (clickedTarget != null) // if the object doesn't have an Enemy script, the following is skipped
                 {
-                    selectedTarget = clickedTarget;
+                    selectedTarget = clickedTarget; // the clicked enemy is the selected target
                 }
             }
         }
@@ -83,17 +90,25 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Battle()
     {
-        StartBattle();
-
-        while (this.state != GameState.Victory && this.state != GameState.Defeat)
+        // the battle continues as long as the players are not defeated
+        while (this.state != GameState.Defeat)
         {
             DetermineTurnOrder();
 
             for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
-                if (this.state == GameState.Victory || this.state == GameState.Defeat)
+                if (this.state == GameState.Defeat) // if the players are defeated...
                 {
-                    break;
+                    // game over screen
+                    break; // ...stop the battle
+                }
+                else if (this.state == GameState.Victory) // if the players won...
+                {
+                    Debug.Log("New battle started");
+                    this.state = GameState.Start;
+                    DeleteEnemies();
+                    // ...spawn new enemies
+                    SpawnEnemies();
                 }
                 else if (this.participants[turnIndex] is Player)
                 {
@@ -119,10 +134,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartBattle()
+    private void SpawnPlayers()
     {
-        Debug.Log("Battle started");
-
         GameObject damager_go = Instantiate(playerPrefabs[0], playerSpawns[0]);
         this.damager = damager_go.GetComponent<Damager_Script>();
         this.players.Add(damager);
@@ -142,7 +155,10 @@ public class GameManager : MonoBehaviour
         this.supporter = supporter_go.GetComponent<Supporter_Script>();
         this.players.Add(supporter);
         this.participants.Add(supporter);
+    }
 
+    public void SpawnEnemies()
+    {
         // spawn random number of enemies (between 1 & 4)
         int randomEnemyAmount = UnityEngine.Random.Range(1, 5);
 
@@ -158,6 +174,17 @@ public class GameManager : MonoBehaviour
             this.enemies.Add(enemy_go.GetComponent<Enemy>());
             this.participants.Add(this.enemies[i]);
         }
+    }
+
+    public void DeleteEnemies()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Destroy(enemySpawns[i].transform.GetChild(0).gameObject);
+            Debug.Log("enemy object destroyed");
+        }
+
+        enemies.Clear();
     }
 
     public void DetermineTurnOrder()
@@ -192,10 +219,10 @@ public class GameManager : MonoBehaviour
 
     public void OnAttackButton()
     {
-        StartCoroutine(AttackTargetSelection());
+        StartCoroutine(Attack());
     }
 
-    public IEnumerator AttackTargetSelection()
+    public IEnumerator Attack()
     {
         // disables the action menu after the player has chosen an action
         ActionMenu.SetActive(false);            // deactivate action menu
@@ -205,11 +232,12 @@ public class GameManager : MonoBehaviour
             enemy.enableTargetSelection = true;
         }
 
+        this.state = GameState.PlayerTargetSelect;
+
         yield return new WaitUntil(() => selectedTarget != null);
 
         ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
         DeathCheck(selectedTarget);
-
 
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
@@ -226,7 +254,19 @@ public class GameManager : MonoBehaviour
         // mark turn as made at the end of the turn
         this.turnMade = true;
     }
+/* 
+    public IEnumerator Defend()
+    {
+        // disables the action menu after the player has chosen an action
+        ActionMenu.SetActive(false);            // deactivate action menu
 
+        ((Player)participants[turnIndex]).Action_Attack(selectedTarget);
+        DeathCheck(selectedTarget);
+
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
+    }
+ */
     public void OnAbilityButton()
     {
         // disables the action menu after the player has chosen an action
@@ -255,6 +295,8 @@ public class GameManager : MonoBehaviour
         // mark turn as made at the end of the turn
         // this.turnMade = true;
     }
+/* 
+    public IEnumerator AbilitySelect()
     //Defender ability buttons
     public void OnBlockAbility()
     {
@@ -313,16 +355,14 @@ public class GameManager : MonoBehaviour
     public void OnItemButton()
     {
         // disables the action menu after the player has chosen an action
-        ActionMenu.gameObject.SetActive(false);
-        ItemMenu.SetActive(true);         //..activate the Item menu.
+        ActionMenu.SetActive(false);            // deactivate action menu
 
-        // implement item selection and target selection here
-
-        // mark turn as made at the end of the turn
-        // this.turnMade = true;
+        // mark turn as made and reset selectedTarget at the end of the turn
+        this.turnMade = true;
     }
+ */
 
-    public void OnBackButton()                  //When pressing on Back...
+    public void OnBackButton()
     {
         // SelectAttackMenu.SetActive(false);      //...deactivate all sub menus and...
         ItemMenu.SetActive(false);
@@ -338,7 +378,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
-        Entity selectedTarget = players[1]; // placeholder for selected target
+        // select random player
+        // !!! currently, this allows enemies to select players that are already dead
+        Player selectedTarget = players[UnityEngine.Random.Range(0, players.Count)];
 
         selectedTarget.TakeDamage(participants[turnIndex], 1f);
         DeathCheck(selectedTarget);
