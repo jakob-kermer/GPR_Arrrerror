@@ -187,7 +187,7 @@ MonoBehaviour:
   currentHP: 0
   maxAP: 777
   currentAP: 0
-  attack: 0
+  attack: 77
   defense: 777777
   critChance: 100
   speed: 100
