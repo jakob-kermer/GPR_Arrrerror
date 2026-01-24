@@ -14,8 +14,14 @@ public class Defender_Script : Player
 
     // Defender-specific abilities
     public void Ability_Block(Entity target)
+
     {
-        Debug.Log($"{this.name} blocks the attack");
+        Debug.Log($"{this.name} blocks the attack of {target.name}.");
+    }
+
+    public void Ability_Taunt(Entity target)
+    {
+        Debug.Log($"{this.name} taunts the enemy{target.name} to attack him.");
     }
 
     public override bool TakeDamage(Entity attacker, float damageMultiplier)

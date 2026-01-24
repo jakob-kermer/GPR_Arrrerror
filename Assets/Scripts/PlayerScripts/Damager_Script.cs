@@ -18,4 +18,9 @@ public class Damager_Script : Player
         Debug.Log($"{this.name} casts Fireball on {target.name}");
         // cast fireball on target
     }
+    public void Ability_Shitstorm()
+    {
+        Debug.Log($"{this.name} casts Shitstorm on enemy party");
+        // cast shitstorm on enemy party
+    }
 }

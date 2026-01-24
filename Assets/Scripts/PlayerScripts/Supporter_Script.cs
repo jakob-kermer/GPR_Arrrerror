@@ -13,9 +13,14 @@ public class Supporter_Script : Player
     }
 
     // Supporter-specific abilities
-    public void Ability_RandomCrit(Entity target)
+    public void Ability_ThrowGato(Entity target)
     {
-        Debug.Log($"{this.name} buffs {target.name}");
+        Debug.Log($"{this.name} deals damage to {target.name}");
         // deal double damage to a random enemy
+    }
+    public void Ability_ThrowPotion(Entity target)
+    {
+        Debug.Log($"{this.name} heals {target.name}");
+        // heals a random hero
     }
 }
