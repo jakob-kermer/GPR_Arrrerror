@@ -8,8 +8,8 @@ public class Defender_Script : Player
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.playerUI = GameObject.Find("Defender UI").GetComponent<BattleUI>();
-        this.playerUI.SetUI(this);
+        this.PlayerUI = GameObject.Find("Defender UI").GetComponent<BattleUI>();
+        this.PlayerUI.SetUI(this);
     }
 
     // Defender-specific abilities
@@ -30,7 +30,7 @@ public class Defender_Script : Player
     public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
-        playerUI.SetHP(this.CurrentHP);
+        PlayerUI.SetHP(this.CurrentHP);
         return isDead;
     }
 }

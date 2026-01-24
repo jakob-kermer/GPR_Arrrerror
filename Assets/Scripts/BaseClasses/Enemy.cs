@@ -4,8 +4,7 @@ using System;
 public abstract class Enemy : Entity
 {
     // Fields
-    [Header("Enemy specific Stats")]
-    [SerializeField] private bool enableSelector = false;
+    private bool enableSelector = false;
 
     // Properties
     public bool EnableSelector

@@ -6,8 +6,7 @@ using System.Collections.Generic;
 public abstract class Player : Entity
 {
     // Fields
-    // UI reference
-    [SerializeField] protected BattleUI playerUI;
+    private BattleUI playerUI;
 
     // Properties
     public BattleUI PlayerUI

@@ -8,8 +8,8 @@ public class Healer_Script : Player
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.playerUI = GameObject.Find("Healer UI").GetComponent<BattleUI>();
-        this.playerUI.SetUI(this);
+        this.PlayerUI = GameObject.Find("Healer UI").GetComponent<BattleUI>();
+        this.PlayerUI.SetUI(this);
     }
 
     // Healer-specific abilities
@@ -29,7 +29,7 @@ public class Healer_Script : Player
     public override bool TakeDamage(Entity attacker, float damageMultiplier)
     {
         bool isDead = base.TakeDamage(attacker, damageMultiplier);
-        playerUI.SetHP(this.CurrentHP);
+        PlayerUI.SetHP(this.CurrentHP);
         return isDead;
     }
 }

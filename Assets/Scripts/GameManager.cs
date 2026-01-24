@@ -38,22 +38,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject BackButton;
 
     // player and enemy references
-    [SerializeField] private Damager_Script damager;
-    [SerializeField] private Defender_Script defender;
-    [SerializeField] private Healer_Script healer;
-    [SerializeField] private Supporter_Script supporter;
-    [SerializeField] private List<Player> players = new List<Player>();
-    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    private Damager_Script damager;
+    private Defender_Script defender;
+    private Healer_Script healer;
+    private Supporter_Script supporter;
+    private List<Player> players = new List<Player>();
+    private List<Enemy> enemies = new List<Enemy>();
 
     // turn management
-    [SerializeField] private int turnIndex = 0;
-    [SerializeField] private bool turnMade = false;
+    private int turnIndex = 0;
+    private bool turnMade = false;
 
     // game state
-    [SerializeField] private GameState state;
+    private GameState state;
 
     // target selection
-    [SerializeField] private Entity selectedTarget = null;
+    private Entity selectedTarget = null;
 
     //-------------------------------------------------------------------------------------------------------|
 
