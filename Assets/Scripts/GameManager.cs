@@ -518,8 +518,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
-        // select random player
-        // !!! currently, this allows enemies to select players that are already dead
+        // select random player to attack
         Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
 
         selectedPlayer.TakeDamage(participants[turnIndex], 1f);
@@ -537,8 +536,24 @@ public class GameManager : MonoBehaviour
         if (entity.CurrentHP == 0)
         {
             Debug.Log($"{entity.Name} has been defeated");
+
+            // remove entity from participants list
             participants.Remove(entity);
+
+            if (entity is Enemy)
+            {
+                // remove enemy from enemies list
+                enemies.Remove((Enemy)entity);
+            }
+            else if (entity is Player)
+            {
+                // remove player from players list
+                players.Remove((Player)entity);
+            }
+
+            // deactivate the entity in the scene
             entity.gameObject.SetActive(false);
+
             CheckWinConditions();
         }
     }
@@ -552,21 +567,25 @@ public class GameManager : MonoBehaviour
         {
             if (entity is Enemy && entity.CurrentHP > 0)
             {
+                // if there are any enemies alive, the players haven't won yet
                 allEnemiesDefeated = false;
             }
             else if (entity is Player && entity.CurrentHP > 0)
             {
+                // if there are any players alive, the enemies haven't won yet
                 allPlayersDefeated = false;
             }
         }
 
         if (allEnemiesDefeated)
         {
+            // if all enemies are defeated, the players win
             this.state = GameState.Victory;
             Debug.Log("The battle is won");
         }
         else if (allPlayersDefeated)
         {
+            // if all players are defeated, the players lose
             this.state = GameState.Defeat;
             Debug.Log("The battle is lost");
         }
