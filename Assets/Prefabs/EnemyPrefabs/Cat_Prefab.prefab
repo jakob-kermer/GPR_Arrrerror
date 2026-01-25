@@ -145,7 +145,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8781788413712855627}
+  - {fileID: 2585172715997265504}
   - {fileID: 7932836214324837973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -184,19 +184,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cat_Script
   entityName: Cat
   maxHP: 777777
-  currentHP: 0
   maxAP: 777
-  currentAP: 0
   attack: 77
   defense: 777777
   critChance: 100
   speed: 100
-  level: 777
+  defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  experienceValue: 7777
-  enableTargetSelection: 0
---- !u!1001 &7024538930684601167
+--- !u!1001 &4270364740815499108
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -218,27 +214,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8535535
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.35355338
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.35355338
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.1464466
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -246,19 +242,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5689495128006379784, guid: e0baf6b611626484db6c320fc2625420, type: 3}
       propertyPath: m_Name
-      value: Selector
-      objectReference: {fileID: 0}
-    - target: {fileID: 5689495128006379784, guid: e0baf6b611626484db6c320fc2625420, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: Enemy_Selector
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0baf6b611626484db6c320fc2625420, type: 3}
---- !u!4 &8781788413712855627 stripped
+--- !u!4 &2585172715997265504 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1775265943659041028, guid: e0baf6b611626484db6c320fc2625420, type: 3}
-  m_PrefabInstance: {fileID: 7024538930684601167}
+  m_PrefabInstance: {fileID: 4270364740815499108}
   m_PrefabAsset: {fileID: 0}
