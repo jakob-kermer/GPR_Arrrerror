@@ -55,12 +55,19 @@ public class GameManager : MonoBehaviour
     // target selection
     private Entity selectedTarget = null;
 
+    [Header("Score Tracking")]
+    [SerializeField] private int score = 0;
+    [SerializeField] private int highscore = 0;
+
     //-------------------------------------------------------------------------------------------------------|
 
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // load highscore
+        highscore = PlayerPrefs.GetInt("Highscore", 0);
+
         // hide all menus
         ActionMenu.SetActive(false);
         DefenderAbilityMenu.SetActive(false);
@@ -599,12 +606,23 @@ public class GameManager : MonoBehaviour
             // if all enemies are defeated, the players win
             this.state = GameState.Victory;
             Debug.Log("The battle is won");
+
+            // increase score by 1
+            score++;
         }
         else if (allPlayersDefeated)
         {
             // if all players are defeated, the players lose
             this.state = GameState.Defeat;
             Debug.Log("The battle is lost");
+
+            // save highscore if score is higher than current highscore
+            if (score > highscore)
+            {
+                highscore = score;
+                PlayerPrefs.SetInt("Highscore", highscore);
+                Debug.Log($"New highscore: {highscore}");
+            }
         }
     }
 }
