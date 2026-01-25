@@ -110,6 +110,12 @@ public class GameManager : MonoBehaviour
         {
             DetermineTurnOrder();
 
+            // reset defense modifiers at the start of a new round
+            damager.DefenseModifier = 1;
+            defender.DefenseModifier = 1;
+            healer.DefenseModifier = 1;
+            supporter.DefenseModifier = 1;
+
             for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
                 yield return new WaitForSeconds(1f);
@@ -144,6 +150,9 @@ public class GameManager : MonoBehaviour
                     // hide indicator above current player
                     participants[turnIndex].transform.GetChild(0).gameObject.SetActive(false);
 
+                    // check if any participants have died
+                    DeathCheck(this.participants);
+
                     // reset turnMade for next turn
                     this.turnMade = false;
                 }
@@ -154,6 +163,9 @@ public class GameManager : MonoBehaviour
 
                     // wait until the enemy has made their turn
                     yield return new WaitUntil(() => this.turnMade);
+
+                    // check if any participants have died
+                    DeathCheck(this.participants);
 
                     // reset turnMade for next turn
                     this.turnMade = false;
@@ -210,10 +222,13 @@ public class GameManager : MonoBehaviour
 
     public void DeleteEnemies()
     {
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < enemySpawns.Count; i++)
         {
-            // destroy all enemy game objects
-            Destroy(enemySpawns[i].transform.GetChild(0).gameObject);
+            // if there is an enemy object at this spawn point, destroy it
+            if (enemySpawns[i].transform.childCount > 0)
+            {
+                Destroy(enemySpawns[i].transform.GetChild(0).gameObject);
+            }
             Debug.Log("enemy object destroyed");
         }
 
@@ -291,7 +306,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => this.selectedTarget != null);
 
         ((Player)participants[turnIndex]).Action_Attack(this.selectedTarget);
-        DeathCheck(this.selectedTarget);
 
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
@@ -522,7 +536,6 @@ public class GameManager : MonoBehaviour
         Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
 
         selectedPlayer.TakeDamage(participants[turnIndex], 1f);
-        DeathCheck(selectedPlayer);
 
         // mark turn as made at the end of the turn
         this.turnMade = true;
@@ -531,30 +544,34 @@ public class GameManager : MonoBehaviour
     //-------------------------------------------------------------------------------------------------------|
 
     // death check and win conditions
-    public void DeathCheck(Entity entity)
+    public void DeathCheck(List<Entity> participants)
     {
-        if (entity.CurrentHP == 0)
+        for (int i = 0; i < participants.Count; i++)
         {
-            Debug.Log($"{entity.Name} has been defeated");
-
-            // remove entity from participants list
-            participants.Remove(entity);
-
-            if (entity is Enemy)
+            // if entity has 0 HP...
+            if (participants[i].CurrentHP == 0)
             {
-                // remove enemy from enemies list
-                enemies.Remove((Enemy)entity);
-            }
-            else if (entity is Player)
-            {
-                // remove player from players list
-                players.Remove((Player)entity);
-            }
+                Debug.Log($"{participants[i].Name} has been defeated");
 
-            // deactivate the entity in the scene
-            entity.gameObject.SetActive(false);
+                if (participants[i] is Enemy)
+                {
+                    // remove enemy from enemies list
+                    enemies.Remove((Enemy)participants[i]);
+                }
+                else if (participants[i] is Player)
+                {
+                    // remove player from players list
+                    players.Remove((Player)participants[i]);
+                }
 
-            CheckWinConditions();
+                // deactivate the entity in the scene
+                participants[i].gameObject.SetActive(false);
+
+                // remove entity from participants list
+                participants.RemoveAt(i);
+
+                CheckWinConditions();
+            }
         }
     }
 
