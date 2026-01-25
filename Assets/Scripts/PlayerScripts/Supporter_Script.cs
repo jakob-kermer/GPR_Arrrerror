@@ -17,12 +17,16 @@ public class Supporter_Script : Player
     {
         Debug.Log($"{this.name} deals damage to {target.name}");
         // deal double damage to a random enemy
+        this.CurrentAP -= 20;
+        PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_ThrowPotion(Entity target)
     {
         Debug.Log($"{this.name} heals {target.name}");
         // heals a random hero
+        this.CurrentAP -= 20;
+        PlayerUI.SetAP(this.CurrentAP);
     }
 
     // TakeDamage override to update UI
