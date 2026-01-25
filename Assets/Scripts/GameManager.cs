@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject HealerAbilityMenu;
     [SerializeField] private GameObject SupporterAbilityMenu;
     [SerializeField] private GameObject BackButton;
+    [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private TMP_Text HighscoreText;
+    [SerializeField] private TMP_Text ScoreText;
+
 
     // player and enemy references
     private Damager_Script damager;
@@ -623,6 +628,11 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("Highscore", highscore);
                 Debug.Log($"New highscore: {highscore}");
             }
+
+            GameOverScreen.SetActive(true);
+
+            HighscoreText.text = $"Highscore: {highscore}";
+            ScoreText.text = $"Score: {score}";
         }
     }
 }
