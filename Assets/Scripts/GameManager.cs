@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
 
             for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
 
                 if (this.state == GameState.Defeat) // if the players are defeated...
                 {
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (this.state == GameState.Victory) // if the players won...
                 {
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
 
                     Debug.Log("New battle started");
                     this.state = GameState.Start;
@@ -311,6 +311,9 @@ public class GameManager : MonoBehaviour
 
         // wait until a target has been selected
         yield return new WaitUntil(() => this.selectedTarget != null);
+
+        // play attack animation
+        participants[turnIndex].Animator.SetTrigger("Attack");
 
         ((Player)participants[turnIndex]).Action_Attack(this.selectedTarget);
 
@@ -541,6 +544,10 @@ public class GameManager : MonoBehaviour
 
         // select random player to attack
         Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
+        selectedPlayer = defender;
+
+        // play attack animation
+        participants[turnIndex].Animator.SetTrigger("Attack");
 
         selectedPlayer.TakeDamage(participants[turnIndex], 1f);
 
