@@ -27,6 +27,9 @@ public abstract class Entity : MonoBehaviour
     // Animator
     private Animator animator;
 
+    // target selector
+    private bool enableSelector = false;
+
     // Properties
     // stats properties
     public string Name
@@ -104,29 +107,55 @@ public abstract class Entity : MonoBehaviour
         set { this.animator = value; }
     }
 
+    // target selector property
+    public bool EnableSelector
+    {
+        get { return enableSelector; }
+        set { this.enableSelector = value; }
+    }
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.Animator = this.transform.GetChild(1).GetComponent<Animator>();
+        this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
+    }
+
+    public void OnMouseEnter()
+    {
+        if (EnableSelector)
+        {
+            this.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        this.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public virtual void TakeDamage(Entity attacker, float damageModifier)
     {
+        this.PopUpDamage.color = Color.red;
+        
         // determine critical hit
         if (UnityEngine.Random.Range(0.0f, 1.0f) < attacker.CritChance)       // if the attacker lands a critical hit...
         {
             damageModifier *= 2;      // ...double damage dealt...
             Debug.Log($"critical hit");        // ...and write crit message on the console
+
+            // change pop-up color to yellow for critical hits
+            this.PopUpDamage.color = Color.yellow;
         }
 
         // this is where the damage is calculated
         int damage = CalculateDamage(attacker.Attack, this.Defense, damageModifier);
 
-        popUpDamage.text = damage.ToString();
-        Instantiate(popUpDamagePrefab, transform.position, UnityEngine.Quaternion.identity);
+        // display damage (before HP check) with pop-up
+        this.PopUpDamage.text = damage.ToString();
+        Instantiate(this.PopUpDamagePrefab, transform.position, UnityEngine.Quaternion.identity);
 
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
@@ -139,7 +168,6 @@ public abstract class Entity : MonoBehaviour
 
         // play hit animation
         this.Animator.SetTrigger("Hit");
-        Debug.Log($"{this.Name}'s hit animation played");
 
         // write attack message on the console
         Debug.Log($"{attacker.Name} deals {damage} damage to {this.Name}");
