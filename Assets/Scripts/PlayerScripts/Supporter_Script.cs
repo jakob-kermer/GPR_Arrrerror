@@ -71,7 +71,7 @@ public class Supporter_Script : Player
         int healAmount = Convert.ToInt32(this.PotionPotency + (this.PotionPotency * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
         // display amount healed (before HP check) with pop-up
-        this.PopUpDamage.color = Color.green;
+        this.PopUpDamage.color = new Color32 (24, 140, 20, 255);
         this.PopUpDamage.text = healAmount.ToString();
         Instantiate(this.PopUpDamagePrefab, selectedPlayer.transform.position, UnityEngine.Quaternion.identity);
 
