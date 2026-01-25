@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject SupporterAbilityMenu;
     [SerializeField] private GameObject BackButton;
     [SerializeField] private GameObject GameOverScreen;
-    [SerializeField] private TMP_Text HighscoreText;
     [SerializeField] private TMP_Text ScoreText;
+    [SerializeField] private TMP_Text HighscoreText;
 
 
     // player and enemy references
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
         // hide all menus
         ActionMenu.SetActive(false);
+        BackButton.SetActive(false);
         DefenderAbilityMenu.SetActive(false);
         DamagerAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
@@ -305,7 +306,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Enemy enemy in enemies)
         {
-            // enables the enemies selector to show up when hovering over them
+            // enables the enemy's selector to show up when hovering over them
             enemy.EnableSelector = true;
         }
 
@@ -316,7 +317,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
-            // disables the enemies selector again
+            // disables the enemy's selector again
             enemy.EnableSelector = false;
         }
     }
@@ -325,7 +326,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Player player in players)
         {
-            // enables the players selector to show up when hovering over them
+            // enables the player's selector to show up when hovering over them
             player.EnableSelector = true;
         }
 
@@ -336,7 +337,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Player player in players)
         {
-            // disables the players selector again
+            // disables the player's selector again
             player.EnableSelector = false;
         }
     }
@@ -353,11 +354,14 @@ public class GameManager : MonoBehaviour
     public IEnumerator Attack()
     {
         ActionMenu.SetActive(false); // deactivate action menu
+        BackButton.SetActive(true); // activate back button
 
         StartCoroutine(EnableTargetSelection_Enemy());
 
         // wait until a target has been selected
         yield return new WaitUntil(() => this.selectedEnemy != null);
+
+        BackButton.SetActive(false); // deactivate back button
 
         // play attack animation
         participants[turnIndex].Animator.SetTrigger("Attack");
@@ -576,7 +580,24 @@ public class GameManager : MonoBehaviour
     // Back button
     public void OnBackButton()
     {
+        // set state to PlayerTurn to prevent target selection
+        this.state = GameState.PlayerTurn;
+
+        // reset all selectors
+        foreach (Enemy enemy in enemies)
+        {
+            // disables the enemy's selector to show up when hovering over them
+            enemy.EnableSelector = false;
+        }
+
+        foreach (Player player in players)
+        {
+            // disables the player's selector to show up when hovering over them
+            player.EnableSelector = false;
+        }
+
         // hide menus
+        BackButton.SetActive(false);
         DamagerAbilityMenu.SetActive(false);
         DefenderAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
