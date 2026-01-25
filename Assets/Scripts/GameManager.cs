@@ -538,15 +538,12 @@ public class GameManager : MonoBehaviour
 
     public void OnGrouphealAbility()
     {
-        if (healer.CurrentAP >= 20)
-        {
             HealerAbilityMenu.SetActive(false); // deactivate action menu
 
-        healer.Ability_Groupheal(this.players);
+            healer.Ability_Groupheal(this.players);
 
             // mark turn as made at the end of the turn
             this.turnMade = true;
-        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -594,24 +591,18 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
-        // select random player to attack
-        Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
-
-        // play attack animation
-        participants[turnIndex].Animator.SetTrigger("Attack");
-
-        selectedPlayer.TakeDamage(participants[turnIndex], 1f);
-
         if (tauntUsed == true)
         {
             Player selectedPlayer = defender;
             selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+            participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
             tauntUsed = false;
         }
-        else
+        else // select random player to attack
         {
             Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
             selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+            participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
         }
         // mark turn as made at the end of the turn
         this.turnMade = true;

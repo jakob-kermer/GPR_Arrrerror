@@ -38,18 +38,17 @@ public class Defender_Script : Player
     {
         if (isBlocking == true)
         {
-            damageMultiplier = 0f;
+            damageModifier = 0f;
             isBlocking = false;
 
-            bool isDead = base.TakeDamage(attacker, damageMultiplier);
+            base.TakeDamage(attacker, damageModifier);
             PlayerUI.SetHP(this.CurrentHP);
-            return isDead;
+
         }
         else
         {
-            bool isDead = base.TakeDamage(attacker, damageMultiplier);
+            base.TakeDamage(attacker, damageModifier);
             PlayerUI.SetHP(this.CurrentHP);
-            return isDead;
         }
     }
 }
