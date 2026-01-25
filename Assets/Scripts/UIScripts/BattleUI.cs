@@ -33,6 +33,6 @@ public class BattleUI : MonoBehaviour
     public void SetAP(int ap)
     {
         apText.text = ap + " / " + AP_bar.maxValue;
-        HP_bar.value = ap;
+        AP_bar.value = ap;
     }
 }
