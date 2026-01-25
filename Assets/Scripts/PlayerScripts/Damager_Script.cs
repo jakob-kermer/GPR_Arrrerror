@@ -54,7 +54,7 @@ public class Damager_Script : Player
         target.TakeDamage(this, this.FireballModifier);
 
         // reduce AP and update UI
-        this.CurrentAP -= Fireball_APCost;
+        this.CurrentAP -= this.Fireball_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
@@ -69,7 +69,7 @@ public class Damager_Script : Player
         }
 
         // reduce AP and update UI
-        this.CurrentAP -= Shitstorm_APCost;
+        this.CurrentAP -= this.Shitstorm_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 

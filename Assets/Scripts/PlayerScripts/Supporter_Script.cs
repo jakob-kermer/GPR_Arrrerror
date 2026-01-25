@@ -56,7 +56,7 @@ public class Supporter_Script : Player
         selectedEnemy.TakeDamage(this, this.GatoModifier);
 
         // reduce AP and update UI
-        this.CurrentAP -= ThrowGato_APCost;
+        this.CurrentAP -= this.ThrowGato_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
@@ -88,7 +88,7 @@ public class Supporter_Script : Player
         selectedPlayer.PlayerUI.SetHP(selectedPlayer.CurrentHP);
 
         // reduce HP and update UI
-        this.CurrentAP -= ThrowPotion_APCost;
+        this.CurrentAP -= this.ThrowPotion_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 

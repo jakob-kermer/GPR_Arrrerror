@@ -32,7 +32,7 @@ public class Defender_Script : Player
         get { return taunt_APCost; }
         set { this.taunt_APCost = value; }
     }
-    
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,11 +55,12 @@ public class Defender_Script : Player
         }
 
         Debug.Log($"{this.name} blocks the next incoming attack.");
+
         // blocks the next incoming attack
-        this.isBlocking = true;
+        this.IsBlocking = true;
 
         // reduce AP and update UI
-        this.CurrentAP -= Block_APCost;
+        this.CurrentAP -= this.Block_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
@@ -75,29 +76,23 @@ public class Defender_Script : Player
         Debug.Log($"{this.name} taunts the enemies to attack him.");
 
         // forces enemy to attack defender next
-        tauntUsed = true;
+        this.TauntUsed = true;
 
         // reduce AP and update UI
-        this.CurrentAP -= Taunt_APCost;
+        this.CurrentAP -= this.Taunt_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     // TakeDamage override to update UI
     public override void TakeDamage(Entity attacker, float damageModifier)
     {
-        if (isBlocking == true)
+        if (this.IsBlocking)
         {
             damageModifier = 0f;
-            isBlocking = false;
-
-            base.TakeDamage(attacker, damageModifier);
-            PlayerUI.SetHP(this.CurrentHP);
-
+            this.IsBlocking = false;
         }
-        else
-        {
-            base.TakeDamage(attacker, damageModifier);
-            PlayerUI.SetHP(this.CurrentHP);
-        }
+
+        base.TakeDamage(attacker, damageModifier);
+        PlayerUI.SetHP(this.CurrentHP);
     }
 }

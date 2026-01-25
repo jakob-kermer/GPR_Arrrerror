@@ -15,12 +15,11 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private int defense;
     [SerializeField] private float critChance = 0.05f; // default crit chance is 5%
     [SerializeField] private int speed;
-    [SerializeField] private int defenseModifier = 1; // 1 = not defending, 2 = defending
     [Header("Current Stats")]
     [SerializeField] private int currentHP;
     [SerializeField] private int currentAP;
-
-    // damage pop-up
+    [SerializeField] private float defenseModifier = 1;
+    [Header("UI references")]
     [SerializeField] private TMP_Text popUpDamage;
     [SerializeField] private GameObject popUpDamagePrefab;
 
@@ -42,20 +41,10 @@ public abstract class Entity : MonoBehaviour
         get { return maxHP; }
         set { this.maxHP = value; }
     }
-    public int CurrentHP
-    {
-        get { return currentHP; }
-        set { this.currentHP = value; }
-    }
     public int MaxAP
     {
         get { return maxAP; }
         set { this.maxAP = value; }
-    }
-    public int CurrentAP
-    {
-        get { return currentAP; }
-        set { this.currentAP = value; }
     }
     public int Attack
     {
@@ -77,7 +66,17 @@ public abstract class Entity : MonoBehaviour
         get { return speed; }
         set { this.speed = value; }
     }
-    public int DefenseModifier
+    public int CurrentHP
+    {
+        get { return currentHP; }
+        set { this.currentHP = value; }
+    }
+    public int CurrentAP
+    {
+        get { return currentAP; }
+        set { this.currentAP = value; }
+    }
+    public float DefenseModifier
     {
         get { return defenseModifier; }
         set { this.defenseModifier = value; }
@@ -170,8 +169,8 @@ public abstract class Entity : MonoBehaviour
 
     public int CalculateDamage(int atk, int def, float damageModifier)
     {
-        // damage = (Attack - Defense) * damage modifier / defense modifier +/- up to 2% of Attack; at least 1
-        int damage = Math.Max(0, Convert.ToInt32(((atk - def * 0.5f) * damageModifier / this.DefenseModifier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
+        // damage = (Attack - Defense) * damage modifier / defense modifier +/- up to 2% of Attack; at least 0
+        int damage = Math.Max(0, Convert.ToInt32(((atk - def) * damageModifier * this.DefenseModifier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
 
         return damage;
     }
