@@ -26,20 +26,20 @@
   - Enemies randomly choose an action and a target (enemies can currently select dead players)
 - Actions
   - ~~Attack~~
-  - Defend (not functional)
-  - Abilities (not functional)
-    - Damager Abilites
-        - Fireball
-        - Shitstorm
-    - Defender Abilities
-        - Block
-        - Taunt
-    - Healer Abilities
-        - Heal
-        - Group Heal
-    - Supporter Abilities
-        - Throw Gato
-        - Throw Potion
+  - ~~Defend~~
+  - ~~Abilities~~
+    - ~~Damager Abilites~~
+        - ~~Fireball~~
+        - ~~Shitstorm~~
+    - ~~Defender Abilities~~
+        - ~~Block~~
+        - ~~Taunt~~
+    - ~~Healer Abilities~~
+        - ~~Heal~~
+        - ~~Group Heal~~
+    - ~~Supporter Abilities~~
+        - ~~Throw Gato~~
+        - ~~Throw Potion~~
 - ~~Battle end~~
   - ~~next stage~~
   - ~~spawn new monsters~~
@@ -55,42 +55,28 @@
   - ~~target selection~~
 
 ## balancing
-- turn-order determination (speed + random factor)
-- stats
-  - entity stats
-  - ability stats
-  - stat increase at level-up
+- ~~turn-order determination (speed + random factor)~~
+- ~~stats~~
+  - ~~entity stats~~
+  - ~~ability stats~~
+  - ~~stat increase at level-up~~
 
 
 # Visuals
 ## UI
-  - party's HP/AP
-  - action menu
-  - target selection
-  - **main menu *(Gabriel)***
+  - ~~party's HP/AP~~
+  - ~~action menu~~
+  - ~~target selection~~
+  - ~~main menu~~
 
-## Sprites *(Gabriel)*
-  - **players**
-  - **enemies**
+## Sprites
+  - ~~players~~
+  - ~~enemies~~
 
 ## Environment
-  - **background** *(Gabriel)*
-  - lighting
+  - ~~background~~
+  - ~~lighting~~
 
 ## (simple) Animation
-  - attacks
-  - stage transition
-
-
-# (Sound)
-- Sound effects
-- Music
-
-
-# Optional
-- Stats
-  - MAG-ATK, MAG-DEF, Sanity
-  - sanity regeneration
-  - magic weakness/resistance
-- Story
-  - text/cutscene after starting the game from main menu
+  - ~~attack animation~~
+  - ~~hit animation~~
