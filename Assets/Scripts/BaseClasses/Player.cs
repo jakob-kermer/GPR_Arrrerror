@@ -16,9 +16,9 @@ public abstract class Player : Entity
     }
 
     // Methods
-    public virtual bool Action_Attack(Entity target)
+    public virtual void Action_Attack(Entity target)
     {
-        return target.TakeDamage(this, 1f);
+        target.TakeDamage(this, 1f);
     }
 
     public virtual void Action_Defend()

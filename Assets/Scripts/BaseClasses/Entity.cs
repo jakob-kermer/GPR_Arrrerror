@@ -24,6 +24,9 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private TMP_Text popUpDamage;
     [SerializeField] private GameObject popUpDamagePrefab;
 
+    // Animator
+    private Animator animator;
+
     // Properties
     // stats properties
     public string Name
@@ -94,15 +97,23 @@ public abstract class Entity : MonoBehaviour
         set { this.popUpDamagePrefab = value; }
     }
 
+    // Animator property
+    public Animator Animator
+    {
+        get { return animator; }
+        set { this.animator = value; }
+    }
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
+        this.Animator = this.transform.GetChild(1).GetComponent<Animator>();
     }
 
-    public virtual bool TakeDamage(Entity attacker, float damageModifier)
+    public virtual void TakeDamage(Entity attacker, float damageModifier)
     {
         // determine critical hit
         if (UnityEngine.Random.Range(0.0f, 1.0f) < attacker.CritChance)       // if the attacker lands a critical hit...
@@ -126,17 +137,12 @@ public abstract class Entity : MonoBehaviour
         // apply damage to current HP
         this.CurrentHP -= damage;
 
+        // play hit animation
+        this.Animator.SetTrigger("Hit");
+        Debug.Log($"{this.Name}'s hit animation played");
+
         // write attack message on the console
         Debug.Log($"{attacker.Name} deals {damage} damage to {this.Name}");
-
-        if (currentHP <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     public int CalculateDamage(int atk, int def, float damageModifier)
