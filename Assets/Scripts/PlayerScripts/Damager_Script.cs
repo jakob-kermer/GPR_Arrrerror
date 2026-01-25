@@ -3,6 +3,37 @@ using UnityEngine;
 
 public class Damager_Script : Player
 {
+    // Fields
+    [Header("Damager-specific Stats")]
+    [SerializeField] private float fireballModifier;
+    [SerializeField] private float shitstormModifier;
+
+    [Header("Ability AP costs")]
+    [SerializeField] private int fireball_APCost;
+    [SerializeField] private int shitstorm_APCost;
+
+    // Properties
+    public float FireballModifier
+    {
+        get { return fireballModifier; }
+        set { this.fireballModifier = value;}
+    }
+    public float ShitstormModifier
+    {
+        get { return shitstormModifier; }
+        set { this.shitstormModifier = value;}
+    }
+    public int Fireball_APCost
+    {
+        get { return fireball_APCost; }
+        set { this.fireball_APCost = value; }
+    }
+    public int Shitstorm_APCost
+    {
+        get { return shitstorm_APCost; }
+        set { this.shitstorm_APCost = value; }
+    }
+    
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,22 +49,28 @@ public class Damager_Script : Player
     public void Ability_Fireball(Entity target)
     {
         Debug.Log($"{this.name} casts Fireball on {target.name}");
+
         // cast fireball on target
-        target.TakeDamage(this, 3f);
-        this.CurrentAP -= 20;
-        PlayerUI.SetAP(this.CurrentAP);
+        target.TakeDamage(this, this.FireballModifier);
+
+        // reduce AP and update UI
+        this.CurrentAP -= Fireball_APCost;
+        this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
         Debug.Log($"{this.name} casts Shitstorm on enemy party");
-        // cast shitstorm on enemy party
+        
+        // deal damage to every enemy
         foreach (Enemy enemy in enemies)
         {
-            enemy.TakeDamage(this, 1.0f);
+            enemy.TakeDamage(this, this.ShitstormModifier);
         }
-        this.CurrentAP -= 20;
-        PlayerUI.SetAP(this.CurrentAP);
+
+        // reduce AP and update UI
+        this.CurrentAP -= Shitstorm_APCost;
+        this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     // TakeDamage override to update UI

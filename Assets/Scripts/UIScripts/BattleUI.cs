@@ -15,7 +15,6 @@ public class BattleUI : MonoBehaviour
     public void SetUI(Entity entity)
     {
         nameText.text = entity.Name;
-        levelText.text = "Lvl " + entity.Level;
         hpText.text = entity.CurrentHP + " / " +  entity.MaxHP;
         HP_bar.maxValue = entity.MaxHP;
         HP_bar.value = entity.CurrentHP;
