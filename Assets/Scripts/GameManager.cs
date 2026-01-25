@@ -193,6 +193,9 @@ public class GameManager : MonoBehaviour
                     // wait until the enemy has made their turn
                     yield return new WaitUntil(() => this.turnMade);
 
+                    // hide turn indicator above current enemy
+                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(false);
+
                     // check if any participants have died
                     DeathCheck(this.participants);
 
@@ -200,9 +203,6 @@ public class GameManager : MonoBehaviour
                     this.turnMade = false;
 
                     yield return new WaitForSeconds(1.5f);
-
-                    // hide turn indicator above current enemy
-                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(false);
                 }
             }
         }
@@ -406,7 +406,6 @@ public class GameManager : MonoBehaviour
             {
                 // ...deactivate the Block ability button
                 DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(false);
-                defender.IsBlocking = false;
             }
             else
             {
@@ -651,7 +650,7 @@ public class GameManager : MonoBehaviour
             // remove all entities in the corpse pile from participants list
             participants.Remove(corpse);
         }
-        
+
         CheckWinConditions();
     }
 
