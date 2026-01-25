@@ -183,19 +183,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton_Script
   entityName: Skeleton
-  maxHP: 35
-  currentHP: 0
+  maxHP: 30
   maxAP: 7
-  currentAP: 0
-  attack: 18
+  attack: 25
   defense: 11
   critChance: 0.05
   speed: 11
-  level: 1
+  defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  experienceValue: 0
-  enableTargetSelection: 0
 --- !u!1001 &107181024126013890
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -183,19 +183,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   entityName: Goblin
-  maxHP: 50
-  currentHP: 0
+  maxHP: 33
   maxAP: 10
-  currentAP: 0
-  attack: 15
+  attack: 20
   defense: 5
   critChance: 0.05
   speed: 8
-  level: 1
+  defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  experienceValue: 14
-  enableTargetSelection: 0
 --- !u!1001 &7574584334747220031
 PrefabInstance:
   m_ObjectHideFlags: 0

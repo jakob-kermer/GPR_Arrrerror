@@ -24,6 +24,6 @@ public abstract class Player : Entity
     public virtual void Action_Defend()
     {
         Debug.Log($"{this.Name} is defending");
-        // defend
+        this.DefenseModifier = 2;
     }
 }
