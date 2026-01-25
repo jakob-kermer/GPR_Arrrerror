@@ -184,14 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   entityName: Goblin
-  maxHP: 343
-  maxAP: 11
-  attack: 62
-  defense: 13
+  maxHP: 50
+  maxAP: 10
+  attack: 24
+  defense: 5
   critChance: 0.05
-  speed: 23
-  currentHP: 0
-  currentAP: 0
+  speed: 10
   defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}

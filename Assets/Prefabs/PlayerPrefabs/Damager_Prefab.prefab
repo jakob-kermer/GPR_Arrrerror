@@ -70,14 +70,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damager_Script
   entityName: Damager
-  maxHP: 215
-  maxAP: 92
-  attack: 82
-  defense: 15
-  critChance: 0.05
-  speed: 22
+  maxHP: 100
   currentHP: 0
+  maxAP: 50
   currentAP: 0
+  attack: 20
+  defense: 8
+  critChance: 0.05
+  speed: 12
   defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}

@@ -184,19 +184,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Defender_Script
   entityName: Defender
-  maxHP: 401
+  maxHP: 200
   maxAP: 25
-  attack: 56
+  attack: 10
   defense: 20
   critChance: 0.05
-  speed: 16
-  currentHP: 0
-  currentAP: 0
+  speed: 6
   defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  block_APCost: 3
-  taunt_APCost: 5
+  block_APCost: 5
+  taunt_APCost: 3
 --- !u!1001 &1361583671879197738
 PrefabInstance:
   m_ObjectHideFlags: 0
