@@ -8,7 +8,7 @@ public class Damager_Script : Player
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.Animator = this.transform.GetChild(1).GetComponent<Animator>();
+        this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Damager UI").GetComponent<BattleUI>();
         this.PlayerUI.SetUI(this);
     }

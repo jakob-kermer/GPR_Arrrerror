@@ -8,16 +8,16 @@ public class Defender_Script : Player
     {
         this.CurrentHP = MaxHP;
         this.CurrentAP = MaxAP;
-        this.Animator = this.transform.GetChild(1).GetComponent<Animator>();
+        this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Defender UI").GetComponent<BattleUI>();
         this.PlayerUI.SetUI(this);
     }
 
     // Defender-specific abilities
-    public void Ability_Block(Entity target)
+    public void Ability_Block()
 
     {
-        Debug.Log($"{this.name} blocks the attack of {target.name}.");
+        Debug.Log($"{this.name} blocks the attack.");
         // blocks the next incoming attack
     }
 
