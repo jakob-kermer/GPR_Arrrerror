@@ -55,8 +55,6 @@ public class GameManager : MonoBehaviour
     // turn management
     private int turnIndex = 0;
     private bool turnMade = false;
-    private bool blockUsed;
-    private bool tauntUsed;
 
     // game state
     private GameState state;
@@ -141,12 +139,14 @@ public class GameManager : MonoBehaviour
             defender.DefenseModifier = 1;
             healer.DefenseModifier = 1;
             supporter.DefenseModifier = 1;
+            // end the effect of Taunt at the start of a new round
+            defender.TauntUsed = false;
 
             for (turnIndex = 0; turnIndex < participants.Count; turnIndex++)
             {
                 if (this.state == GameState.Defeat) // if the players are defeated...
                 {
-                    // game over screen
+                    // game over screen is shown (see CheckWinConditions)
                     break; // ...stop the battle
                 }
                 else if (this.state == GameState.Victory) // if the players won...
@@ -272,8 +272,8 @@ public class GameManager : MonoBehaviour
 
     public void DetermineTurnOrder()
     {
-        // sort participants by speed + a random factor (between -5 & 5)
-        this.participants.Sort((x, y) => y.Speed.CompareTo(x.Speed + UnityEngine.Random.Range(-5, 6)));
+        // sort participants by speed + a random factor (between -4 & 4)
+        this.participants.Sort((x, y) => (y.Speed + UnityEngine.Random.Range(-4, 5)).CompareTo(x.Speed + UnityEngine.Random.Range(-4, 5)));
 
         Debug.Log("Turn order determined:");
 
@@ -391,40 +391,36 @@ public class GameManager : MonoBehaviour
         ActionMenu.SetActive(false); // deactivate action menu
 
         // activate the current player's ability menu
+        // damager ability menu
         if ((Player)participants[turnIndex] == damager)
         {
-            DamagerAbilityMenu.SetActive(true);    
+            DamagerAbilityMenu.SetActive(true);
         }
+        // defender ability menu
         else if ((Player)participants[turnIndex] == defender)
         {
             DefenderAbilityMenu.SetActive(true);
 
-            if (blockUsed == true)
+            // if the defender is blocking...
+            if (defender.IsBlocking == true)
             {
+                // ...deactivate the Block ability button
                 DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(false);
-                blockUsed = false;
+                defender.IsBlocking = false;
             }
             else
             {
+                // ...otherwise activate it
                 DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(true);
             }
-
-            if (tauntUsed == true)
-            {
-                DefenderAbilityMenu.transform.GetChild(2).gameObject.SetActive(false);
-                tauntUsed = false;
-            }
-            else
-            {
-                DefenderAbilityMenu.transform.GetChild(2).gameObject.SetActive(true);
-            }
         }
-            
+        // healer ability menu
         else if ((Player)participants[turnIndex] == healer)
         {
             HealerAbilityMenu.SetActive(true);
         }
-        else
+        // supporter ability menu
+        else if ((Player)participants[turnIndex] == supporter)
         {
             SupporterAbilityMenu.SetActive(true);
         }
@@ -435,7 +431,8 @@ public class GameManager : MonoBehaviour
     // Damager ability buttons
     public void OnFireballAbility()
     {
-        if (damager.CurrentAP >= 20)
+        // check if player has enough AP
+        if (damager.CurrentAP >= damager.Fireball_APCost)
         {
             StartCoroutine(Damager_Fireball());
         }
@@ -459,7 +456,8 @@ public class GameManager : MonoBehaviour
 
     public void OnShitstormAbility()
     {
-        if (damager.CurrentAP >= 20) 
+        // check if player has enough AP
+        if (damager.CurrentAP >= damager.Shitstorm_APCost)
         {
             DamagerAbilityMenu.SetActive(false); // deactivate action menu
 
@@ -476,37 +474,29 @@ public class GameManager : MonoBehaviour
     // Defender ability buttons
     public void OnBlockAbility()
     {
-        DefenderAbilityMenu.SetActive(false); // deactivate action menu
+        // check if player has enough AP
+        if (defender.CurrentAP >= defender.Block_APCost)
+        {
+            DefenderAbilityMenu.SetActive(false); // deactivate action menu
 
-        defender.Ability_Block();
+            defender.Ability_Block();
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
+        }
     }
 
     public void OnTauntAbility()
     {
-        if (defender.CurrentAP >= 20)
+        // check if player has enough AP
+        if (defender.CurrentAP >= defender.Taunt_APCost)
         {
-            StartCoroutine(Defender_Taunt());
-            tauntUsed = true;
+            DefenderAbilityMenu.SetActive(false); // deactivate action menu
+            defender.Ability_Taunt();
+
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
         }
-    }
-
-    public IEnumerator Defender_Taunt()
-    {
-        DefenderAbilityMenu.SetActive(false); // deactivate action menu
-
-        StartCoroutine(EnableTargetSelection_Enemy());
-
-        // wait until a target has been selected
-        yield return new WaitUntil(() => this.selectedEnemy != null);
-
-        defender.Ability_Taunt(this.selectedEnemy);
-
-        // mark turn as made and reset selectedEnemy at the end of the turn
-        this.turnMade = true;
-        this.selectedEnemy = null;
     }
 
     //--------------------------------------------------------------------------------------
@@ -514,7 +504,8 @@ public class GameManager : MonoBehaviour
     // Healer ability buttons
     public void OnHealAbility()
     {
-        if (healer.CurrentAP >= 20)
+        // check if player has enough AP
+        if (healer.CurrentAP >= healer.Heal_APCost)
         {
             StartCoroutine(Healer_Heal());
         }
@@ -538,12 +529,16 @@ public class GameManager : MonoBehaviour
 
     public void OnGrouphealAbility()
     {
+        // check if player has enough AP
+        if (healer.CurrentAP >= healer.GroupHeal_APCost)
+        {
             HealerAbilityMenu.SetActive(false); // deactivate action menu
 
             healer.Ability_Groupheal(this.players);
 
             // mark turn as made at the end of the turn
             this.turnMade = true;
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -551,22 +546,30 @@ public class GameManager : MonoBehaviour
     // Supporter ability buttons
     public void OnThrowGatoAbility()
     {
-        SupporterAbilityMenu.SetActive(false); // deactivate action menu
+        // check if player has enough AP
+        if (supporter.CurrentAP >= supporter.ThrowGato_APCost)
+        {
+            SupporterAbilityMenu.SetActive(false); // deactivate action menu
 
-        supporter.Ability_ThrowGato(this.enemies);
+            supporter.Ability_ThrowGato(this.enemies);
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
+        }
     }
 
     public void OnThrowPotionAbility()
     {
-        SupporterAbilityMenu.SetActive(false); // deactivate action menu
+        // check if player has enough AP
+        if (supporter.CurrentAP >= supporter.ThrowPotion_APCost)
+        {
+            SupporterAbilityMenu.SetActive(false); // deactivate action menu
 
-        supporter.Ability_ThrowPotion(this.players);
+            supporter.Ability_ThrowPotion(this.players);
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -591,12 +594,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
-        if (tauntUsed == true)
+        if (defender.TauntUsed == true)
         {
             Player selectedPlayer = defender;
             selectedPlayer.TakeDamage(participants[turnIndex], 1f);
             participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
-            tauntUsed = false;
         }
         else // select random player to attack
         {
@@ -613,6 +615,9 @@ public class GameManager : MonoBehaviour
     // death check and win conditions
     public void DeathCheck(List<Entity> participants)
     {
+        // create a list for all entites who died
+        List<Entity> corpsePile = new List<Entity>();
+
         for (int i = 0; i < participants.Count; i++)
         {
             // if entity has 0 HP...
@@ -620,26 +625,34 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log($"{participants[i].Name} has been defeated");
 
+                // ...add it to the corpse pile
+                corpsePile.Add(participants[i]);
+
+                // if the dead entity is an enemy
                 if (participants[i] is Enemy)
                 {
-                    // remove enemy from enemies list
+                    // ...remove enemy from enemies list
                     enemies.Remove((Enemy)participants[i]);
                 }
+                // ...or if the dead entity is a player
                 else if (participants[i] is Player)
                 {
-                    // remove player from players list
+                    // ...or remove player from players list
                     players.Remove((Player)participants[i]);
                 }
 
                 // deactivate the entity in the scene
                 participants[i].gameObject.SetActive(false);
-
-                // remove entity from participants list
-                participants.RemoveAt(i);
-
-                CheckWinConditions();
             }
         }
+
+        foreach (Entity corpse in corpsePile)
+        {
+            // remove all entities in the corpse pile from participants list
+            participants.Remove(corpse);
+        }
+        
+        CheckWinConditions();
     }
 
     public void CheckWinConditions()

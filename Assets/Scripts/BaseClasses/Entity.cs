@@ -10,15 +10,15 @@ public abstract class Entity : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private string entityName;
     [SerializeField] private int maxHP;
-    private int currentHP;
     [SerializeField] private int maxAP;
-    private int currentAP;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
     [SerializeField] private float critChance = 0.05f; // default crit chance is 5%
     [SerializeField] private int speed;
-    private int level = 1;
     [SerializeField] private int defenseModifier = 1; // 1 = not defending, 2 = defending
+    [Header("Current Stats")]
+    [SerializeField] private int currentHP;
+    [SerializeField] private int currentAP;
 
     // damage pop-up
     [SerializeField] private TMP_Text popUpDamage;
@@ -76,11 +76,6 @@ public abstract class Entity : MonoBehaviour
     {
         get { return speed; }
         set { this.speed = value; }
-    }
-    public int Level
-    {
-        get { return level; }
-        protected set { this.level = value; }
     }
     public int DefenseModifier
     {

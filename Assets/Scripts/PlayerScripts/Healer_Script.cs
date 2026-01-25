@@ -8,11 +8,23 @@ public class Healer_Script : Player
     [Header("Healer-specific Stats")]
     [SerializeField] private int healPower;
 
+    [Header("Ability AP costs")]
+    [SerializeField] private int heal_APCost;
+    [SerializeField] private int groupHeal_APCost;
+
     // Properties
     public int HealPower
     {
         get { return healPower; }
         set { this.healPower = value; }
+    }
+    public int Heal_APCost
+    {
+        get { return heal_APCost; }
+    }
+    public int GroupHeal_APCost
+    {
+        get { return groupHeal_APCost; }
     }
 
     // Methods
@@ -29,15 +41,7 @@ public class Healer_Script : Player
     // Healer-specific abilities
     public void Ability_Heal(Player target)
     {
-        int APcost = 6;
-
-        // check if player has enough AP
-        if (this.CurrentAP < APcost)
-        {
-            Debug.Log($"{this.name} does not have enough AP to cast Heal.");
-            return;
-        }
-
+        // amount healed = HealPower * 1.5 +/- up to 2% of HealPower
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
         // display amount healed (before HP check) with pop-up
@@ -58,25 +62,17 @@ public class Healer_Script : Player
         target.PlayerUI.SetHP(target.CurrentHP);
 
         // reduce AP and update UI
-        this.CurrentAP -= APcost;
+        this.CurrentAP -= this.Heal_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_Groupheal(List<Player> players)
     {
-        int APcost = 10;
-
-        // check if player has enough AP
-        if (this.CurrentAP < APcost)
-        {
-            Debug.Log($"{this.name} does not have enough AP to cast Group Heal.");
-            return;
-        }
-
         this.PopUpDamage.color = Color.green;
 
         foreach (Player player in players)
         {
+            // amount healed = HealPower +/- up to 2% of HealPower
             int healAmount = Convert.ToInt32(this.HealPower + (this.HealPower * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
             // display amount healed (before HP check) with pop-up
@@ -97,7 +93,7 @@ public class Healer_Script : Player
         }
 
         // reduce AP and update UI
-        this.CurrentAP -= APcost;
+        this.CurrentAP -= this.GroupHeal_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
