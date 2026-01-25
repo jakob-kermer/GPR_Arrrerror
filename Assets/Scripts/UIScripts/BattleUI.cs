@@ -5,12 +5,12 @@ using TMPro;
 
 public class BattleUI : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text levelText;
-    public TMP_Text hpText;
-    public Slider HP_bar;
-    public TMP_Text apText;
-    public Slider AP_bar;
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private Slider HP_bar;
+    [SerializeField] private TMP_Text apText;
+    [SerializeField] private Slider AP_bar;
 
     public void SetUI(Entity entity)
     {
