@@ -148,7 +148,7 @@ public abstract class Entity : MonoBehaviour
     public int CalculateDamage(int atk, int def, float damageModifier)
     {
         // damage = (Attack - Defense) * damage modifier / defense modifier +/- up to 2% of Attack; at least 1
-        int damage = Math.Max(1, Convert.ToInt32(((atk - def * 0.5f) * damageModifier / this.DefenseModifier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
+        int damage = Math.Max(0, Convert.ToInt32(((atk - def * 0.5f) * damageModifier / this.DefenseModifier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
 
         return damage;
     }

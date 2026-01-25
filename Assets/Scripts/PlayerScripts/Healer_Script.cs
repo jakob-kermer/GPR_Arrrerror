@@ -18,12 +18,16 @@ public class Healer_Script : Player
     {
         Debug.Log($"{this.name} heals {target.name}");
         // heal target
+        this.CurrentAP -= 20;
+        PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_Groupheal()
     {
         Debug.Log($"{this.name} heals the group");
         // heal the group
+        this.CurrentAP -= 20;
+        PlayerUI.SetAP(this.CurrentAP);
     }
 
     // TakeDamage override to update UI

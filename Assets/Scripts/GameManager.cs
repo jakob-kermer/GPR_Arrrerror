@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     // turn management
     private int turnIndex = 0;
     private bool turnMade = false;
+    private bool blockUsed;
+    private bool tauntUsed;
 
     // game state
     private GameState state;
@@ -352,12 +354,33 @@ public class GameManager : MonoBehaviour
         // activate the current player's ability menu
         if ((Player)participants[turnIndex] == damager)
         {
-            DamagerAbilityMenu.SetActive(true);
+            DamagerAbilityMenu.SetActive(true);    
         }
         else if ((Player)participants[turnIndex] == defender)
         {
             DefenderAbilityMenu.SetActive(true);
+
+            if (blockUsed == true)
+            {
+                DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(false);
+                blockUsed = false;
+            }
+            else
+            {
+                DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(true);
+            }
+
+            if (tauntUsed == true)
+            {
+                DefenderAbilityMenu.transform.GetChild(2).gameObject.SetActive(false);
+                tauntUsed = false;
+            }
+            else
+            {
+                DefenderAbilityMenu.transform.GetChild(2).gameObject.SetActive(true);
+            }
         }
+            
         else if ((Player)participants[turnIndex] == healer)
         {
             HealerAbilityMenu.SetActive(true);
@@ -373,7 +396,10 @@ public class GameManager : MonoBehaviour
     // Damager ability buttons
     public void OnFireballAbility()
     {
-        StartCoroutine(Damager_Fireball());
+        if (damager.CurrentAP >= 20)
+        {
+            StartCoroutine(Damager_Fireball());
+        }
     }
 
     public IEnumerator Damager_Fireball()
@@ -394,12 +420,16 @@ public class GameManager : MonoBehaviour
 
     public void OnShitstormAbility()
     {
-        DamagerAbilityMenu.SetActive(false); // deactivate action menu
+        if (damager.CurrentAP >= 20) 
+        {
+            DamagerAbilityMenu.SetActive(false); // deactivate action menu
 
-        damager.Ability_Shitstorm();
+            damager.Ability_Shitstorm(enemies);
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
+
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -407,7 +437,11 @@ public class GameManager : MonoBehaviour
     // Defender ability buttons
     public void OnBlockAbility()
     {
-        StartCoroutine(Defender_Block());
+        if (defender.CurrentAP >= 20)
+        {
+            StartCoroutine(Defender_Block());
+            blockUsed = true;
+        }
     }
 
     public IEnumerator Defender_Block()
@@ -419,7 +453,7 @@ public class GameManager : MonoBehaviour
         // wait until a target has been selected
         yield return new WaitUntil(() => this.selectedTarget != null);
 
-        defender.Ability_Block(this.selectedTarget);
+        defender.Ability_Block();
 
         // mark turn as made and reset selectedTarget at the end of the turn
         this.turnMade = true;
@@ -428,7 +462,11 @@ public class GameManager : MonoBehaviour
 
     public void OnTauntAbility()
     {
-        StartCoroutine(Defender_Taunt());
+        if (defender.CurrentAP >= 20)
+        {
+            StartCoroutine(Defender_Taunt());
+            tauntUsed = true;
+        }
     }
 
     public IEnumerator Defender_Taunt()
@@ -452,7 +490,10 @@ public class GameManager : MonoBehaviour
     // Healer ability buttons
     public void OnHealAbility()
     {
-        StartCoroutine(Healer_Heal());
+        if (healer.CurrentAP >= 20)
+        {
+            StartCoroutine(Healer_Heal());
+        }
     }
 
     public IEnumerator Healer_Heal()
@@ -473,12 +514,15 @@ public class GameManager : MonoBehaviour
 
     public void OnGrouphealAbility()
     {
-        HealerAbilityMenu.SetActive(false); // deactivate action menu
+        if (healer.CurrentAP >= 20)
+        {
+            HealerAbilityMenu.SetActive(false); // deactivate action menu
 
-        healer.Ability_Groupheal();
+            healer.Ability_Groupheal();
 
-        // mark turn as made at the end of the turn
-        this.turnMade = true;
+            // mark turn as made at the end of the turn
+            this.turnMade = true;
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -486,7 +530,10 @@ public class GameManager : MonoBehaviour
     // Supporter ability buttons
     public void OnThrowGatoAbility()
     {
-        StartCoroutine(Supporter_ThrowGato());
+        if (supporter.CurrentAP >= 20)
+        {
+            StartCoroutine(Supporter_ThrowGato());
+        }
     }
 
     public IEnumerator Supporter_ThrowGato()
@@ -507,7 +554,10 @@ public class GameManager : MonoBehaviour
 
     public void OnThrowPotionAbility()
     {
-        StartCoroutine(Supporter_ThrowPotion());
+        if (supporter.CurrentAP >= 20)
+        {
+            StartCoroutine(Supporter_ThrowPotion());
+        }
     }
 
     public IEnumerator Supporter_ThrowPotion()
@@ -557,6 +607,17 @@ public class GameManager : MonoBehaviour
 
         selectedPlayer.TakeDamage(participants[turnIndex], 1f);
 
+        if (tauntUsed == true)
+        {
+            Player selectedPlayer = defender;
+            selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+            tauntUsed = false;
+        }
+        else
+        {
+            Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
+            selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+        }
         // mark turn as made at the end of the turn
         this.turnMade = true;
     }
