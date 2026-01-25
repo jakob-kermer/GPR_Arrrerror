@@ -50,11 +50,11 @@ public class Defender_Script : Player
         // check if player has enough AP
         if (this.CurrentAP < this.Block_APCost)
         {
-            Debug.Log($"{this.name} does not have enough AP");
+            Debug.Log($"{this.Name} does not have enough AP");
             return;
         }
 
-        Debug.Log($"{this.name} blocks the next incoming attack.");
+        Debug.Log($"{this.Name} blocks the next incoming attack.");
         // blocks the next incoming attack
         this.isBlocking = true;
 
@@ -68,11 +68,11 @@ public class Defender_Script : Player
         // check if player has enough AP
         if (this.CurrentAP < this.Taunt_APCost)
         {
-            Debug.Log($"{this.name} does not have enough AP");
+            Debug.Log($"{this.Name} does not have enough AP");
             return;
         }
 
-        Debug.Log($"{this.name} taunts the enemies to attack him.");
+        Debug.Log($"{this.Name} taunts the enemies to attack him.");
 
         // forces enemy to attack defender next
         tauntUsed = true;

@@ -48,7 +48,7 @@ public class Damager_Script : Player
     // Damager-specific abilities
     public void Ability_Fireball(Entity target)
     {
-        Debug.Log($"{this.name} casts Fireball on {target.name}");
+        Debug.Log($"{this.Name} casts Fireball on {target.Name}");
 
         // cast fireball on target
         target.TakeDamage(this, this.FireballModifier);
@@ -60,7 +60,7 @@ public class Damager_Script : Player
 
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
-        Debug.Log($"{this.name} casts Shitstorm on enemy party");
+        Debug.Log($"{this.Name} casts Shitstorm on enemy party");
         
         // deal damage to every enemy
         foreach (Enemy enemy in enemies)

@@ -77,9 +77,13 @@ MonoBehaviour:
   critChance: 0.05
   speed: 10
   defenseModifier: 1
+  currentHP: 0
+  currentAP: 0
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  healPower: 20
+  healPower: 28
+  heal_APCost: 6
+  groupHeal_APCost: 15
 --- !u!1 &3197992566878142340
 GameObject:
   m_ObjectHideFlags: 0

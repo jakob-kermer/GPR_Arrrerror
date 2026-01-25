@@ -77,10 +77,12 @@ MonoBehaviour:
   critChance: 0.05
   speed: 20
   defenseModifier: 1
+  currentHP: 0
+  currentAP: 0
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   gatoModifier: 3
-  potionPotency: 40
+  potionPotency: 38
   throwPotion_APCost: 6
   throwGato_APCost: 8
 --- !u!1 &747116030763881006

@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject SupporterAbilityMenu;
     [SerializeField] private GameObject BackButton;
     [SerializeField] private GameObject GameOverScreen;
-    [SerializeField] private TMP_Text HighscoreText;
     [SerializeField] private TMP_Text ScoreText;
+    [SerializeField] private TMP_Text HighscoreText;
 
 
     // player and enemy references
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
         // hide all menus
         ActionMenu.SetActive(false);
+        BackButton.SetActive(false);
         DefenderAbilityMenu.SetActive(false);
         DamagerAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
@@ -172,25 +173,26 @@ public class GameManager : MonoBehaviour
                     // wait until the player has made their turn
                     yield return new WaitUntil(() => this.turnMade);
 
-                    // hide turn indicator above current player
-                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(false);
-
                     // check if any participants have died
-                    turnIndicator.SetActive(false);
+                    DeathCheck(this.participants);
 
                     // reset turnMade for next turn
                     this.turnMade = false;
 
                     yield return new WaitForSeconds(1.2f);
+
+                    // check if any participants have died
+                    turnIndicator.SetActive(false);
                 }
                 else if (this.participants[turnIndex] is Enemy)
                 {
                     this.state = GameState.EnemyTurn;
-                    EnemyTurn_Attack();
 
                     // show turn indicator above current enemy
                     GameObject turnIndicator = participants[turnIndex].transform.GetChild(1).gameObject;
                     turnIndicator.SetActive(true);
+
+                    EnemyTurn_Attack();
 
                     // wait until the enemy has made their turn
                     yield return new WaitUntil(() => this.turnMade);
@@ -307,18 +309,24 @@ public class GameManager : MonoBehaviour
     {
         foreach (Enemy enemy in enemies)
         {
-            // enables the enemies selector to show up when hovering over them
+            // enables the enemy's selector to show up when hovering over them
             enemy.EnableSelector = true;
         }
 
         // enable target selection in update method
         this.state = GameState.TargetSelect_Enemy;
 
+        // activate back button
+        BackButton.SetActive(true);
+
         yield return new WaitUntil(() => this.selectedEnemy != null);
+
+        // deactivate back button
+        BackButton.SetActive(false);
 
         foreach (Enemy enemy in enemies)
         {
-            // disables the enemies selector again
+            // disables the enemy's selector again
             enemy.EnableSelector = false;
         }
     }
@@ -327,18 +335,24 @@ public class GameManager : MonoBehaviour
     {
         foreach (Player player in players)
         {
-            // enables the players selector to show up when hovering over them
+            // enables the player's selector to show up when hovering over them
             player.EnableSelector = true;
         }
 
         // enable target selection in update method
         this.state = GameState.TargetSelect_Player;
 
+        // activate back button
+        BackButton.SetActive(true);
+
         yield return new WaitUntil(() => this.selectedPlayer != null);
+
+        // deactivate back button
+        BackButton.SetActive(false);
 
         foreach (Player player in players)
         {
-            // disables the players selector again
+            // disables the player's selector
             player.EnableSelector = false;
         }
     }
@@ -579,7 +593,21 @@ public class GameManager : MonoBehaviour
     // Back button
     public void OnBackButton()
     {
+        this.state = GameState.PlayerTurn; // reset game state to prevent target selection
+
+        foreach (Enemy enemy in enemies)
+        {
+            // disables the enemy's selector to not show up when hovering over them
+            enemy.EnableSelector = false;
+        }
+        foreach (Player player in players)
+        {
+            // disables the player's selector to not show up when hovering over them
+            player.EnableSelector = false;
+        }
+
         // hide menus
+        BackButton.SetActive(false);
         DamagerAbilityMenu.SetActive(false);
         DefenderAbilityMenu.SetActive(false);
         HealerAbilityMenu.SetActive(false);
