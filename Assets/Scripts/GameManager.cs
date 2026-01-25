@@ -164,7 +164,8 @@ public class GameManager : MonoBehaviour
                     this.state = GameState.PlayerTurn;
 
                     // show turn indicator above current player
-                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(true);
+                    GameObject turnIndicator = participants[turnIndex].transform.GetChild(1).gameObject;
+                    turnIndicator.SetActive(true);
 
                     PlayerTurn();
 
@@ -175,12 +176,12 @@ public class GameManager : MonoBehaviour
                     participants[turnIndex].transform.GetChild(1).gameObject.SetActive(false);
 
                     // check if any participants have died
-                    DeathCheck(this.participants);
+                    turnIndicator.SetActive(false);
 
                     // reset turnMade for next turn
                     this.turnMade = false;
 
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1.2f);
                 }
                 else if (this.participants[turnIndex] is Enemy)
                 {
@@ -188,7 +189,8 @@ public class GameManager : MonoBehaviour
                     EnemyTurn_Attack();
 
                     // show turn indicator above current enemy
-                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(true);
+                    GameObject turnIndicator = participants[turnIndex].transform.GetChild(1).gameObject;
+                    turnIndicator.SetActive(true);
 
                     // wait until the enemy has made their turn
                     yield return new WaitUntil(() => this.turnMade);
@@ -199,10 +201,10 @@ public class GameManager : MonoBehaviour
                     // reset turnMade for next turn
                     this.turnMade = false;
 
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(1.2f);
 
                     // hide turn indicator above current enemy
-                    participants[turnIndex].transform.GetChild(1).gameObject.SetActive(false);
+                    turnIndicator.SetActive(false);
                 }
             }
         }
@@ -651,7 +653,7 @@ public class GameManager : MonoBehaviour
             // remove all entities in the corpse pile from participants list
             participants.Remove(corpse);
         }
-        
+
         CheckWinConditions();
     }
 
