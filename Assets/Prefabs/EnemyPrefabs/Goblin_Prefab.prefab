@@ -185,7 +185,7 @@ MonoBehaviour:
   entityName: Goblin
   maxHP: 33
   maxAP: 10
-  attack: 10000
+  attack: 20
   defense: 5
   critChance: 0.05
   speed: 8
