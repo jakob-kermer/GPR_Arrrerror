@@ -70,19 +70,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Supporter_Script
   entityName: Supporter
-  maxHP: 246
-  maxAP: 52
-  attack: 62
-  defense: 14
+  maxHP: 100
+  maxAP: 40
+  attack: 10
+  defense: 10
   critChance: 0.05
-  speed: 26
-  currentHP: 0
-  currentAP: 0
+  speed: 20
   defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   gatoModifier: 3
-  potionPotency: 69
+  potionPotency: 40
   throwPotion_APCost: 6
   throwGato_APCost: 8
 --- !u!1 &747116030763881006

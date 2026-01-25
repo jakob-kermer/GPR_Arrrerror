@@ -70,20 +70,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Healer_Script
   entityName: Healer
-  maxHP: 312
-  maxAP: 108
-  attack: 42
+  maxHP: 120
+  maxAP: 60
+  attack: 6
   defense: 16
   critChance: 0.05
-  speed: 20
-  currentHP: 0
-  currentAP: 0
+  speed: 10
   defenseModifier: 1
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
-  healPower: 46
-  heal_APCost: 12
-  groupHeal_APCost: 22
+  healPower: 20
 --- !u!1 &3197992566878142340
 GameObject:
   m_ObjectHideFlags: 0
