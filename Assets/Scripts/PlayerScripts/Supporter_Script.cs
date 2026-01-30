@@ -47,7 +47,7 @@ public class Supporter_Script : Player
     }
 
     // Supporter-specific abilities
-    public void Ability_ThrowGato(List<Enemy> enemies, List<Transform> enemySpawns)
+    public void Ability_ThrowGato(List<Enemy> enemies)
     {
         Debug.Log($"{this.name} deals damage to an enemy");
 
@@ -55,8 +55,7 @@ public class Supporter_Script : Player
         Enemy selectedEnemy = enemies[UnityEngine.Random.Range(0, enemies.Count)];
 
         // deal damage to that enemy
-        Transform selectedSpawn = enemySpawns[enemies.IndexOf(selectedEnemy)];
-        Instantiate(this.ThrowGato_Animation, selectedSpawn.position, Quaternion.Euler(0, 0, 90));
+        Instantiate(this.ThrowGato_Animation, selectedEnemy.transform.position, Quaternion.identity);
         selectedEnemy.TakeDamage(this, this.GatoModifier);
 
         // reduce AP and update UI
