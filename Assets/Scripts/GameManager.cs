@@ -567,7 +567,7 @@ public class GameManager : MonoBehaviour
         {
             SupporterAbilityMenu.SetActive(false); // deactivate action menu
 
-            supporter.Ability_ThrowGato(this.enemies);
+            supporter.Ability_ThrowGato(this.enemies, this.enemySpawns);
 
             // mark turn as made at the end of the turn
             this.turnMade = true;

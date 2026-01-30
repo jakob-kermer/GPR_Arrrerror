@@ -13,6 +13,8 @@ public class Supporter_Script : Player
     [SerializeField] private int throwPotion_APCost;
     [SerializeField] private int throwGato_APCost;
 
+    public GameObject ThrowGato_Animation;
+
     // Properties
     public float GatoModifier
     {
@@ -45,7 +47,7 @@ public class Supporter_Script : Player
     }
 
     // Supporter-specific abilities
-    public void Ability_ThrowGato(List<Enemy> enemies)
+    public void Ability_ThrowGato(List<Enemy> enemies, List<Transform> enemySpawns)
     {
         Debug.Log($"{this.name} deals damage to an enemy");
 
@@ -53,6 +55,8 @@ public class Supporter_Script : Player
         Enemy selectedEnemy = enemies[UnityEngine.Random.Range(0, enemies.Count)];
 
         // deal damage to that enemy
+        Transform selectedSpawn = enemySpawns[enemies.IndexOf(selectedEnemy)];
+        Instantiate(this.ThrowGato_Animation, selectedSpawn.position, Quaternion.Euler(0, 0, 90));
         selectedEnemy.TakeDamage(this, this.GatoModifier);
 
         // reduce AP and update UI
