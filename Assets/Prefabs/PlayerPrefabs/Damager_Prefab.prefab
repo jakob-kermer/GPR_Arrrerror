@@ -71,14 +71,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Damager_Script
   entityName: Damager
   maxHP: 100
-  currentHP: 0
   maxAP: 50
-  currentAP: 0
   attack: 20
   defense: 8
   critChance: 0.05
   speed: 12
   defenseModifier: 1
+  currentHP: 0
+  currentAP: 0
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   fireballModifier: 2.5
@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 7662381052694647371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6091604767060946372, guid: be301811d0e027f4da7036e719173ae1, type: 3}
+  m_Sprite: {fileID: 6801982509991675373, guid: 13503530bdff43449bc5894622806046, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -187,7 +187,7 @@ Animator:
   m_GameObject: {fileID: 7662381052694647371}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: adc6e9a99649c4a45a5d1f26289c1422, type: 2}
+  m_Controller: {fileID: 9100000, guid: 04f61317677319740ba837ec9991c26d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

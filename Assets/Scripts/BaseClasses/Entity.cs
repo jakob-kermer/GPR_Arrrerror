@@ -150,7 +150,7 @@ public abstract class Entity : MonoBehaviour
 
         // display damage (before HP check) with pop-up
         this.PopUpDamage.text = damage.ToString();
-        Instantiate(this.PopUpDamagePrefab, transform.position, UnityEngine.Quaternion.identity);
+        Instantiate(this.PopUpDamagePrefab, this.transform.position, UnityEngine.Quaternion.identity);
 
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
