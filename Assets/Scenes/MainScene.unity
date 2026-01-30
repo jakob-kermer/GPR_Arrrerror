@@ -519,6 +519,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 35b57be42e294d546baff933e1fef874, type: 3}
   m_PrefabInstance: {fileID: 96512384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &116427710 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 973566012205614568, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+  m_PrefabInstance: {fileID: 2273330459032370179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5120e1322595b97468c66afc97f2a7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!4 &129604707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 35b57be42e294d546baff933e1fef874, type: 3}
@@ -1271,6 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50c357f1fe84c84c82f442c7548cfcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  audioManager: {fileID: 116427710}
 --- !u!4 &536424039
 Transform:
   m_ObjectHideFlags: 0
@@ -2221,6 +2233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   pauseMenu: {fileID: 844008394}
+  audioManager: {fileID: 116427710}
 --- !u!1 &867151570
 GameObject:
   m_ObjectHideFlags: 0
@@ -8351,6 +8364,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8257fe5fd024e1640b84edb679463fd9, type: 3}
+--- !u!1001 &2273330459032370179
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.27897
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.30716
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132975353648088149, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
 --- !u!224 &2970368921686547093 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6905684008040506180, guid: 6f2bc3aead0116c47ad0eaa9e8e062fb, type: 3}
@@ -8554,3 +8624,4 @@ SceneRoots:
   - {fileID: 1902052025}
   - {fileID: 1961539800}
   - {fileID: 536424039}
+  - {fileID: 2273330459032370179}
