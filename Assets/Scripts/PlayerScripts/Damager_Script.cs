@@ -12,16 +12,21 @@ public class Damager_Script : Player
     [SerializeField] private int fireball_APCost;
     [SerializeField] private int shitstorm_APCost;
 
+    [Header("Ability Animations")]
+    [SerializeField] private GameObject AttackAnimation;
+    [SerializeField] private GameObject FireballAnimation;
+    [SerializeField] private GameObject ShitstormAnimation;
+
     // Properties
     public float FireballModifier
     {
         get { return fireballModifier; }
-        set { this.fireballModifier = value;}
+        set { this.fireballModifier = value; }
     }
     public float ShitstormModifier
     {
         get { return shitstormModifier; }
-        set { this.shitstormModifier = value;}
+        set { this.shitstormModifier = value; }
     }
     public int Fireball_APCost
     {
@@ -33,7 +38,7 @@ public class Damager_Script : Player
         get { return shitstorm_APCost; }
         set { this.shitstorm_APCost = value; }
     }
-    
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,10 +50,18 @@ public class Damager_Script : Player
         this.PlayerUI.SetUI(this);
     }
 
+    public override void Action_Attack(Entity target)
+    {
+        SpawnAnimation(AttackAnimation, target.transform.position);
+        base.Action_Attack(target);
+    }
+
     // Damager-specific abilities
     public void Ability_Fireball(Entity target)
     {
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
+
+        SpawnAnimation(FireballAnimation, target.transform.position);
 
         // cast fireball on target
         target.TakeDamage(this, this.FireballModifier);
@@ -61,7 +74,9 @@ public class Damager_Script : Player
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
-        
+
+        SpawnAnimation(ShitstormAnimation, new UnityEngine.Vector3(-2, 0, -2));
+
         // deal damage to every enemy
         foreach (Enemy enemy in enemies)
         {

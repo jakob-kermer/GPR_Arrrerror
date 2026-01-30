@@ -17,7 +17,7 @@ public class Supporter_Script : Player
     public float GatoModifier
     {
         get { return gatoModifier; }
-        set { this.gatoModifier = value;}
+        set { this.gatoModifier = value; }
     }
     public int PotionPotency
     {
@@ -32,7 +32,7 @@ public class Supporter_Script : Player
     {
         get { return throwGato_APCost; }
     }
-    
+
     // Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,9 +71,9 @@ public class Supporter_Script : Player
         int healAmount = Convert.ToInt32(this.PotionPotency + (this.PotionPotency * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
         // display amount healed (before HP check) with pop-up
-        this.PopUpDamage.color = new Color32 (24, 140, 20, 255);
+        this.PopUpDamage.color = new Color32(24, 140, 20, 255);
         this.PopUpDamage.text = healAmount.ToString();
-        Instantiate(this.PopUpDamagePrefab, selectedPlayer.transform.position, UnityEngine.Quaternion.identity);
+        SpawnAnimation(this.PopUpDamagePrefab, selectedPlayer.transform.position);
 
         Debug.Log($"{this.Name} heals {selectedPlayer.Name} for {healAmount} HP.");
 

@@ -20,7 +20,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private int currentHP;
     [SerializeField] private int currentAP;
 
-    // damage pop-up
+    [Header("Damage Pop-Up")]
     [SerializeField] private TMP_Text popUpDamage;
     [SerializeField] private GameObject popUpDamagePrefab;
 
@@ -131,10 +131,15 @@ public abstract class Entity : MonoBehaviour
         this.transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    public static void SpawnAnimation(GameObject animation, UnityEngine.Vector3 position)
+    {
+        Instantiate(animation, position, UnityEngine.Quaternion.identity);
+    }
+
     public virtual void TakeDamage(Entity attacker, float damageModifier)
     {
-        this.PopUpDamage.color = new Color32 (166, 21, 21, 255);
-        
+        this.PopUpDamage.color = new Color32(166, 21, 21, 255);
+
         // determine critical hit
         if (UnityEngine.Random.Range(0.0f, 1.0f) < attacker.CritChance)       // if the attacker lands a critical hit...
         {
@@ -142,15 +147,18 @@ public abstract class Entity : MonoBehaviour
             Debug.Log($"critical hit");        // ...and write crit message on the console
 
             // change pop-up color to yellow for critical hits
-            this.PopUpDamage.color = new Color32 (170, 120, 20, 255);
+            this.PopUpDamage.color = new Color32(170, 120, 20, 255);
         }
 
         // this is where the damage is calculated
         int damage = CalculateDamage(attacker.Attack, this.Defense, damageModifier);
 
+        // spawn damage number pop-up
+        SpawnAnimation(this.PopUpDamagePrefab, this.transform.position);
+
         // display damage (before HP check) with pop-up
         this.PopUpDamage.text = damage.ToString();
-        Instantiate(this.PopUpDamagePrefab, this.transform.position, UnityEngine.Quaternion.identity);
+
 
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
