@@ -153,11 +153,12 @@ public abstract class Entity : MonoBehaviour
         // this is where the damage is calculated
         int damage = CalculateDamage(attacker.Attack, this.Defense, damageModifier);
 
+        // display damage (before HP check) with pop-up
+        this.PopUpDamage.text = damage.ToString();
+        
         // spawn damage number pop-up
         SpawnAnimation(this.PopUpDamagePrefab, this.transform.position);
 
-        // display damage (before HP check) with pop-up
-        this.PopUpDamage.text = damage.ToString();
 
 
         // HP check

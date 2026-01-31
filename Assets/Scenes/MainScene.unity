@@ -4066,6 +4066,12 @@ MonoBehaviour:
   - {fileID: 468555958474399342, guid: a13b7e1949e683f44b70f53e044dc4e2, type: 3}
   enemyPrefabs:
   - {fileID: 9013372532013454532, guid: a6a19f7b5ce6d3f419249bb809350d4f, type: 3}
+  - {fileID: 9013372532013454532, guid: 89e1fdb6d2c1ff945aac1a2ebc4d15e2, type: 3}
+  - {fileID: 9013372532013454532, guid: d5ee78437a1911c418cfdb9ac52a5c1c, type: 3}
+  - {fileID: 9013372532013454532, guid: f4613b3bd8d9ae844895cf93c289ee38, type: 3}
+  - {fileID: 9013372532013454532, guid: cbe93f14ce241da4bbe1274edab6a238, type: 3}
+  - {fileID: 9013372532013454532, guid: 74085aab835f91d4ba427b91a438dd46, type: 3}
+  - {fileID: 9013372532013454532, guid: fbb17152fe8a83a4cbeba3ab54f3bb25, type: 3}
   playerSpawns:
   - {fileID: 702598695}
   - {fileID: 1401752213}
