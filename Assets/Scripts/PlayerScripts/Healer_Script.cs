@@ -12,6 +12,10 @@ public class Healer_Script : Player
     [SerializeField] private int heal_APCost;
     [SerializeField] private int groupHeal_APCost;
 
+    [Header("Ability Animations")]
+    [SerializeField] private GameObject AttackAnimation;
+    [SerializeField] private GameObject HealingAnimation;
+
     // Properties
     public int HealPower
     {

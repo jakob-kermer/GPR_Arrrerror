@@ -27,9 +27,9 @@ Transform:
   m_GameObject: {fileID: 2894284852375155532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.3, y: -0.8, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2369362938542681143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 5f7264fbd9eb06448a367a3a181f1669, type: 3}
+  m_Sprite: {fileID: -5875908458691156110, guid: dce82cf847be00f438a2ac896812b2b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 2894284852375155532}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 458e6e1325714d6478a6cbcfeada3c4e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -184,13 +184,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cat_Script
   entityName: Cat
-  maxHP: 777777
-  maxAP: 777
-  attack: 77
-  defense: 777777
-  critChance: 100
-  speed: 100
+  maxHP: 77
+  maxAP: 7
+  attack: 7
+  defense: 7
+  critChance: 0.7
+  speed: 10
   defenseModifier: 1
+  currentHP: 0
+  currentAP: 0
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
 --- !u!1001 &4270364740815499108
