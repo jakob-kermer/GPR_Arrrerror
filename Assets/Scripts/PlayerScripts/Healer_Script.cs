@@ -47,7 +47,7 @@ public class Healer_Script : Player
         // display amount healed (before HP check) with pop-up
         this.PopUpDamage.color = new Color32 (24, 140, 20, 255);
         this.PopUpDamage.text = healAmount.ToString();
-        Instantiate(this.PopUpDamagePrefab, target.transform.position, UnityEngine.Quaternion.identity);
+        SpawnAnimation(this.PopUpDamagePrefab, target.transform.position);
 
         Debug.Log($"{this.Name} heals {target.Name} for {healAmount} HP.");
 
@@ -77,7 +77,7 @@ public class Healer_Script : Player
 
             // display amount healed (before HP check) with pop-up
             this.PopUpDamage.text = healAmount.ToString();
-            Instantiate(this.PopUpDamagePrefab, player.transform.position, UnityEngine.Quaternion.identity);
+            SpawnAnimation(this.PopUpDamagePrefab, player.transform.position);
 
             Debug.Log($"{this.Name} heals {player.Name} for {healAmount} HP.");
 

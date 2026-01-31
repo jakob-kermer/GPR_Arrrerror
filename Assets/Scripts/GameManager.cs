@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (this.state == GameState.Victory) // if the players won...
                 {
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1.5f);
 
                     Debug.Log("New battle started");
                     this.state = GameState.Start;
@@ -624,18 +624,19 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
+        Player selectedPlayer;
         if (defender.TauntUsed == true)
         {
-            Player selectedPlayer = defender;
-            selectedPlayer.TakeDamage(participants[turnIndex], 1f);
-            participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
+            selectedPlayer = defender;
         }
         else // select random player to attack
         {
-            Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
-            selectedPlayer.TakeDamage(participants[turnIndex], 1f);
-            participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
+            selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
         }
+
+        selectedPlayer.TakeDamage(participants[turnIndex], 1f);
+        participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
+
         // mark turn as made at the end of the turn
         this.turnMade = true;
     }
@@ -670,19 +671,29 @@ public class GameManager : MonoBehaviour
                     // ...or remove player from players list
                     players.Remove((Player)participants[i]);
                 }
-
-                // deactivate the entity in the scene
-                participants[i].gameObject.SetActive(false);
             }
         }
 
         foreach (Entity corpse in corpsePile)
         {
+            // play death animation of all entites in the corpse pile
+            StartCoroutine(ShowDeathAnimation(corpse));
+            
             // remove all entities in the corpse pile from participants list
             participants.Remove(corpse);
         }
 
         CheckWinConditions();
+    }
+
+    public IEnumerator ShowDeathAnimation(Entity entity)
+    {
+        entity.Animator.SetTrigger("Death");
+
+        yield return new WaitForSeconds(2f);
+
+        // deactivate the entity in the scene
+        entity.gameObject.SetActive(false);
     }
 
     public void CheckWinConditions()
