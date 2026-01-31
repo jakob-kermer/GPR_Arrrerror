@@ -42,16 +42,27 @@ public class Healer_Script : Player
         this.PlayerUI.SetUI(this);
     }
 
+    public override void Action_Attack(Entity target)
+    {
+        // play attack effect animation at the targets' position
+        SpawnAnimation(AttackAnimation, target.transform.position);
+        
+        base.Action_Attack(target);
+    }
+
     // Healer-specific abilities
     public void Ability_Heal(Player target)
     {
         // amount healed = HealPower * 1.5 +/- up to 2% of HealPower
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
+        // play healing effect animation at the targets' position
+        SpawnAnimation(HealingAnimation, target.transform.position);
+        
         // display amount healed (before HP check) with pop-up
-        this.PopUpDamage.color = new Color32 (24, 140, 20, 255);
+        this.PopUpDamage.color = new Color32(24, 140, 20, 255);
         this.PopUpDamage.text = healAmount.ToString();
-        SpawnAnimation(this.PopUpDamagePrefab, target.transform.position);
+        SpawnAnimation(this.PopUpDamagePrefab, target.transform.position + Vector3.back * 0.2f);
 
         Debug.Log($"{this.Name} heals {target.Name} for {healAmount} HP.");
 
@@ -72,16 +83,19 @@ public class Healer_Script : Player
 
     public void Ability_Groupheal(List<Player> players)
     {
-        this.PopUpDamage.color = new Color32 (24, 140, 20, 255);
+        this.PopUpDamage.color = new Color32(24, 140, 20, 255);
 
         foreach (Player player in players)
         {
             // amount healed = HealPower +/- up to 2% of HealPower
             int healAmount = Convert.ToInt32(this.HealPower + (this.HealPower * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
+            // play healing effect animation at each player's position
+            SpawnAnimation(HealingAnimation, player.transform.position);
+
             // display amount healed (before HP check) with pop-up
             this.PopUpDamage.text = healAmount.ToString();
-            SpawnAnimation(this.PopUpDamagePrefab, player.transform.position);
+            SpawnAnimation(this.PopUpDamagePrefab, player.transform.position + Vector3.back * 0.2f);
 
             Debug.Log($"{this.Name} heals {player.Name} for {healAmount} HP.");
 

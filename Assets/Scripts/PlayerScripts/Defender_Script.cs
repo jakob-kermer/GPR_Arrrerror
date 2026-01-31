@@ -92,7 +92,6 @@ public class Defender_Script : Player
 
             base.TakeDamage(attacker, damageModifier);
             PlayerUI.SetHP(this.CurrentHP);
-
         }
         else
         {
