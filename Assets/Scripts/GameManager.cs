@@ -431,7 +431,6 @@ public class GameManager : MonoBehaviour
             {
                 // ...deactivate the Block ability button
                 DefenderAbilityMenu.transform.GetChild(1).gameObject.SetActive(false);
-                defender.IsBlocking = false;
             }
             else
             {

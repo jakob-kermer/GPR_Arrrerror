@@ -100,6 +100,7 @@ public class Defender_Script : Player
             damageModifier = 0f;
             this.isBlocking = false;
 
+            // set IsBlocking to false to stop idle block animation
             this.Animator.SetBool("IsBlocking", false);
 
             base.TakeDamage(attacker, damageModifier);
