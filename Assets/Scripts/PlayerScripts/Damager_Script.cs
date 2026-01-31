@@ -63,6 +63,9 @@ public class Damager_Script : Player
     {
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
 
+        // play cast fireball animation
+        this.Animator.SetTrigger("Fireball");
+
         // play fireball effect animation at the targets' position
         SpawnAnimation(FireballEffect, target.transform.position);
 
@@ -77,6 +80,9 @@ public class Damager_Script : Player
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
+
+        // play cast shitstorm animation
+        this.Animator.SetTrigger("Shitstorm");
 
         // play shitstorm effect animation at specified position
         SpawnAnimation(ShitstormEffect, new UnityEngine.Vector3(-2, 0, -2));

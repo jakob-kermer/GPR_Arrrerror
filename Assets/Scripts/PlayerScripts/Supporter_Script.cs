@@ -54,6 +54,9 @@ public class Supporter_Script : Player
         // choose random enemy
         Enemy selectedEnemy = enemies[UnityEngine.Random.Range(0, enemies.Count)];
 
+        // play throw animation
+        this.Animator.SetTrigger("Throw");
+
         // play throw gato effect animation at the targets' position
         SpawnAnimation(ThrowGatoEffect, selectedEnemy.transform.position);
 
@@ -72,6 +75,9 @@ public class Supporter_Script : Player
 
         // amount healed = PotionPotency +/- up to 2% of PotionPotency
         int healAmount = Convert.ToInt32(this.PotionPotency + (this.PotionPotency * UnityEngine.Random.Range(-0.02f, 0.02f)));
+
+        // play throw animation
+        this.Animator.SetTrigger("Throw");
 
         // play throw potion effect animation at the targets' position
         SpawnAnimation(ThrowPotionEffect, selectedPlayer.transform.position);

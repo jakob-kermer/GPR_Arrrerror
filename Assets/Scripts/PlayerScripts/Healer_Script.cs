@@ -46,7 +46,7 @@ public class Healer_Script : Player
     {
         // play attack effect animation at the targets' position
         SpawnAnimation(AttackEffect, target.transform.position);
-        
+
         base.Action_Attack(target);
     }
 
@@ -56,9 +56,12 @@ public class Healer_Script : Player
         // amount healed = HealPower * 1.5 +/- up to 2% of HealPower
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
+        // play cast heal animation
+        this.Animator.SetTrigger("Heal");
+
         // play healing effect animation at the targets' position
         SpawnAnimation(HealingEffect, target.transform.position);
-        
+
         // display amount healed (before HP check) with pop-up
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);
         this.PopUpDamage.text = healAmount.ToString();
@@ -84,6 +87,9 @@ public class Healer_Script : Player
     public void Ability_Groupheal(List<Player> players)
     {
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);
+
+        // play cast heal animation (only once)
+        this.Animator.SetTrigger("Heal");
 
         foreach (Player player in players)
         {
