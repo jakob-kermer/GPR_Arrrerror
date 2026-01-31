@@ -39,6 +39,7 @@ public class Healer_Script : Player
         this.CurrentAP = MaxAP;
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Healer UI").GetComponent<BattleUI>();
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
     }
 
@@ -53,6 +54,7 @@ public class Healer_Script : Player
     // Healer-specific abilities
     public void Ability_Heal(Player target)
     {
+        AudioManager.PlaySFX(AudioManager.heal);
         // amount healed = HealPower * 1.5 +/- up to 2% of HealPower
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
@@ -90,6 +92,8 @@ public class Healer_Script : Player
 
         // play cast heal animation (only once)
         this.Animator.SetTrigger("Heal");
+        AudioManager.PlaySFX(AudioManager.heal);
+        this.PopUpDamage.color = new Color32(24, 140, 20, 255);
 
         foreach (Player player in players)
         {

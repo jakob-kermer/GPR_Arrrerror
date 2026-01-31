@@ -47,6 +47,7 @@ public class Damager_Script : Player
         this.CurrentAP = MaxAP;
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Damager UI").GetComponent<BattleUI>();
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
     }
 
@@ -61,6 +62,7 @@ public class Damager_Script : Player
     // Damager-specific abilities
     public void Ability_Fireball(Entity target)
     {
+        AudioManager.PlaySFX(AudioManager.fireball);
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
 
         // play cast fireball animation
@@ -79,6 +81,7 @@ public class Damager_Script : Player
 
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
+        AudioManager.PlaySFX(AudioManager.shitstorm);
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
 
         // play cast shitstorm animation

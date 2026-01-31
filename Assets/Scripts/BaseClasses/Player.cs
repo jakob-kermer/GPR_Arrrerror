@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public abstract class Player : Entity
 {
     // Fields
+    [SerializeField] AudioManager audioManager;
     private BattleUI playerUI;
 
     // Properties
@@ -15,9 +16,16 @@ public abstract class Player : Entity
         set { this.playerUI = value; }
     }
 
+    public AudioManager AudioManager
+    {
+        get { return audioManager; }
+        set { this.audioManager = value; }
+    }
+
     // Methods
     public virtual void Action_Attack(Entity target)
     {
+        audioManager.PlaySFX(audioManager.hit);
         target.TakeDamage(this, 1f);
     }
 

@@ -45,12 +45,16 @@ public class Supporter_Script : Player
         this.CurrentAP = MaxAP;
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Supporter UI").GetComponent<BattleUI>();
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
     }
 
     // Supporter-specific abilities
     public void Ability_ThrowGato(List<Enemy> enemies)
     {
+        AudioManager.PlaySFX(AudioManager.cat);
+        Debug.Log($"{this.name} deals damage to an enemy");
+
         // choose random enemy
         Enemy selectedEnemy = enemies[UnityEngine.Random.Range(0, enemies.Count)];
 
@@ -70,6 +74,9 @@ public class Supporter_Script : Player
 
     public void Ability_ThrowPotion(List<Player> players)
     {
+        AudioManager.PlaySFX(AudioManager.potion);
+        Debug.Log($"{this.name} heals a player");
+
         // choose random player
         Player selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
 

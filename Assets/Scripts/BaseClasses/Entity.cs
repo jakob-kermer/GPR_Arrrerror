@@ -24,6 +24,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private TMP_Text popUpDamage;
     [SerializeField] private GameObject popUpDamagePrefab;
 
+
     // Animator
     private Animator animator;
 

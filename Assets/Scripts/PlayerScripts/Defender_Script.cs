@@ -12,6 +12,7 @@ public class Defender_Script : Player
     [SerializeField] private int block_APCost;
     [SerializeField] private int taunt_APCost;
 
+
     // Properties
     public bool IsBlocking
     {
@@ -42,12 +43,14 @@ public class Defender_Script : Player
         this.CurrentAP = MaxAP;
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Defender UI").GetComponent<BattleUI>();
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
     }
 
     // Defender-specific abilities
     public void Ability_Block()
     {
+        AudioManager.PlaySFX(AudioManager.block);
         // check if player has enough AP
         if (this.CurrentAP < this.Block_APCost)
         {
@@ -71,6 +74,7 @@ public class Defender_Script : Player
 
     public void Ability_Taunt()
     {
+        AudioManager.PlaySFX(AudioManager.taunt);
         // check if player has enough AP
         if (this.CurrentAP < this.Taunt_APCost)
         {
