@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Slime_Script
   entityName: Slime
-  maxHP: 20
-  maxAP: 2
-  attack: 8
-  defense: 5
+  maxHP: 25
+  maxAP: 0
+  attack: 15
+  defense: 2
   critChance: 0.05
-  speed: 2
+  speed: 5
   defenseModifier: 1
   currentHP: 0
   currentAP: 0

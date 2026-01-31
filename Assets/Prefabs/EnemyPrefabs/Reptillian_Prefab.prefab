@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Reptillian_Script
   entityName: Reptillian
-  maxHP: 40
+  maxHP: 75
   maxAP: 0
-  attack: 20
-  defense: 7
-  critChance: 0.05
-  speed: 12
+  attack: 30
+  defense: 6
+  critChance: 0.1
+  speed: 20
   defenseModifier: 1
   currentHP: 0
   currentAP: 0

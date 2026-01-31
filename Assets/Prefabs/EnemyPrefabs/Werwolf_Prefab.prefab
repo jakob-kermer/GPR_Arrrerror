@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Werwolf_Script
   entityName: Werwolf
-  maxHP: 70
+  maxHP: 100
   maxAP: 0
-  attack: 30
+  attack: 35
   defense: 8
-  critChance: 0.05
-  speed: 6
+  critChance: 0.15
+  speed: 15
   defenseModifier: 1
   currentHP: 0
   currentAP: 0
