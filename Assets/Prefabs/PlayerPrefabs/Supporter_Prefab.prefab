@@ -85,7 +85,8 @@ MonoBehaviour:
   potionPotency: 38
   throwPotion_APCost: 6
   throwGato_APCost: 8
-  ThrowGato_Animation: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
+  ThrowGatoEffect: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
+  ThrowPotionEffect: {fileID: 5934748371663529864, guid: 9dc3c6c5d2db6c242ba87cea3ab238ce, type: 3}
 --- !u!1 &747116030763881006
 GameObject:
   m_ObjectHideFlags: 0

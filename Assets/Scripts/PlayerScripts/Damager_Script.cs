@@ -12,10 +12,10 @@ public class Damager_Script : Player
     [SerializeField] private int fireball_APCost;
     [SerializeField] private int shitstorm_APCost;
 
-    [Header("Ability Animations")]
-    [SerializeField] private GameObject AttackAnimation;
-    [SerializeField] private GameObject FireballAnimation;
-    [SerializeField] private GameObject ShitstormAnimation;
+    [Header("Ability Effect Animations")]
+    [SerializeField] private GameObject AttackEffect;
+    [SerializeField] private GameObject FireballEffect;
+    [SerializeField] private GameObject ShitstormEffect;
 
     // Properties
     public float FireballModifier
@@ -53,7 +53,7 @@ public class Damager_Script : Player
     public override void Action_Attack(Entity target)
     {
         // play attack effect animation at the targets' position
-        SpawnAnimation(AttackAnimation, target.transform.position);
+        SpawnAnimation(AttackEffect, target.transform.position);
 
         base.Action_Attack(target);
     }
@@ -64,7 +64,7 @@ public class Damager_Script : Player
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
 
         // play fireball effect animation at the targets' position
-        SpawnAnimation(FireballAnimation, target.transform.position);
+        SpawnAnimation(FireballEffect, target.transform.position);
 
         // cast fireball on target
         target.TakeDamage(this, this.FireballModifier);
@@ -79,7 +79,7 @@ public class Damager_Script : Player
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
 
         // play shitstorm effect animation at specified position
-        SpawnAnimation(ShitstormAnimation, new UnityEngine.Vector3(-2, 0, -2));
+        SpawnAnimation(ShitstormEffect, new UnityEngine.Vector3(-2, 0, -2));
 
         // deal damage to every enemy
         foreach (Enemy enemy in enemies)

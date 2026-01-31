@@ -84,8 +84,8 @@ MonoBehaviour:
   healPower: 28
   heal_APCost: 6
   groupHeal_APCost: 15
-  AttackAnimation: {fileID: 8580295201758758391, guid: 32ea1e3564c9e4a4783a6128c58c829b, type: 3}
-  HealingAnimation: {fileID: 2774405594711128355, guid: 4b5949b283838ae498d77a31b8623067, type: 3}
+  AttackEffect: {fileID: 8580295201758758391, guid: 32ea1e3564c9e4a4783a6128c58c829b, type: 3}
+  HealingEffect: {fileID: 2774405594711128355, guid: 4b5949b283838ae498d77a31b8623067, type: 3}
 --- !u!1 &3197992566878142340
 GameObject:
   m_ObjectHideFlags: 0

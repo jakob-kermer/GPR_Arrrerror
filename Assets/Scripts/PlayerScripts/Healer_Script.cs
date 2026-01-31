@@ -12,9 +12,9 @@ public class Healer_Script : Player
     [SerializeField] private int heal_APCost;
     [SerializeField] private int groupHeal_APCost;
 
-    [Header("Ability Animations")]
-    [SerializeField] private GameObject AttackAnimation;
-    [SerializeField] private GameObject HealingAnimation;
+    [Header("Ability Effect Animations")]
+    [SerializeField] private GameObject AttackEffect;
+    [SerializeField] private GameObject HealingEffect;
 
     // Properties
     public int HealPower
@@ -45,7 +45,7 @@ public class Healer_Script : Player
     public override void Action_Attack(Entity target)
     {
         // play attack effect animation at the targets' position
-        SpawnAnimation(AttackAnimation, target.transform.position);
+        SpawnAnimation(AttackEffect, target.transform.position);
         
         base.Action_Attack(target);
     }
@@ -57,7 +57,7 @@ public class Healer_Script : Player
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
         // play healing effect animation at the targets' position
-        SpawnAnimation(HealingAnimation, target.transform.position);
+        SpawnAnimation(HealingEffect, target.transform.position);
         
         // display amount healed (before HP check) with pop-up
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);
@@ -91,7 +91,7 @@ public class Healer_Script : Player
             int healAmount = Convert.ToInt32(this.HealPower + (this.HealPower * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
             // play healing effect animation at each player's position
-            SpawnAnimation(HealingAnimation, player.transform.position);
+            SpawnAnimation(HealingEffect, player.transform.position);
 
             // display amount healed (before HP check) with pop-up
             this.PopUpDamage.text = healAmount.ToString();
