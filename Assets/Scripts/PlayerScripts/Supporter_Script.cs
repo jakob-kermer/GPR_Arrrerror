@@ -13,9 +13,9 @@ public class Supporter_Script : Player
     [SerializeField] private int throwPotion_APCost;
     [SerializeField] private int throwGato_APCost;
 
-
-
-    public GameObject ThrowGato_Animation;
+    [Header("Ability Effect Animations")]
+    [SerializeField] private GameObject ThrowGatoEffect;
+    [SerializeField] private GameObject ThrowPotionEffect;
 
     // Properties
     public float GatoModifier
@@ -58,8 +58,13 @@ public class Supporter_Script : Player
         // choose random enemy
         Enemy selectedEnemy = enemies[UnityEngine.Random.Range(0, enemies.Count)];
 
+        // play throw animation
+        this.Animator.SetTrigger("Throw");
+
+        // play throw gato effect animation at the targets' position
+        SpawnAnimation(ThrowGatoEffect, selectedEnemy.transform.position);
+
         // deal damage to that enemy
-        Instantiate(this.ThrowGato_Animation, selectedEnemy.transform.position, Quaternion.identity);
         selectedEnemy.TakeDamage(this, this.GatoModifier);
 
         // reduce AP and update UI
@@ -77,6 +82,12 @@ public class Supporter_Script : Player
 
         // amount healed = PotionPotency +/- up to 2% of PotionPotency
         int healAmount = Convert.ToInt32(this.PotionPotency + (this.PotionPotency * UnityEngine.Random.Range(-0.02f, 0.02f)));
+
+        // play throw animation
+        this.Animator.SetTrigger("Throw");
+
+        // play throw potion effect animation at the targets' position
+        SpawnAnimation(ThrowPotionEffect, selectedPlayer.transform.position);
 
         // display amount healed (before HP check) with pop-up
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);

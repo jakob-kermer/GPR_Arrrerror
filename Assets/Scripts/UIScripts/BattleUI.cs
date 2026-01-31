@@ -15,10 +15,10 @@ public class BattleUI : MonoBehaviour
     public void SetUI(Entity entity)
     {
         nameText.text = entity.Name;
-        hpText.text = entity.CurrentHP + " / " +  entity.MaxHP;
+        hpText.text = "HP " + entity.CurrentHP + " / " +  entity.MaxHP;
         HP_bar.maxValue = entity.MaxHP;
         HP_bar.value = entity.CurrentHP;
-        apText.text = entity.CurrentAP + " / " + entity.MaxAP;
+        apText.text = "AP " + entity.CurrentAP + " / " + entity.MaxAP;
         AP_bar.maxValue = entity.MaxAP;
         AP_bar.value = entity.CurrentAP;
     }

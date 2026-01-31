@@ -12,10 +12,10 @@ public class Damager_Script : Player
     [SerializeField] private int fireball_APCost;
     [SerializeField] private int shitstorm_APCost;
 
-    [Header("Ability Animations")]
-    [SerializeField] private GameObject AttackAnimation;
-    [SerializeField] private GameObject FireballAnimation;
-    [SerializeField] private GameObject ShitstormAnimation;
+    [Header("Ability Effect Animations")]
+    [SerializeField] private GameObject AttackEffect;
+    [SerializeField] private GameObject FireballEffect;
+    [SerializeField] private GameObject ShitstormEffect;
 
     // Properties
     public float FireballModifier
@@ -53,7 +53,9 @@ public class Damager_Script : Player
 
     public override void Action_Attack(Entity target)
     {
-        SpawnAnimation(AttackAnimation, target.transform.position);
+        // play attack effect animation at the targets' position
+        SpawnAnimation(AttackEffect, target.transform.position);
+
         base.Action_Attack(target);
     }
 
@@ -63,7 +65,11 @@ public class Damager_Script : Player
         AudioManager.PlaySFX(AudioManager.fireball);
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
 
-        SpawnAnimation(FireballAnimation, target.transform.position);
+        // play cast fireball animation
+        this.Animator.SetTrigger("Fireball");
+
+        // play fireball effect animation at the targets' position
+        SpawnAnimation(FireballEffect, target.transform.position);
 
         // cast fireball on target
         target.TakeDamage(this, this.FireballModifier);
@@ -78,7 +84,11 @@ public class Damager_Script : Player
         AudioManager.PlaySFX(AudioManager.shitstorm);
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
 
-        SpawnAnimation(ShitstormAnimation, new UnityEngine.Vector3(-2, 0, -2));
+        // play cast shitstorm animation
+        this.Animator.SetTrigger("Shitstorm");
+
+        // play shitstorm effect animation at specified position
+        SpawnAnimation(ShitstormEffect, new UnityEngine.Vector3(-2, 0, -2));
 
         // deal damage to every enemy
         foreach (Enemy enemy in enemies)

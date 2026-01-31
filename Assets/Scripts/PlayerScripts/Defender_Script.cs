@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Defender_Script : Player
@@ -58,6 +59,11 @@ public class Defender_Script : Player
         }
 
         Debug.Log($"{this.Name} blocks the next incoming attack.");
+
+        // play block animation and idle block animation
+        this.Animator.SetTrigger("Block");
+        this.Animator.SetBool("IsBlocking", true);
+
         // blocks the next incoming attack
         this.isBlocking = true;
 
@@ -78,6 +84,9 @@ public class Defender_Script : Player
 
         Debug.Log($"{this.Name} taunts the enemies to attack him.");
 
+        // play taunt animation
+        this.Animator.SetTrigger("Taunt");
+
         // forces enemy to attack defender next
         tauntUsed = true;
 
@@ -89,14 +98,15 @@ public class Defender_Script : Player
     // TakeDamage override to update UI
     public override void TakeDamage(Entity attacker, float damageModifier)
     {
-        if (isBlocking == true)
+        if (this.isBlocking == true)
         {
             damageModifier = 0f;
-            isBlocking = false;
+            this.isBlocking = false;
+
+            this.Animator.SetBool("IsBlocking", false);
 
             base.TakeDamage(attacker, damageModifier);
             PlayerUI.SetHP(this.CurrentHP);
-
         }
         else
         {

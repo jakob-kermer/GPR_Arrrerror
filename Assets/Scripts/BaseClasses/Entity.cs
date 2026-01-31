@@ -160,8 +160,6 @@ public abstract class Entity : MonoBehaviour
         // spawn damage number pop-up
         SpawnAnimation(this.PopUpDamagePrefab, this.transform.position);
 
-
-
         // HP check
         if (damage > this.CurrentHP)        // check if damage exceeds current HP
         {

@@ -101,10 +101,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HP: 1000/1000'
+  m_text: HP 1000/1000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eaa5bf687dd0a08439c8d2bf65def662, type: 2}
-  m_sharedMaterial: {fileID: -3522105003493474526, guid: eaa5bf687dd0a08439c8d2bf65def662, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
+  m_sharedMaterial: {fileID: -7001197275624797658, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'AP: 100/100'
+  m_text: AP 100/100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
   m_sharedMaterial: {fileID: -7001197275624797658, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
