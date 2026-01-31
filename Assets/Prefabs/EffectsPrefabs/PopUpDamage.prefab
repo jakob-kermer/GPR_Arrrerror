@@ -108,7 +108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7
+  m_text: 43
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
   m_sharedMaterial: {fileID: -7001197275624797658, guid: 99faac6137bd6984e91fd2f26561ff15, type: 2}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0.6509804, g: 0.08235294, b: 0.08235294, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -217,4 +217,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d588f07c463e24cbf68fbda881ebb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamagePopUpVanish
-  destructTime: 1.5
+  timer: 2
