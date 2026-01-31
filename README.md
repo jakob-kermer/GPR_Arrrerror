@@ -23,7 +23,7 @@
 - ~~Turns in battle~~
   - ~~All Players can choose an Action from the Action Menu~~
   - ~~Target Selection (for Players)~~
-  - Enemies randomly choose an action and a target (enemies can currently select dead players)
+  - ~~Enemies randomly choose an action and a target~~
 - Actions
   - ~~Attack~~
   - ~~Defend~~
