@@ -42,8 +42,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private TMP_Text ScoreText;
     [SerializeField] private TMP_Text HighscoreText;
-    //Audio
-    [SerializeField] AudioManager audioManager;
+
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
 
 
     // player and enemy references
@@ -132,6 +133,8 @@ public class GameManager : MonoBehaviour
     // main battle loop
     public IEnumerator Battle()
     {
+        yield return new WaitForSeconds(2f);
+        
         // the battle continues as long as the players are not defeated
         while (this.state != GameState.Defeat)
         {
@@ -157,10 +160,14 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(1.5f);
 
                     Debug.Log("New battle started");
+
                     this.state = GameState.Start;
+
                     turnIndex = 0; // ...reset turn index...
                     DeleteEnemies(); // ...delete old enemies...
                     SpawnEnemies(); // ...and spawn new enemies
+
+                    yield return new WaitForSeconds(1.5f);
                 }
                 else if (this.participants[turnIndex] is Player)
                 {
@@ -181,7 +188,7 @@ public class GameManager : MonoBehaviour
                     // reset turnMade for next turn
                     this.turnMade = false;
 
-                    yield return new WaitForSeconds(1.2f);
+                    yield return new WaitForSeconds(1.5f);
 
                     // check if any participants have died
                     turnIndicator.SetActive(false);
@@ -205,7 +212,7 @@ public class GameManager : MonoBehaviour
                     // reset turnMade for next turn
                     this.turnMade = false;
 
-                    yield return new WaitForSeconds(1.2f);
+                    yield return new WaitForSeconds(1.5f);
 
                     // hide turn indicator above current enemy
                     turnIndicator.SetActive(false);
@@ -624,7 +631,6 @@ public class GameManager : MonoBehaviour
     // Enemy's turn implementation
     public void EnemyTurn_Attack()
     {
-        audioManager.PlaySFX(audioManager.hit);
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
         Player selectedPlayer;
@@ -636,6 +642,9 @@ public class GameManager : MonoBehaviour
         {
             selectedPlayer = players[UnityEngine.Random.Range(0, players.Count)];
         }
+
+        // play hit sound effect
+        audioManager.PlaySFX(audioManager.Hit);
 
         selectedPlayer.TakeDamage(participants[turnIndex], 1f);
         participants[turnIndex].Animator.SetTrigger("Attack"); // play attack animation
@@ -657,7 +666,6 @@ public class GameManager : MonoBehaviour
             // if entity has 0 HP...
             if (participants[i].CurrentHP == 0)
             {
-                audioManager.PlaySFX(audioManager.death);
                 Debug.Log($"{participants[i].Name} has been defeated");
 
                 // ...add it to the corpse pile
@@ -678,10 +686,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (corpsePile.Count > 0)
+        {
+            // play death sound effect if at least one entity died
+            audioManager.PlaySFX(audioManager.Death);
+        }
+
         foreach (Entity corpse in corpsePile)
         {
             // play death animation of all entites in the corpse pile
-            StartCoroutine(ShowDeathAnimation(corpse));
+            StartCoroutine(PlayDeathAnimation(corpse));
 
             // remove all entities in the corpse pile from participants list
             participants.Remove(corpse);
@@ -690,8 +704,9 @@ public class GameManager : MonoBehaviour
         CheckWinConditions();
     }
 
-    public IEnumerator ShowDeathAnimation(Entity entity)
+    public IEnumerator PlayDeathAnimation(Entity entity)
     {
+        // play death animation
         entity.Animator.SetTrigger("Death");
 
         yield return new WaitForSeconds(2f);

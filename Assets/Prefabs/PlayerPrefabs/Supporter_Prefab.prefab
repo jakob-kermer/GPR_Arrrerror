@@ -85,7 +85,8 @@ MonoBehaviour:
   potionPotency: 40
   throwPotion_APCost: 25
   throwGato_APCost: 25
-  ThrowGato_Animation: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
+  ThrowGatoEffect: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
+  ThrowPotionEffect: {fileID: 5934748371663529864, guid: 9dc3c6c5d2db6c242ba87cea3ab238ce, type: 3}
 --- !u!1 &747116030763881006
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,11 +211,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1775265943659041028, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
       propertyPath: m_LocalPosition.z
@@ -252,6 +253,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Selector
       objectReference: {fileID: 0}
+    - target: {fileID: 5689495128006379784, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -272,11 +277,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.z
@@ -313,6 +318,10 @@ PrefabInstance:
     - target: {fileID: 5689495128006379784, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_Name
       value: Player_TurnIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689495128006379784, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

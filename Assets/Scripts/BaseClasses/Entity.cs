@@ -114,8 +114,11 @@ public abstract class Entity : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.CurrentHP = MaxHP;
-        this.CurrentAP = MaxAP;
+        // set current HP & AP to maximum
+        this.CurrentHP = this.MaxHP;
+        this.CurrentAP = this.MaxAP;
+
+        // get animator component from "Sprite"
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
     }
 
@@ -123,18 +126,15 @@ public abstract class Entity : MonoBehaviour
     {
         if (EnableSelector)
         {
+            // activate selector
             this.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
     public void OnMouseExit()
     {
+        // deactivate selector
         this.transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    public static void SpawnAnimation(GameObject animation, UnityEngine.Vector3 position)
-    {
-        Instantiate(animation, position, UnityEngine.Quaternion.identity);
     }
 
     public virtual void TakeDamage(Entity attacker, float damageModifier)
@@ -182,5 +182,11 @@ public abstract class Entity : MonoBehaviour
         int damage = Math.Max(0, Convert.ToInt32(((atk - def * 0.5f) * damageModifier / this.DefenseModifier) + (atk * UnityEngine.Random.Range(-0.02f, 0.02f))));
 
         return damage;
+    }
+
+    // static Methods
+    public static void SpawnAnimation(GameObject animation, UnityEngine.Vector3 position)
+    {
+        Instantiate(animation, position, UnityEngine.Quaternion.identity);
     }
 }

@@ -3,7 +3,8 @@ using TMPro;
 
 public class TextEffect : MonoBehaviour
 {
-    public TMP_Text textComponent;
+    [Header("Text to animate")]
+    [SerializeField] private TMP_Text textComponent;
 
     void Update()
     {

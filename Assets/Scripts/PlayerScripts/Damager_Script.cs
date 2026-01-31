@@ -43,52 +43,64 @@ public class Damager_Script : Player
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.CurrentHP = MaxHP;
-        this.CurrentAP = MaxAP;
+        // set current HP & AP to maximum
+        this.CurrentHP = this.MaxHP;
+        this.CurrentAP = this.MaxAP;
+
+        // get animator component from "Sprite"
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
+
+        // get the damager's UI from the scene and apply the damager's stats to it
         this.PlayerUI = GameObject.Find("Damager UI").GetComponent<BattleUI>();
-        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
+
+        // get the Audio Manager from the scene
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     public override void Action_Attack(Entity target)
     {
         // play attack effect animation at the targets' position
-        SpawnAnimation(AttackEffect, target.transform.position);
+        SpawnAnimation(this.AttackEffect, target.transform.position);
 
+        // deal damage to target
         base.Action_Attack(target);
     }
 
     // Damager-specific abilities
     public void Ability_Fireball(Entity target)
     {
-        AudioManager.PlaySFX(AudioManager.fireball);
         Debug.Log($"{this.Name} casts Fireball on {target.Name}");
+
+        // play fireball sound effect
+        this.AudioManager.PlaySFX(this.AudioManager.Fireball);
 
         // play cast fireball animation
         this.Animator.SetTrigger("Fireball");
 
         // play fireball effect animation at the targets' position
-        SpawnAnimation(FireballEffect, target.transform.position);
+        SpawnAnimation(this.FireballEffect, target.transform.position);
 
-        // cast fireball on target
+        // deal damage to target
         target.TakeDamage(this, this.FireballModifier);
 
         // reduce AP and update UI
-        this.CurrentAP -= Fireball_APCost;
+        this.CurrentAP -= this.Fireball_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_Shitstorm(List<Enemy> enemies)
     {
-        AudioManager.PlaySFX(AudioManager.shitstorm);
         Debug.Log($"{this.Name} casts Shitstorm on enemy party");
+
+        // play shitstorm sound effect
+        this.AudioManager.PlaySFX(this.AudioManager.Shitstorm);
 
         // play cast shitstorm animation
         this.Animator.SetTrigger("Shitstorm");
 
         // play shitstorm effect animation at specified position
-        SpawnAnimation(ShitstormEffect, new UnityEngine.Vector3(-2, 0, -2));
+        SpawnAnimation(this.ShitstormEffect, new UnityEngine.Vector3(-2, 0, -2));
 
         // deal damage to every enemy
         foreach (Enemy enemy in enemies)
@@ -97,7 +109,7 @@ public class Damager_Script : Player
         }
 
         // reduce AP and update UI
-        this.CurrentAP -= Shitstorm_APCost;
+        this.CurrentAP -= this.Shitstorm_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
@@ -105,6 +117,6 @@ public class Damager_Script : Player
     public override void TakeDamage(Entity attacker, float damageModifier)
     {
         base.TakeDamage(attacker, damageModifier);
-        PlayerUI.SetHP(this.CurrentHP);
+        this.PlayerUI.SetHP(this.CurrentHP);
     }
 }

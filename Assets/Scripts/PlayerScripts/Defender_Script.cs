@@ -39,26 +39,28 @@ public class Defender_Script : Player
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.CurrentHP = MaxHP;
-        this.CurrentAP = MaxAP;
+        // set current HP & AP to maximum
+        this.CurrentHP = this.MaxHP;
+        this.CurrentAP = this.MaxAP;
+
+        // get animator component from "Sprite"
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
+
+        // get the defender's UI from the scene and apply the defender's stats to it
         this.PlayerUI = GameObject.Find("Defender UI").GetComponent<BattleUI>();
-        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
+
+        // get the Audio Manager from the scene
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Defender-specific abilities
     public void Ability_Block()
     {
-        AudioManager.PlaySFX(AudioManager.block);
-        // check if player has enough AP
-        if (this.CurrentAP < this.Block_APCost)
-        {
-            Debug.Log($"{this.Name} does not have enough AP");
-            return;
-        }
-
         Debug.Log($"{this.Name} blocks the next incoming attack.");
+
+        // play block sound effect
+        this.AudioManager.PlaySFX(this.AudioManager.Block);
 
         // play block animation and idle block animation
         this.Animator.SetTrigger("Block");
@@ -68,30 +70,25 @@ public class Defender_Script : Player
         this.isBlocking = true;
 
         // reduce AP and update UI
-        this.CurrentAP -= Block_APCost;
+        this.CurrentAP -= this.Block_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
     public void Ability_Taunt()
     {
-        AudioManager.PlaySFX(AudioManager.taunt);
-        // check if player has enough AP
-        if (this.CurrentAP < this.Taunt_APCost)
-        {
-            Debug.Log($"{this.Name} does not have enough AP");
-            return;
-        }
-
         Debug.Log($"{this.Name} taunts the enemies to attack him.");
+
+        // play taunt sound effect
+        this.AudioManager.PlaySFX(this.AudioManager.Taunt);
 
         // play taunt animation
         this.Animator.SetTrigger("Taunt");
 
         // forces enemy to attack defender next
-        tauntUsed = true;
+        this.tauntUsed = true;
 
         // reduce AP and update UI
-        this.CurrentAP -= Taunt_APCost;
+        this.CurrentAP -= this.Taunt_APCost;
         this.PlayerUI.SetAP(this.CurrentAP);
     }
 
@@ -106,12 +103,12 @@ public class Defender_Script : Player
             this.Animator.SetBool("IsBlocking", false);
 
             base.TakeDamage(attacker, damageModifier);
-            PlayerUI.SetHP(this.CurrentHP);
+            this.PlayerUI.SetHP(this.CurrentHP);
         }
         else
         {
             base.TakeDamage(attacker, damageModifier);
-            PlayerUI.SetHP(this.CurrentHP);
+            this.PlayerUI.SetHP(this.CurrentHP);
         }
     }
 }

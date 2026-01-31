@@ -35,18 +35,25 @@ public class Healer_Script : Player
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.CurrentHP = MaxHP;
-        this.CurrentAP = MaxAP;
+        // set current HP & AP to maximum
+        this.CurrentHP = this.MaxHP;
+        this.CurrentAP = this.MaxAP;
+
+        // get animator component from "Sprite"
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
+
+        // get the healer's UI from the scene and apply the healer's stats to it
         this.PlayerUI = GameObject.Find("Healer UI").GetComponent<BattleUI>();
-        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
+
+        // get the Audio Manager from the scene
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     public override void Action_Attack(Entity target)
     {
         // play attack effect animation at the targets' position
-        SpawnAnimation(AttackEffect, target.transform.position);
+        SpawnAnimation(this.AttackEffect, target.transform.position);
 
         base.Action_Attack(target);
     }
@@ -54,15 +61,17 @@ public class Healer_Script : Player
     // Healer-specific abilities
     public void Ability_Heal(Player target)
     {
-        AudioManager.PlaySFX(AudioManager.heal);
         // amount healed = HealPower * 1.5 +/- up to 2% of HealPower
         int healAmount = Convert.ToInt32(this.HealPower * 1.5f + (this.HealPower * 1.5f * UnityEngine.Random.Range(-0.02f, 0.02f)));
+
+        // play heal sound effect
+        this.AudioManager.PlaySFX(this.AudioManager.Heal);
 
         // play cast heal animation
         this.Animator.SetTrigger("Heal");
 
         // play healing effect animation at the targets' position
-        SpawnAnimation(HealingEffect, target.transform.position);
+        SpawnAnimation(this.HealingEffect, target.transform.position);
 
         // display amount healed (before HP check) with pop-up
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);
@@ -88,11 +97,13 @@ public class Healer_Script : Player
 
     public void Ability_Groupheal(List<Player> players)
     {
-        this.PopUpDamage.color = new Color32(24, 140, 20, 255);
+        // play heal sound effect (only once)
+        this.AudioManager.PlaySFX(this.AudioManager.Heal);
 
         // play cast heal animation (only once)
         this.Animator.SetTrigger("Heal");
-        AudioManager.PlaySFX(AudioManager.heal);
+
+        // set the damage pop-up's color to green
         this.PopUpDamage.color = new Color32(24, 140, 20, 255);
 
         foreach (Player player in players)
@@ -101,7 +112,7 @@ public class Healer_Script : Player
             int healAmount = Convert.ToInt32(this.HealPower + (this.HealPower * UnityEngine.Random.Range(-0.02f, 0.02f)));
 
             // play healing effect animation at each player's position
-            SpawnAnimation(HealingEffect, player.transform.position);
+            SpawnAnimation(this.HealingEffect, player.transform.position);
 
             // display amount healed (before HP check) with pop-up
             this.PopUpDamage.text = healAmount.ToString();
@@ -129,6 +140,6 @@ public class Healer_Script : Player
     public override void TakeDamage(Entity attacker, float damageModifier)
     {
         base.TakeDamage(attacker, damageModifier);
-        PlayerUI.SetHP(this.CurrentHP);
+        this.PlayerUI.SetHP(this.CurrentHP);
     }
 }

@@ -85,10 +85,9 @@ MonoBehaviour:
   shitstormModifier: 2.5
   fireball_APCost: 30
   shitstorm_APCost: 50
-  AttackAnimation: {fileID: 8672712218114127826, guid: 1e7f48c7b723fa94790176029b88e147, type: 3}
-  FireballAnimation: {fileID: 1571479615033216813, guid: 449fb5cdb9711524c8265769c9ce8e9c, type: 3}
-  ShitstormAnimation: {fileID: 160704208695748465, guid: e40e267b62df0654b821d5f0368c67e8, type: 3}
-  audioManager: {fileID: 973566012205614568, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+  AttackEffect: {fileID: 8672712218114127826, guid: 1e7f48c7b723fa94790176029b88e147, type: 3}
+  FireballEffect: {fileID: 1571479615033216813, guid: 449fb5cdb9711524c8265769c9ce8e9c, type: 3}
+  ShitstormEffect: {fileID: 160704208695748465, guid: e40e267b62df0654b821d5f0368c67e8, type: 3}
 --- !u!1 &7662381052694647371
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,11 +278,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.z

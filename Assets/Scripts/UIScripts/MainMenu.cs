@@ -3,21 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] AudioManager audioManager;
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     public void PlayGame()
     {
-        audioManager.PlaySFX(audioManager.buttonpress);
+        audioManager.PlaySFX(audioManager.ButtonPress);
         SceneManager.LoadSceneAsync(1);
     }
 
     public void Options()
     {
-        audioManager.PlaySFX(audioManager.buttonpress);
+        audioManager.PlaySFX(audioManager.ButtonPress);
     }
 
     public void QuitGame()
     {
-        audioManager.PlaySFX(audioManager.buttonpress);
+        audioManager.PlaySFX(audioManager.ButtonPress);
         Application.Quit();
     }
 }

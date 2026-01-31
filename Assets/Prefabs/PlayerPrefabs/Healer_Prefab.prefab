@@ -84,6 +84,8 @@ MonoBehaviour:
   healPower: 30
   heal_APCost: 20
   groupHeal_APCost: 50
+  AttackEffect: {fileID: 8580295201758758391, guid: 32ea1e3564c9e4a4783a6128c58c829b, type: 3}
+  HealingEffect: {fileID: 2774405594711128355, guid: 4b5949b283838ae498d77a31b8623067, type: 3}
 --- !u!1 &3197992566878142340
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
       propertyPath: m_LocalPosition.z
@@ -250,6 +252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Selector
       objectReference: {fileID: 0}
+    - target: {fileID: 5689495128006379784, guid: eedce4025458b5c458ecc1a83d504802, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -270,7 +276,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1775265943659041028, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_LocalPosition.y
@@ -311,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 5689495128006379784, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
       propertyPath: m_Name
       value: Player_TurnIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689495128006379784, guid: 24812cc5b6ab05d48b1893d378670b39, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

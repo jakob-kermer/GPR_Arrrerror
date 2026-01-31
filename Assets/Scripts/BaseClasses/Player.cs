@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public abstract class Player : Entity
 {
     // Fields
-    [SerializeField] AudioManager audioManager;
     private BattleUI playerUI;
+    private AudioManager audioManager;
 
     // Properties
     public BattleUI PlayerUI
@@ -25,13 +25,17 @@ public abstract class Player : Entity
     // Methods
     public virtual void Action_Attack(Entity target)
     {
-        audioManager.PlaySFX(audioManager.hit);
+        // play hit sound effect
+        audioManager.PlaySFX(audioManager.Hit);
+
+        // deal damage to target
         target.TakeDamage(this, 1f);
     }
 
     public virtual void Action_Defend()
     {
         Debug.Log($"{this.Name} is defending");
+
         this.DefenseModifier = 2;
     }
 }
