@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton_Script
   entityName: Skeleton
-  maxHP: 30
-  maxAP: 7
+  maxHP: 50
+  maxAP: 0
   attack: 25
-  defense: 11
+  defense: 4
   critChance: 0.05
-  speed: 11
+  speed: 10
   defenseModifier: 1
   currentHP: 0
   currentAP: 0

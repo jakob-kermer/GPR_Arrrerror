@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Orc_Script
   entityName: Orc
-  maxHP: 120
+  maxHP: 125
   maxAP: 0
-  attack: 35
+  attack: 40
   defense: 0
   critChance: 0.05
-  speed: 1
+  speed: 5
   defenseModifier: 1
   currentHP: 0
   currentAP: 0

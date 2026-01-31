@@ -185,9 +185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   entityName: Big Goblin
   maxHP: 50
-  maxAP: 10
-  attack: 24
-  defense: 5
+  maxAP: 0
+  attack: 25
+  defense: 4
   critChance: 0.05
   speed: 10
   defenseModifier: 1
