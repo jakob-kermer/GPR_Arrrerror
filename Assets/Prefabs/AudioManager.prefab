@@ -177,10 +177,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   musicSource: {fileID: 1093793491581874834}
   SFXSource: {fileID: 1082081686089527516}
-  mainmenu: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
   background: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
-  death: {fileID: 0}
-  hit: {fileID: 0}
+  death: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
+  hit: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  fireball: {fileID: 8300000, guid: 1eb7cbaf61d23a64bbd36c0a38b5cb0c, type: 3}
+  shitstorm: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
+  taunt: {fileID: 8300000, guid: acbcb75601b0082458fda8807f67c813, type: 3}
+  block: {fileID: 8300000, guid: 7a9de5c4d998126449cf964a6b27a8b0, type: 3}
+  heal: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  potion: {fileID: 8300000, guid: b7f8695cf65a4f24eb37544298821146, type: 3}
+  cat: {fileID: 8300000, guid: 433b366d4a1bebc45b4be082bf24e659, type: 3}
   buttonpress: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
 --- !u!1 &8151049942535172639
 GameObject:

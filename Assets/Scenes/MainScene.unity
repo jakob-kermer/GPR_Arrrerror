@@ -4092,6 +4092,7 @@ MonoBehaviour:
   GameOverScreen: {fileID: 2034547341}
   ScoreText: {fileID: 1478640316}
   HighscoreText: {fileID: 76478829}
+  audioManager: {fileID: 116427710}
   score: 0
   highscore: 0
 --- !u!4 &1253766973
@@ -8378,6 +8379,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1082081686089527516, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4873964255934516610, guid: 9fb2bd443e31d0c4f8c13050ef81f403, type: 2}
     - target: {fileID: 1083001745938771614, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.11
@@ -8418,6 +8423,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1093793491581874834, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3593178867557565218, guid: 9fb2bd443e31d0c4f8c13050ef81f403, type: 2}
     - target: {fileID: 5132975353648088149, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
       propertyPath: m_Name
       value: AudioManager

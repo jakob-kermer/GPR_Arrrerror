@@ -85,6 +85,7 @@ MonoBehaviour:
   potionPotency: 38
   throwPotion_APCost: 6
   throwGato_APCost: 8
+  audioManager: {fileID: 973566012205614568, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
   ThrowGato_Animation: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
 --- !u!1 &747116030763881006
 GameObject:

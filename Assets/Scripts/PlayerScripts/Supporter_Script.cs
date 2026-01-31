@@ -13,6 +13,8 @@ public class Supporter_Script : Player
     [SerializeField] private int throwPotion_APCost;
     [SerializeField] private int throwGato_APCost;
 
+
+
     public GameObject ThrowGato_Animation;
 
     // Properties
@@ -43,12 +45,14 @@ public class Supporter_Script : Player
         this.CurrentAP = MaxAP;
         this.Animator = this.transform.GetChild(2).GetComponent<Animator>();
         this.PlayerUI = GameObject.Find("Supporter UI").GetComponent<BattleUI>();
+        this.AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         this.PlayerUI.SetUI(this);
     }
 
     // Supporter-specific abilities
     public void Ability_ThrowGato(List<Enemy> enemies)
     {
+        AudioManager.PlaySFX(AudioManager.cat);
         Debug.Log($"{this.name} deals damage to an enemy");
 
         // choose random enemy
@@ -65,6 +69,7 @@ public class Supporter_Script : Player
 
     public void Ability_ThrowPotion(List<Player> players)
     {
+        AudioManager.PlaySFX(AudioManager.potion);
         Debug.Log($"{this.name} heals a player");
 
         // choose random player

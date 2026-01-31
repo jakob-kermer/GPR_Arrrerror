@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private TMP_Text ScoreText;
     [SerializeField] private TMP_Text HighscoreText;
+    //Audio
+    [SerializeField] AudioManager audioManager;
 
 
     // player and enemy references
@@ -622,6 +624,7 @@ public class GameManager : MonoBehaviour
     // Enemy's turn implementation
     public void EnemyTurn_Attack()
     {
+        audioManager.PlaySFX(audioManager.hit);
         Debug.Log($"{participants[turnIndex].Name} makes their turn");
 
         Player selectedPlayer;
@@ -654,6 +657,7 @@ public class GameManager : MonoBehaviour
             // if entity has 0 HP...
             if (participants[i].CurrentHP == 0)
             {
+                audioManager.PlaySFX(audioManager.death);
                 Debug.Log($"{participants[i].Name} has been defeated");
 
                 // ...add it to the corpse pile
@@ -678,7 +682,7 @@ public class GameManager : MonoBehaviour
         {
             // play death animation of all entites in the corpse pile
             StartCoroutine(ShowDeathAnimation(corpse));
-            
+
             // remove all entities in the corpse pile from participants list
             participants.Remove(corpse);
         }

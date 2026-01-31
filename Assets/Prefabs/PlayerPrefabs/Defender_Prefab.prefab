@@ -197,6 +197,7 @@ MonoBehaviour:
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   block_APCost: 5
   taunt_APCost: 3
+  audioManager: {fileID: 973566012205614568, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
 --- !u!1001 &1361583671879197738
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -84,6 +84,7 @@ MonoBehaviour:
   healPower: 28
   heal_APCost: 6
   groupHeal_APCost: 15
+  audioManager: {fileID: 973566012205614568, guid: 896ff08b3be6b2d45a31825a213d084a, type: 3}
 --- !u!1 &3197992566878142340
 GameObject:
   m_ObjectHideFlags: 0

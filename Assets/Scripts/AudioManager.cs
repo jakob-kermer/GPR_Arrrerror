@@ -10,6 +10,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip background;
     public AudioClip death;
     public AudioClip hit;
+    public AudioClip fireball;
+    public AudioClip shitstorm;
+    public AudioClip taunt;
+    public AudioClip block;
+    public AudioClip heal;
+    public AudioClip potion;
+    public AudioClip cat;
     public AudioClip buttonpress;
 
     private void Start()

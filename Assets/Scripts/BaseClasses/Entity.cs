@@ -24,6 +24,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private TMP_Text popUpDamage;
     [SerializeField] private GameObject popUpDamagePrefab;
 
+
     // Animator
     private Animator animator;
 
@@ -155,7 +156,7 @@ public abstract class Entity : MonoBehaviour
 
         // display damage (before HP check) with pop-up
         this.PopUpDamage.text = damage.ToString();
-        
+
         // spawn damage number pop-up
         SpawnAnimation(this.PopUpDamagePrefab, this.transform.position);
 
