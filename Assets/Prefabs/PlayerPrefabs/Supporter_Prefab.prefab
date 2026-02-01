@@ -82,7 +82,7 @@ MonoBehaviour:
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   gatoModifier: 3
-  potionPotency: 40
+  potionPotency: 60
   throwPotion_APCost: 25
   throwGato_APCost: 25
   ThrowGatoEffect: {fileID: 2739325379260284677, guid: dab342d672b942e43ace987901cb644b, type: 3}
