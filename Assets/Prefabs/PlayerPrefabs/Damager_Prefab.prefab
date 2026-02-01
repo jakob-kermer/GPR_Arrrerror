@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damager_Script
   entityName: Damager
-  maxHP: 75
+  maxHP: 100
   maxAP: 250
   attack: 25
   defense: 5
@@ -82,7 +82,7 @@ MonoBehaviour:
   popUpDamage: {fileID: 2713703515659653835, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   popUpDamagePrefab: {fileID: 7218519052140583320, guid: 2dc0a61ef47f9244fad4515b2f8659e6, type: 3}
   fireballModifier: 3
-  shitstormModifier: 2.5
+  shitstormModifier: 2
   fireball_APCost: 30
   shitstorm_APCost: 50
   AttackEffect: {fileID: 8672712218114127826, guid: 1e7f48c7b723fa94790176029b88e147, type: 3}

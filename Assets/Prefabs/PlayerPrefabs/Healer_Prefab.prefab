@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Healer_Script
   entityName: Healer
   maxHP: 150
-  maxAP: 200
+  maxAP: 250
   attack: 10
   defense: 10
   critChance: 0.05

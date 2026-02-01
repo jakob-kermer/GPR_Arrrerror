@@ -72,7 +72,7 @@ MonoBehaviour:
   entityName: Supporter
   maxHP: 100
   maxAP: 150
-  attack: 15
+  attack: 18
   defense: 10
   critChance: 0.2
   speed: 20

@@ -186,7 +186,7 @@ MonoBehaviour:
   entityName: Defender
   maxHP: 250
   maxAP: 100
-  attack: 10
+  attack: 15
   defense: 20
   critChance: 0.05
   speed: 5
