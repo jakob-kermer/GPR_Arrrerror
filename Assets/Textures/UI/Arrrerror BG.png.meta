@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: d58424e86eec0e443ab96a70a3dfede0
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7680769606116607170
+    second: Arrrerror BG_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Arrrerror BG_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2199
+        height: 1125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c482362343979a60800000000000000
+      internalID: 7680769606116607170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
